@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'home'
+    'home',
+    'social_django' # ******* LOGIN SETUP ********
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware', # *********** LINKEDIN LOGIN SETUP *********
 ]
 
 ROOT_URLCONF = 'Get_Set_Hired.urls'
@@ -67,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends', # ******** LINKEDIN LOGIN SETUP ********
             ],
         },
     },
@@ -123,9 +126,25 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")] # ************ STATIC FILES SETUP ************
 
-LOGIN_REDIRECT_URL = '/' # ************ LOGIN SETUP ***********
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# ********* LOGIN SETUP ************
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_URL = 'logout'
+LOGOUT_REDIRECT_URL = 'login'
+# ********* LOGIN SETUP ************
+
+
+# ********* LINKEDIN LOGIN SETUP *********
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.linkedin.LinkedinOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+] 
+SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = '###########'
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = '#############'
+# ********* LINKEDIN LOGIN SETUP *********
