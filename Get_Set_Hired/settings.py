@@ -151,18 +151,13 @@ SOCIALACCOUNT_LOGIN_ON_GET= True
 SOCIALACCOUNT_PROVIDERS = {
     'linkedin': {
         'SCOPE': [
-            'r_fullprofile',
+            'r_liteprofile',
             'r_emailaddress'
         ],
-        'PROFILE_FIELDS': [
-            'id',
-            'first-name',
-            'last-name',
-            'email-address',
-            'picture-url',
-            'public-profile-url',
-        ]
+        'PROFILE_FIELDS': []
     }
 }
+SOCIALACCOUNT_QUERY_EMAIL = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 # Create site and social application in admin end also
 # ********* LINKEDIN LOGIN SETUP *********
