@@ -7,4 +7,5 @@ def login(request):
 
 @login_required
 def index(req):
+    print(req.user)
     return render(req, 'home/index.html')
