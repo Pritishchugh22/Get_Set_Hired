@@ -1,10 +1,8 @@
 {% extends 'partials/base.html' %} 
 {% block title %}Index | Get_Set_Hired{% endblock title %}
 {% block content %}
-    <div class="container" style="text-align: center; padding-top: 10%;">
-        {% if user.is_authenticated %}
-            <h3>Welcome {{ user.username }} !!!</h3>
-            <a href="{% url 'account_logout' %}" class="btn btn-danger">Logout</a>
-        {% endif %}
-    </div>
+    {% if user.is_authenticated %}
+        <h3>Welcome {{ user.username }} !!!</h3>
+        <a href="{% url 'account_logout' %}" class="btn btn-danger">Logout</a>
+    {% endif %}
 {% endblock content %}
