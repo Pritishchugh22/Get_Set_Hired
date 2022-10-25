@@ -30,6 +30,7 @@ class Jobposting(models.Model):
     title = models.CharField(max_length = 30)
     job_description = models.FileField(upload_to = 'uploads/job_description/', validators=[FileExtensionValidator(allowed_extensions=["pdf"])])
     company = models.OneToOneField(Company, on_delete = models.CASCADE)
+    users_accepted = models.ForeignKey(User, on_delete = models.CASCADE, default=None)
 
 class Feedback(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
