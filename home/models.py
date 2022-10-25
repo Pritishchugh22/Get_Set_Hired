@@ -8,5 +8,6 @@ class Skill(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
+    image = models.CharField(max_length = 200)
     skills = models.ManyToManyField(Skill, related_name='Skills')
     points = models.IntegerField(default = 0)
