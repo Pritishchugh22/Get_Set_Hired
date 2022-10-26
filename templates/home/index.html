@@ -1,8 +1,25 @@
-{% extends 'partials/base.html' %} 
+{% extends 'partials/base.html' %}
 {% block title %}Index | Get_Set_Hired{% endblock title %}
 {% block content %}
-    {% if user.is_authenticated %}
-        <h3>Welcome {{ user.username }} !!!</h3>
-        <a href="{% url 'account_logout' %}" class="btn btn-danger">Logout</a>
-    {% endif %}
+<br>
+<br>
+<div class="content">
+    <div class="row row-cols-1 row-cols-md-2">
+        {% for job in jobs %}
+        <div class="col mb-4">
+            <div class="card">
+                <img src="" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{job.title}}</h5>
+                    <p class="card-text">
+                        {% for users in job.users_accepted.all %}
+                            {{users}}
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock content %}

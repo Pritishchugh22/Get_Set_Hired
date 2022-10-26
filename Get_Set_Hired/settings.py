@@ -144,7 +144,7 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-SITE_ID = 3
+SITE_ID = 4
 ACCOUNT_LOGOUT_ON_GET= True
 SOCIALACCOUNT_LOGIN_ON_GET= True
 
