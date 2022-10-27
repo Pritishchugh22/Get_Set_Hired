@@ -2,23 +2,26 @@ from django.dispatch import receiver
 from allauth.account.signals import user_logged_in
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
-from .models import Profile
+from .models import UserProfile, CompanyProfile
 import requests
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance)
+        UserProfile.objects.create(user=instance)
+        CompanyProfile.objects.create(user=instance)
 
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
+    instance.userprofile.save()
+    instance.companyprofile.save()
 
 @receiver(user_logged_in)
 def profile_filler(request, **kwargs):
     user = request.user
-    if user.profile.image == "":
+    user.userprofile.isuser = True
+    if user.userprofile.image == "":
         print("filling_profile")
         access_token = kwargs.get('sociallogin').__dict__.get('token').__dict__.get('token')
         LI_PROFILE_API_ENDPOINT = 'https://api.linkedin.com/v2/me?projection=(id,profilePicture(displayImage~:playableStreams))'
@@ -27,5 +30,5 @@ def profile_filler(request, **kwargs):
         image_url = r.json()['profilePicture']['displayImage~']['elements'][0]['identifiers'][0]['identifier']
         print(image_url)
 
-        user.profile.image = image_url
-        user.profile.save()
+        user.userprofile.image = image_url
+        user.userprofile.save()

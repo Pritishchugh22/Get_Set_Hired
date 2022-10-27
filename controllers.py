@@ -1,5 +1,7 @@
+from django.contrib import messages
+
+
 def loginController(req):
-    from django.contrib import messages
     from django.contrib.auth import authenticate, login
     username = req.POST['username']
     password = req.POST['password']
@@ -7,51 +9,56 @@ def loginController(req):
     if user is not None:
         login(req, user)
         messages.success(req, f"{username} successfully loggedin!")
-        context = {'status': True }
+        context = {'status': True}
         return context
 
     messages.error(req, 'Please provide correct details.')
-    context = {'status': False }
+    context = {'status': False}
     return context
 
 
-def registerController(req):
-    # if req.method == 'POST':
-    #     user_form = UserRegisterForm(req.POST)
-    #     profile_form = ProfileRegisterForm(req.POST, req.FILES)
-    #     if user_form.is_valid() and profile_form.is_valid():
-    #         user_form.save()
-    #         newusername = user_form.cleaned_data.get('username')
-    #         newuser = User.objects.filter(username=newusername).first()
+def userRegisterController(req):
+    from home.forms import UserRegisterForm
+    form = UserRegisterForm(req.POST)
+    if form.is_valid():
+        form.save()
+        username = form.cleaned_data.get('username')
+        messages.success(req, f"Account created for {username}!")
+        context = {"status": True}
+        return context
 
-    #         profile_form = ProfileRegisterForm(
-    #             req.POST, req.FILES, instance=newuser.profile)
-    #         profile_form.save()
+    for error in form.errors:
+        messages.error(req, error + " " + form.errors[error])
+    context = {"status": False}
+    return context
 
-    #         messages.success(req, f"Account created for {newusername}!")
-    #         return redirect('login')
-    #     else:
-    #         messages.error(req, 'Please correct the error below.')
-    # else:
-    #     user_form = UserRegisterForm()
-    #     profile_form = ProfileRegisterForm()
 
-    # context = {
-    #     'title': 'Register',
-    #     'user_form': user_form,
-    #     'profile_form': profile_form
-    # }
+def companyRegisterController(req):
+    from home.forms import CompanyRegisterForm
+    import json
 
-    # return render(req, 'users/signup.html', context)
+    form = CompanyRegisterForm(req.POST)
+    if form.is_valid():
+        form.save()
+        username = form.cleaned_data.get('username')
+        messages.success(req, f"Account created for {username}!")
+        context = {"status": True, "form": form}
+        return context
 
-    # if (req.method == 'POST'):
-    #     return True
-    # return False
-    pass
+    for errorLabel in form.errors:
+        message = errorLabel + " - "
+        errorMessages = json.loads(form.errors[errorLabel].as_json())
+        for errorMessage in errorMessages:
+            message += errorMessage['message'] + " "
+        print(message)
+        messages.error(req, message)
+    context = {"status": False, "form": form}
+    return context
 
 
 def indexController(req):
     from home.models import Jobposting
     jobPostings = Jobposting.objects.all()
-    context = {"status": True, "image": req.user.profile.image, "jobs": jobPostings}
+    context = {"status": True,
+               "image": req.user.userprofile.image, "jobs": jobPostings}
     return context

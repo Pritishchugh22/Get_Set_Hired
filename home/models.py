@@ -15,7 +15,7 @@ class Tag(models.Model):
 
 class Certificate(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
-    link = models.TextField(blank = False)
+    link = models.TextField()
     verified = models.BooleanField(default = False)
     def __str__(self):
         return f"{self.link}"
@@ -23,44 +23,47 @@ class Certificate(models.Model):
 class Jobposting(models.Model):
     title = models.CharField(max_length = 40)
     job_description = models.FileField(upload_to = 'uploads/job_description/', validators=[FileExtensionValidator(allowed_extensions=["pdf"])])
-    company = models.OneToOneField('home.Company', on_delete = models.CASCADE, related_name = 'jobposting_company')
-    users_accepted = models.ManyToManyField(User)
+    company = models.OneToOneField(User, on_delete = models.CASCADE, related_name = 'jobposting_company')
+    users_accepted = models.ManyToManyField(User, related_name = 'users_accepted')
     def __str__(self):
         return f"{self.title}"
 
 class Message(models.Model):
-    content = models.TextField(blank=False)
+    content = models.TextField()
     time = models.DateTimeField(default = django.utils.timezone.now)
     def __str__(self):
         return f"{self.content}"
 
 class Feedback(models.Model):
-    user = models.OneToOneField(User, on_delete = models.CASCADE)
-    company = models.OneToOneField('home.Company', on_delete = models.CASCADE, related_name = 'feedback_company')
-    rating = models.IntegerField(blank=False)
+    user = models.OneToOneField(User, on_delete = models.CASCADE, related_name = 'feedback_user')
+    company = models.OneToOneField(User, on_delete = models.CASCADE, related_name = 'feedback_company')
+    rating = models.IntegerField()
     comments = models.TextField()
     def __str__(self):
         return f"{self.rating}"
 
 
-class Profile(models.Model):
+class UserProfile(models.Model):
+    isUser = models.BooleanField(default = False)
     user = models.OneToOneField(User, on_delete = models.CASCADE)
-    certificates = models.ManyToManyField(Certificate)
+    certificates = models.ManyToManyField(Certificate, related_name = 'user_certificates')
     image = models.CharField(max_length = 200)
-    skills = models.ManyToManyField(Skill)
+    skills = models.ManyToManyField(Skill, related_name = 'user_skills')
     points = models.IntegerField(default = 0)
     def __str__(self):
         return f"{self.user}"
 
-class Company(models.Model):
-    name = models.CharField(max_length = 40)
-    jobpostings = models.ManyToManyField(Jobposting, related_name = 'job_posting', blank = True)
+class CompanyProfile(models.Model):
+    isCompany = models.BooleanField(default = False)
+    user = models.OneToOneField(User, on_delete = models.CASCADE)
+    jobpostings = models.ManyToManyField(Jobposting, related_name = 'job_postings', blank = True)
     def __str__(self):
         return f"{self.name}"
+
 class Room(models.Model):
     room_name = models.CharField(max_length = 30, unique = True)
-    user = models.ManyToManyField(User)
-    company = models.ManyToManyField(Company)
+    users = models.ManyToManyField(User, related_name = 'room_users')
+    companies = models.ManyToManyField(User, related_name = 'room_companies')
     messages = models.ManyToManyField(Message)
     start_time = models.DateTimeField(default = django.utils.timezone.now)
     def __str__(self):
