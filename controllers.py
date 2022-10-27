@@ -19,10 +19,17 @@ def loginController(req):
 
 def userRegisterController(req):
     from home.forms import UserRegisterForm
+    from django.contrib.auth.models import User
+
     form = UserRegisterForm(req.POST)
     if form.is_valid():
         form.save()
+
         username = form.cleaned_data.get('username')
+        user = User.objects.get(username=username)
+        user.userprofile.isUser = True
+        user.userprofile.save()
+
         messages.success(req, f"Account created for {username}!")
         context = {"status": True}
         return context
@@ -35,12 +42,18 @@ def userRegisterController(req):
 
 def companyRegisterController(req):
     from home.forms import CompanyRegisterForm
+    from django.contrib.auth.models import User
     import json
 
     form = CompanyRegisterForm(req.POST)
     if form.is_valid():
         form.save()
+
         username = form.cleaned_data.get('username')
+        user = User.objects.get(username=username)
+        user.companyprofile.isCompany = True
+        user.companyprofile.save()
+
         messages.success(req, f"Account created for {username}!")
         context = {"status": True, "form": form}
         return context

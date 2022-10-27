@@ -58,7 +58,7 @@ class CompanyProfile(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     jobpostings = models.ManyToManyField(Jobposting, related_name = 'job_postings', blank = True)
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.user}"
 
 class Room(models.Model):
     room_name = models.CharField(max_length = 30, unique = True)
