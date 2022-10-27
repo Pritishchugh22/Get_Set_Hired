@@ -1,1 +1,12 @@
 # Get_Set_Hired
+To setup-:
+1)pip install virtualenv
+2)virtualenv venv
+
+For windows-:
+3)venv\Scripts\activate
+
+For linux-:
+3)source venv/bin/activate
+4)pip install -r requirements.txt
+5)python3 manage.py runserver

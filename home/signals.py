@@ -21,7 +21,9 @@ def save_user_profile(sender, instance, **kwargs):
 def profile_filler(request, **kwargs):
     user = request.user
     user.userprofile.isuser = True
-    if user.userprofile.image == "":
+    provider = kwargs.get('sociallogin').__dict__.get('account').__dict__.get('provider')
+    print(provider)
+    if provider == "linkedin_oauth2" and user.userprofile.image == "":
         print("filling_profile")
         access_token = kwargs.get('sociallogin').__dict__.get('token').__dict__.get('token')
         LI_PROFILE_API_ENDPOINT = 'https://api.linkedin.com/v2/me?projection=(id,profilePicture(displayImage~:playableStreams))'
