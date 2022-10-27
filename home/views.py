@@ -36,3 +36,7 @@ def companyRegister(req):
 def index(req):
     context = indexController(req)
     return render(req, 'home/index.html', context)
+
+@user_is_not_logged_in
+def main(req):
+        return render(req, 'home/main.html')

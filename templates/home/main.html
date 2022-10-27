@@ -1,0 +1,26 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %}Landing Page | Get_Set_Hired{% endblock title %}
+{% block customCSS %}
+<link rel="stylesheet" href="{% static 'home/main.css' %}">
+{% endblock customCSS %}
+{% block cdnCSS %}{% endblock cdnCSS %}
+{% block navbar %}{% endblock navbar %}
+{% block content %}
+<!-- Header Section
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<div class="container">
+  <div class="one-half left">
+    <h1>Looking for Talent</h1>
+    <a href="{% url 'login' %}" class="cta">Let's Go</a>
+  </div>
+  <div class="one-half right">
+    <h1>Looking for Experience</h1>
+    <a href="{% url 'login' %}" class="cta">Let's Go</a>
+  </div>
+</div>
+{% endblock content %}
+{% block cdnJS %}{% endblock cdnJS %}
+{% block customJS %}
+<script src="{% static 'home/main.js' %}"></script>
+{% endblock customJS %}
