@@ -139,7 +139,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # ********* LINKEDIN LOGIN SETUP *********
 LOGIN_REDIRECT_URL = '/'
-
+LOGIN_URL = 'login'
 AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
