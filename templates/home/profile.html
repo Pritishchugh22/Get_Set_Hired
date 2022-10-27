@@ -1,0 +1,53 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %}Profile | Get_Set_Hired{% endblock title %}
+{% block customCSS %}
+<link rel="stylesheet" href="{% static 'home/register.css' %}">
+{% endblock customCSS %}
+{% block navbar %}{% endblock navbar %}
+{% block content %}
+<div class="wrapper">
+    <div class="title-text">
+        {% if user.userprofile.isUser %}
+        <div class="title user">User Profile </div>
+        {% else %}
+        <div class="title company">Company Profile</div>
+        {% endif %}
+    </div>
+    <div class="form-container">
+        <div class="form-inner">
+            {% if user.userprofile.isUser %}
+            <form method="POST" class="user" action='/profile/{{user.id}}'>
+                {% csrf_token %}
+                <div class="field">
+                    <input type="text" placeholder="First name" name='first_name' value='{{user.first_name}}' required>
+                </div>
+                <div class="field">
+                    <input type="text" placeholder="Last name" name='last_name' value='{{user.last_name}}' required>
+                </div>
+                <div class="field">
+                    <input type="email" placeholder="Email address" name='email' value='{{user.email}}' required>
+                </div>
+                <div class="field btn">
+                    <div class="btn-layer"></div>
+                    <input type="submit" value="Update">
+                </div>
+                <div class="user-link"><a href="{% url 'account_logout' %}">Logout</a></div>
+            </form>
+            {% else %}
+            <form method="POST" class="user" action='/profile/{{user.id}}'>
+                {% csrf_token %}
+                <div class="field">
+                    <input type="email" placeholder="Email address" name='email' value='{{user.email}}' required>
+                </div>
+                <div class="field btn">
+                    <div class="btn-layer"></div>
+                    <input type="submit" value="Update">
+                </div>
+                <div class="user-link"><a href="{% url 'account_logout' %}">Logout</a></div>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

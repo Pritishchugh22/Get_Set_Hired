@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from controllers import *
-from home.decorators import user_is_not_logged_in
+from home.decorators import *
 
 @user_is_not_logged_in
 def login(req):
@@ -33,6 +33,7 @@ def companyRegister(req):
     return redirect('/register')
 
 @login_required
+@user_profile_completed
 def index(req):
     context = indexController(req)
     return render(req, 'home/index.html', context)
@@ -40,3 +41,16 @@ def index(req):
 @user_is_not_logged_in
 def main(req):
         return render(req, 'home/main.html')
+
+@login_required
+def profile(req, profileId):
+    context = profileController(req, profileId)
+    if req.method == 'POST' and context['status']:
+        return redirect('/profile/' + str(profileId))
+    return render(req, 'home/profile.html', context)
+
+@user_passes_test(lambda u: u.is_superuser)
+def shell(req):
+    # req.user.userprofile.isUser = True
+    # req.user.userprofile.save()
+    return redirect('index')

@@ -1,0 +1,2 @@
+def profileCompleted(user):
+    pass

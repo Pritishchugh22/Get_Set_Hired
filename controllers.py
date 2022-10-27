@@ -75,3 +75,15 @@ def indexController(req):
     context = {"status": True,
                "image": req.user.userprofile.image, "jobs": jobPostings}
     return context
+
+def profileController(req, profileId):
+    from home.models import UserProfile, CompanyProfile
+    profile = UserProfile.objects.get(id = profileId)
+    if profile == None:
+        profile = CompanyProfile.objects.get(id = profileId)
+
+    if req.method == "POST":
+        pass
+
+    context = {"status": True, "user": req.user}
+    return context
