@@ -42,13 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    # ************ LINKEDIN_OAUTH *************
+    # ************ SOCIAL_OAUTH *************
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.linkedin_oauth2'
-    # ************ LINKEDIN_OAUTH *************
+    # ************ SOCIAL_OAUTH *************
 ]
 
 MIDDLEWARE = [
@@ -137,14 +138,14 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")] # ************ STATIC FILE
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# ********* LINKEDIN LOGIN SETUP *********
+# ********* SOCIAL LOGIN SETUP *********
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
 AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-SITE_ID = 4
+SITE_ID = 5
 ACCOUNT_LOGOUT_ON_GET= True
 SOCIALACCOUNT_LOGIN_ON_GET= True
 
@@ -155,9 +156,18 @@ SOCIALACCOUNT_PROVIDERS = {
             'r_emailaddress'
         ],
         'PROFILE_FIELDS': []
+    },
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
     }
 }
 SOCIALACCOUNT_QUERY_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 # Create site and social application in admin end also
-# ********* LINKEDIN LOGIN SETUP *********
+# ********* SOCIAL LOGIN SETUP *********

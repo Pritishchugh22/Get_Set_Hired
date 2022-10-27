@@ -1,4 +1,5 @@
 {% extends 'partials/base.html' %}
+{% load socialaccount %}
 {% block title %}Login | Get_Set_Hired{% endblock title %}
 {% block navbar %}{% endblock navbar %}
 {% block content %}
@@ -39,6 +40,9 @@
                     </a>
                     <a class="btn btn-primary btn-lg btn-block" style="background-color: #3b5998" href="/accounts/linkedin_oauth2/login/?process=login&next=%2F" role="button">
                         <i class="fab fa-facebook-f me-2"></i>Continue with Linkedin
+                    </a>
+                    <a class="btn btn-primary btn-lg btn-block" style="background-color: #3b5998" href="/accounts/google/login/?process=login&next=%2F" role="button">
+                        <i class="fab fa-facebook-f me-2"></i>Continue with Google
                     </a>
                 </form>
             </div>
