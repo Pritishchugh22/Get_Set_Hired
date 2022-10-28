@@ -6,7 +6,7 @@
 {% endblock customCSS %}
 {% block cdnCSS %}{% endblock cdnCSS %}
 {% block navbar %}{% endblock navbar %}
-{% block content %}
+{% block mainBlock %}
 <div class="container">
   <div class="one-half left">
     <h1>Looking for Talent</h1>
@@ -17,7 +17,8 @@
     <a href="{% url 'login' %}" class="cta">Let's Go</a>
   </div>
 </div>
-{% endblock content %}
+{% endblock mainBlock %}
+{% block footer %}{% endblock footer %}
 {% block cdnJS %}{% endblock cdnJS %}
 {% block customJS %}
 <script src="{% static 'home/main.js' %}"></script>

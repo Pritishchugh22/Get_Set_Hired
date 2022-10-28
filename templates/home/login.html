@@ -2,6 +2,7 @@
 {% load socialaccount %}
 {% load static %}
 {% block title %}Login | Get_Set_Hired{% endblock title %}
+{% block cdnCSS %}{% endblock cdnCSS %}
 {% block customCSS %}
 <link rel="stylesheet" href="{% static 'home/login.css' %}">
 {% endblock customCSS %}
@@ -53,6 +54,7 @@
     </footer>
 </section>
 {% endblock content %}
+{% block footer %}{% endblock footer %}
 {% block cdnJS %}{% endblock cdnJS %}
 {% block customJS %}
 <script src="{% static 'home/login.js' %}"></script>

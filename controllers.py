@@ -1,7 +1,6 @@
-from http.client import CONTINUE
 from django.contrib import messages
 from utils import sendFormErrorMessages, tryExcept
-
+from home.models import Notification
 
 def loginController(req):
     from django.contrib.auth import authenticate, login
@@ -71,6 +70,7 @@ def indexController(req):
         from home.models import JobPosting
         jobPostings = JobPosting.objects.all()
         context["jobPostings"] = jobPostings
+    context["notifications"] = Notification.objects.filter(reciever = req.user).order_by('-time'),
     return context
 
 

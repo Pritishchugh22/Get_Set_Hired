@@ -1,81 +1,238 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" href="#">
         <title>
             {% block title %}Get_Set_Hired{% endblock title %}
         </title>
         {% block cdnCSS %}
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{% static 'home/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'home/cards.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'home/footer.css' %}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
         {% endblock cdnCSS %}
-        {% block customCSS %}{% endblock customCSS %}
+        {% block customCSS %}
+        {% endblock customCSS %}
     </head>
 
-    <body>
-        {% block navbar %}
-        {% if showNav != False %}
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        {% if user.userprofile.isUser %}
-                        <a class="nav-link" href="{% url 'profile' user.userprofile.id %}">Profile</a>
-                        {% else %}
-                        <a class="nav-link" href="{% url 'profile' user.companyprofile.id %}">Profile</a>
+    <body id="page-top">
+        {% block mainBlock %}
+        <div id="wrapper">
+            <div id="content-wrapper" class="d-flex flex-column">
+                <div id="content" style="background: white;">
+                    {% block navbar %}
+                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        <div class="sidebar-brand-text mx-3" style="color: #022160; font-size: large; font-weight: bold"> <a href="/home">UGAC PROJECT PORTAL</a></div>
+                        <form method="POST" action="{{request.get_full_path}}" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="text" class="form-control bg-light border-0 small" placeholder="Search by title and description" aria-label="Search" aria-describedby="basic-addon2" name="search">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown no-arrow d-sm-none">
+                                <a class="nav-link dropdown-toggle" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-search fa-fw"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                                    <form class="form-inline mr-auto w-100 navbar-search">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="button">
+                                                    <i class="fas fa-search fa-sm"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                            <div class="notif-tooltip">
+                                <span class="notif-tooltiptext" style="font-size:14px;">Create New Project</span>
+                                <a class="nav-link" href="/project/new">
+                                    <i class="fas fa-plus-square fa-sm fa-fw mr-2 text-gray-400" style="margin-top: 18px;"></i>
+                                </a>
+                            </div>
+                            <div class="notif-tooltip">
+                                <span class="notif-tooltiptext" style="font-size: 14px;">Home</span>
+                                <a class="nav-link" href="{% url 'index' %}" role="button" style="margin-top: 11px;">
+                                    <i class="fas fa-home fa-fw fa-sm mr-2 text-gray-400"></i>
+                                </a>
+                            </div>
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <a class="nav-link dropdown-toggle notif-tooltip" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 8px; width: 41.5px;">
+                                    <span class="notif-tooltiptext" style="font-size: 14px;">Notifications</span>
+                                    <i class="fas fa-bell fa-fw" style="margin-right: 8px;"></i>
+                                    {% if notifications.count != 0 %}
+                                    <span class="badge badge-danger badge-counter">
+                                        {{notifications.count}}+
+                                    </span> {% endif %}
+                                </a>
+                                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                                    <h6 class="dropdown-header">
+                                        Notifications
+                                    </h6>
+                                    <div style="max-height:300px;overflow-y:scroll;">
+                                        {% if notifications.count == 0 %}
+                                        <a class="dropdown-item d-flex align-items-center">
+                                            <div class="mr-3">
+                                            </div>
+                                            <div>
+                                                <span class="font-weight-bold">No notifications yet!</span>
+                                            </div>
+                                        </a>
+                                        {% endif %} {% for notification in notifications %}
+                                        <a class="dropdown-item d-flex align-items-center" href="{{notification.url}}">
+                                            <div class="mr-3">
+                                                <div class="icon-circle bg-primary">
+                                                    <i class="fas fa-file-alt text-white"></i>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span class="font-weight-bold">{{notification.message}} at</span>
+                                                <span class="font-weight-bold">{{notification.time}}</span>
+                                            </div>
+                                        </a>
+                                        {% endfor %}
+                                    </div>
+                                    <a class="dropdown-item text-center small text-gray-500" style="background: rgb(201, 216, 255);height:15px"></a>
+                                </div>
+                            </li>
+                            <div class="topbar-divider d-none d-sm-block"></div>
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user.username}}</span>
+                                    <img class="img-profile rounded-circle" src="{{user.profile.image.url}}">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="{% url 'profile' user.id %}">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+                                    </a>
+                                    <a class="dropdown-item" href="/project/new"><i class="fas fa-plus-square fa-sm fa-fw mr-2 text-gray-400"></i>Create New
+                                        Project</a>
+                                    <a class="dropdown-item" href="/profile/projects/view/{{user.id}}?view=applied"><i class="fas fa-address-card fa-sm fa-fw mr-2 text-gray-400"></i>Projects
+                                        Applied for</a>
+                                    <a class="dropdown-item" href="/profile/projects/view/{{user.id}}?view=floated"><i class="fas fa-laptop-code mr-2 fa-sm fa-fw text-gray-400"></i>Projects
+                                        Floated by me</a>
+                                    <a class="dropdown-item" href="/profile/projects/view/{{user.id}}?view=requested"><i class="fas fa-pager fa-fw mr-2 fa-sm fa-fw text-gray-400"></i>Projects
+                                        Requested for</a>
+                                    <a class="dropdown-item" href="/profile/projects/view/{{user.id}}?view=starred"><i class="fas fa-star fa-fw mr-2 fa-sm fa-fw text-gray-400"></i>Starred
+                                        Projects</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{% url 'account_logout' %}">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    {% endblock navbar %}
+                    <div class="container-fluid">
+                        {% block messages %}
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
                         {% endif %}
-                    </li>
-                    {% comment %} <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li> {% endcomment %}
-                    {% comment %} <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li> {% endcomment %}
-                </ul>
-                {% comment %} <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form> {% endcomment %}
-                {{ user.username | capfirst }}
-                {% comment %} <img src="{{image}}" alt="User Image"> {% endcomment %}
-                <a href="{% url 'account_logout' %}" class="btn btn-danger m-2">Logout</a>
+                        {% endblock messages %}
+                        {% block content %}{% endblock content %}
+                    </div>
+                </div>
             </div>
-        </nav>
-        {% endif %}
-        {% endblock navbar %}
-        {% block messages %}
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endblock messages %}
-        {% block content %} {% endblock content %}
-        {% block cdnJS %}
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        {% endblock cdnJS %}
-        {% block customJS %}{% endblock customJS %}
+        </div>
+        {% endblock mainBlock %}
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+        {% block footer %}
+        <div id="footer">
+            <div class="footer_cards">
+                <div class="footer_card">
+                    <div class="footer_card_Title">
+                        Contact us <i class="fa fa-phone" aria-hidden="true"></i>
+                    </div>
+                    <div class="footer_card_Details">
+                        <b>Dimshti Uberai</b>
+                        <br>
+                        Supreme Mata,2020-2024
+                        {% comment %} Academic Affairs Secretary, 2021-2022 {% endcomment %}
+                        {% comment %} <br> {% endcomment %}
+                        {% comment %} Email: <a href="mailto:academic_secretary@students.iitmandi.ac.in" target="_blank">academic_secretary@students.iitmandi.ac.in</a> {% endcomment %}
+                        {% comment %} <br> {% endcomment %}
+                        Phone number: <b>+91 8130091815</b>
+                    </div>
+                </div>
+                <div class="footer_card">
+                    <div class="footer_card_Title">
+                        Quick links
+                    </div>
+                    <div class="footer_card_Details">
+                        <a href="{% url 'index' %}">Home</a>
+                        {% comment %} <br> {% endcomment %}
+                        {% comment %} <a href="https://www.facebook.com/iitmandi.acadcouncil/" target="_blank">UGAC Facebook page</a>
+                        <br>
+                        <a href="https://www.instagram.com/iitmandi.acadcouncil/?hl=en" target="_blank">UGAC Instagram Page</a>
+                        <br>
+                        <a href="https://wiki.iitmandi.co.in/p/UG_Academic_Council" target="_blank">UGAC Wikipedia Page</a> {% endcomment %}
+                    </div>
+                </div>
+                <div class="footer_card">
+                    <div class="footer_card_Title">
+                        Get_Set_Hired <script>
+                            document.write(new Date().getFullYear())
+                        </script>
+                    </div>
+                    <div class="footer_card_Details">
+                        #DIMSHTIII MATA KI JAI
+                        {% comment %} THINK . COLLABORATE . INNOVATE {% endcomment %}
+                        <br>
+                        <br>
+                        {% comment %} <a href="https://github.com/naveensaigit/project_portal/issues/new" target="_blank">Bugs/Suggestions</a> | {% endcomment %}
+                        {% comment %} <a href="mailto:academic_secretary@students.iitmandi.ac.in?subject=Request%20to%20contribute%20to%20the%20Project%20Portal&body=Hi,%20I%20would%20like%20to%20contribute%20to%20the%20maintenance%20and%20improvement%20of%20the%20Project%20Portal.%20I%20am%20excited%20to%20work%20as%20a%20*frontend/backend%20developer*%20and%20become%20a%20member%20of%20the%20development%20team.%20The%20following%20information%20shall%20be%20useful%20in%20evaluating%20my%20skills%20and%20considering%20me%20as%20a%20contributor%20My%20motivation%20to%20contribute%20to%20the%20UGAC%20Project%20Portal%20is%20*enter%20your%20reason%20here*.My%20past%20experience%20is%20as%20follows-%20*Links%20of%20relevant%20GitHub%20repositories%20here*My%20Resume%20is%20attached%20herewith%20*Attach%20your%20resume%20with%20this%20email*I%20can%20spend%20*mention%20the%20number%20of%20hours%20you%20can%20spend%20on%20project%20portal%20work%20in%20a%20week*%20in%20a%20week.Thanks%20and%20Regards*Your%20Name**Your%20Roll%20Number*PS:%20Enter%20the%20relevant%20information%20in%20**%20and%20delete%20the%20comments%20before%20sending%20the%20email." target="_blank">Contribute</a> {% endcomment %}
+                        {% comment %} <br><a href="/team" style="align-content: center;" target="_blank">Web Team, 2020-2024</a> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="CopyrightAndTeam">
+            <div class="vertical-center">
+                <div class="copyright horizontal-center">
+                    &copy; <script>
+                        document.write(new Date().getFullYear())
+                    </script> Copyright <a href="https://wiki.iitmandi.co.in/p/UG_Academic_Council" target="_blank">Get_Set_Hired</a>
+                </div>
+            </div>
+        </div>
+        {% endblock footer %}
     </body>
+    {% block cdnJS %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+    {% endblock cdnJS %}
+    {% block customJS %}
+    {% endblock customJS %}
 
 </html>

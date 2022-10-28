@@ -27,6 +27,18 @@
                 <div class="field">
                     <input type="email" placeholder="Email address" name='email' value='{{user.email}}' required>
                 </div>
+                <div class="field">
+                    <input type="file" placeholder="Image" name='image' value='{{user.userprofile.image}}' required>
+                </div>
+                <div class="field">
+                    <input type="tel" placeholder="Contact Number" name='contact_num' value='{{user.userprofile.contact_num}}' required>
+                </div>
+                <div class="field">
+                    <input type="text" placeholder="Education" name='education' value='{{user.userprofile.education}}' required>
+                </div>
+                <div class="field">
+                    <input type="Number" placeholder="Experience in yrs" name='experience_yrs' value='{{user.userprofile.experience_yrs}}' required>
+                </div>
                 <div class="field btn">
                     <div class="btn-layer"></div>
                     <input type="submit" value="Update">
@@ -38,6 +50,15 @@
                 {% csrf_token %}
                 <div class="field">
                     <input type="email" placeholder="Email address" name='email' value='{{user.email}}' required>
+                </div>
+                <div class="field">
+                    <input type="text" placeholder="Company Name" name='name' value='{{user.companyprofile.name}}' required>
+                </div>
+                <div class="field">
+                    <input type="tel" placeholder="Contact Number" name='contact_num' value='{{user.companyprofile.contact_num}}' required>
+                </div>
+                <div class="field">
+                    <input type="Number" placeholder="Number of employees" name='umber_of_employees' value='{{user.companyprofile.number_of_employees}}' required>
                 </div>
                 <div class="field btn">
                     <div class="btn-layer"></div>

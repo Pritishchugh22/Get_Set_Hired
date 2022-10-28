@@ -44,8 +44,8 @@ class Message(models.Model):
         return f"{self.content}"
 
 class Feedback(models.Model):
-    user = models.OneToOneField(User, on_delete = models.CASCADE, related_name = 'feedback_user')
-    company = models.OneToOneField(User, on_delete = models.CASCADE, related_name = 'feedback_company')
+    user = models.ManyToManyField(User, related_name = 'feedback_user')
+    company = models.ManyToManyField(User, related_name = 'feedback_company')
     rating = models.IntegerField()
     comments = models.TextField()
     def __str__(self):
@@ -85,3 +85,11 @@ class Room(models.Model):
     start_time = models.DateTimeField(default = django.utils.timezone.now)
     def __str__(self):
         return f"{self.room_name}"
+
+class Notification(models.Model):
+    sender = models.ManyToManyField(User, related_name = 'notification_sender')
+    reciever = models.ManyToManyField(User, related_name = 'notification_reciever')
+    message = models.TextField()
+    time = models.DateTimeField(default = django.utils.timezone.now)
+    def __str__(self):
+        return f"{self.message}"

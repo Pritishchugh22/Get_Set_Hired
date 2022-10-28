@@ -1,20 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-html,body{
-  display: grid;
-  height: 100%;
-  width: 100%;
-  place-items: center;
-}
-::selection{
-  background: #1a75ff;
-  color: #fff;
-}
 .wrapper{
   overflow: hidden;
   max-width: 690px;
