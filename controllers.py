@@ -1,5 +1,5 @@
 from django.contrib import messages
-
+from utils import sendFormErrorMessages
 
 def loginController(req):
     from django.contrib.auth import authenticate, login
@@ -34,8 +34,7 @@ def userRegisterController(req):
         context = {"status": True}
         return context
 
-    for error in form.errors:
-        messages.error(req, error + " " + form.errors[error])
+    sendFormErrorMessages(req, form)
     context = {"status": False}
     return context
 
@@ -43,7 +42,6 @@ def userRegisterController(req):
 def companyRegisterController(req):
     from home.forms import CompanyRegisterForm
     from django.contrib.auth.models import User
-    import json
 
     form = CompanyRegisterForm(req.POST)
     if form.is_valid():
@@ -58,13 +56,7 @@ def companyRegisterController(req):
         context = {"status": True, "form": form}
         return context
 
-    for errorLabel in form.errors:
-        message = errorLabel + " - "
-        errorMessages = json.loads(form.errors[errorLabel].as_json())
-        for errorMessage in errorMessages:
-            message += errorMessage['message'] + " "
-        print(message)
-        messages.error(req, message)
+    sendFormErrorMessages(req, form)
     context = {"status": False, "form": form}
     return context
 
@@ -76,14 +68,26 @@ def indexController(req):
                "image": req.user.userprofile.image, "jobs": jobPostings}
     return context
 
-def profileController(req, profileId):
-    from home.models import UserProfile, CompanyProfile
-    profile = UserProfile.objects.get(id = profileId)
-    if profile == None:
-        profile = CompanyProfile.objects.get(id = profileId)
 
+def profileEditController(req, profileId):
     if req.method == "POST":
-        pass
+        from utils import tryExcept
+        from home.models import UserProfile, CompanyProfile
+
+        profile = UserProfile.objects.get(id=profileId)
+        if profile == None:
+            profile = CompanyProfile.objects.get(id=profileId)
+        user = profile.user
+        username = user.username
+
+        tryExcept(user, req.POST, 'first_name')
+        tryExcept(user, req.POST, 'last_name')
+        tryExcept(user, req.POST, 'email')
+        user.save()
+
+        messages.success(req, f"Profile updated for {username}!")
+        context = {"status": True}
+        return context
 
     context = {"status": True, "user": req.user}
     return context

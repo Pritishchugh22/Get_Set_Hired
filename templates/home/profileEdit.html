@@ -17,7 +17,7 @@
     <div class="form-container">
         <div class="form-inner">
             {% if user.userprofile.isUser %}
-            <form method="POST" class="user" action='/profile/{{user.id}}'>
+            <form method="POST" class="user" action='/profileEdit/{{user.id}}'>
                 {% csrf_token %}
                 <div class="field">
                     <input type="text" placeholder="First name" name='first_name' value='{{user.first_name}}' required>
@@ -35,7 +35,7 @@
                 <div class="user-link"><a href="{% url 'account_logout' %}">Logout</a></div>
             </form>
             {% else %}
-            <form method="POST" class="user" action='/profile/{{user.id}}'>
+            <form method="POST" class="user" action='/profileEdit/{{user.id}}'>
                 {% csrf_token %}
                 <div class="field">
                     <input type="email" placeholder="Email address" name='email' value='{{user.email}}' required>

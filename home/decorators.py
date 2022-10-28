@@ -14,7 +14,7 @@ def user_profile_completed(function):
     def wrap(request, *args, **kwargs):
         if profileCompleted(request.user):
             return function(request, *args, **kwargs)
-        return redirect("/profile/" + str(request.user.id))
+        return redirect("/profileEdit/" + str(request.user.id))
     wrap.__doc__ = function.__doc__
     wrap.__name__ = function.__name__
     return wrap
