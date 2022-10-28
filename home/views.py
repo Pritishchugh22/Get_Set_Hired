@@ -56,6 +56,23 @@ def profileEdit(req, profileId):
         return redirect('index')
     return render(req, 'home/profileEdit.html', context)
 
+@login_required
+@user_passes_test(lambda u: u.companyprofile.isCompany == True)
+def createJobPosting(req):
+    context = createJobPostingController(req)
+    if req.method == 'POST':
+        return redirect('jobPosting', context['jobPosting'].id)
+    return render(req, 'home/createJobPosting.html', context)
+
+@login_required
+@user_passes_test(lambda u: u.companyprofile.isCompany == True)
+# company is job creator
+def editJobPosting(req, jobPostingId):
+    context = editJobPostingController(req, jobPostingId)
+    if req.method == 'POST':
+        return redirect('jobPosting', jobPostingId)
+    return render(req, 'home/editJobPosting.html', context)
+
 @user_passes_test(lambda u: u.is_superuser)
 def shell(req):
     # req.user.userprofile.isUser = True

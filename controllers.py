@@ -1,5 +1,5 @@
 from django.contrib import messages
-from utils import sendFormErrorMessages
+from utils import sendFormErrorMessages, tryExcept
 
 
 def loginController(req):
@@ -105,4 +105,46 @@ def profileEditController(req, profileId):
     context = {"status": True, "user": req.user}
     if not profileCompleted(req.user):
         context['showNav'] = False
+    return context
+
+def createJobPostingController(req):
+    if req.method == "POST":
+        from home.models import Jobposting
+
+        profile = UserProfile.objects.get(id=profileId)
+        if profile == None:
+            profile = CompanyProfile.objects.get(id=profileId)
+        user = profile.user
+        username = user.username
+
+        data = req.POST.dict()
+        for key in data:
+            tryExcept(user, key, data[key])
+        user.save()
+
+        messages.success(req, f"Profile updated for {username}!")
+        context = {"status": True}
+        return context
+
+    context = {"status": True, "user": req.user}
+    if not profileCompleted(req.user):
+        context['showNav'] = False
+    return context
+
+def editJobPostingController(req, jobPostingId):
+    from home.models import Jobposting
+    job = Jobposting.objects.get(id = jobPostingId)
+    if req.method == "POST":
+        from utils import tryExcept
+
+        data = req.POST.dict()
+        for key in data:
+            tryExcept(job, key, data[key])
+        job.save()
+
+        messages.success(req, f"JobPosting successfully updated!")
+        context = {"status": True}
+        return context
+
+    context = {"status": True, "job": job}
     return context
