@@ -43,6 +43,13 @@ def index(req):
     return render(req, 'home/index.html', context)
 
 @login_required
+@is_user_profile
+def profile(req, profileId):
+    context = profileController(req, profileId)
+    return render(req, 'home/profile.html', context)
+
+@login_required
+@is_user_profile
 def profileEdit(req, profileId):
     context = profileEditController(req, profileId)
     if req.method == 'POST':
