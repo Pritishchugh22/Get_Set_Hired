@@ -57,11 +57,16 @@ def profileEdit(req, profileId):
     return render(req, 'home/profileEdit.html', context)
 
 @login_required
+def jobPosting(req, jobPostingId):
+    context = jobPostingController(req, jobPostingId)
+    return render(req, 'home/jobPosting.html', context)
+
+@login_required
 @user_passes_test(lambda u: u.companyprofile.isCompany == True)
 def createJobPosting(req):
     context = createJobPostingController(req)
-    if req.method == 'POST':
-        return redirect('jobPosting', context['jobPosting'].id)
+    if req.method == 'POST' and context['status']:
+        return redirect('jobPosting', context['jobPostingId'])
     return render(req, 'home/createJobPosting.html', context)
 
 @login_required

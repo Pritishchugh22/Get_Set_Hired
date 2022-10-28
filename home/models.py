@@ -20,11 +20,11 @@ class Certificate(models.Model):
     def __str__(self):
         return f"{self.link}"
 
-class Jobposting(models.Model):
+class JobPosting(models.Model):
     title = models.CharField(max_length = 40)
     job_description = models.FileField(upload_to = 'uploads/job_description/', validators=[FileExtensionValidator(allowed_extensions=["pdf"])])
-    company = models.OneToOneField(User, on_delete = models.CASCADE, related_name = 'jobposting_company')
-    users_accepted = models.ManyToManyField(User, related_name = 'users_accepted')
+    company = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'jobposting_company')
+    users_accepted = models.ManyToManyField(User, related_name = 'users_accepted', blank=True)
     def __str__(self):
         return f"{self.title}"
 
@@ -56,7 +56,7 @@ class UserProfile(models.Model):
 class CompanyProfile(models.Model):
     isCompany = models.BooleanField(default = False)
     user = models.OneToOneField(User, on_delete = models.CASCADE)
-    jobpostings = models.ManyToManyField(Jobposting, related_name = 'job_postings', blank = True)
+    jobpostings = models.ManyToManyField(JobPosting, related_name = 'job_postings', blank = True)
     def __str__(self):
         return f"{self.user}"
 

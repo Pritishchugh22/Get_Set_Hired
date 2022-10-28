@@ -5,14 +5,14 @@
 <br>
 <div class="content">
     <div class="row row-cols-1 row-cols-md-2">
-        {% for job in jobs %}
+        {% for jobPosting in jobPostings %}
         <div class="col mb-4">
             <div class="card">
                 <img src="" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">{{job.title}}</h5>
+                    <a href="{% url 'jobPosting' jobPosting.id%}"><h5 class="card-title">{{jobPosting.title}}</h5></a>
                     <p class="card-text">
-                        {% for users in job.users_accepted.all %}
+                        {% for users in jobPosting.users_accepted.all %}
                             {{users}}
                         {% endfor %}
                     </p>
