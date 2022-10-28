@@ -4,6 +4,10 @@ from controllers import *
 from home.decorators import *
 
 @user_is_not_logged_in
+def main(req):
+        return render(req, 'home/main.html')
+
+@user_is_not_logged_in
 def login(req):
     if req.method == 'POST':
         context = loginController(req)
@@ -38,16 +42,12 @@ def index(req):
     context = indexController(req)
     return render(req, 'home/index.html', context)
 
-@user_is_not_logged_in
-def main(req):
-        return render(req, 'home/main.html')
-
 @login_required
-def profile(req, profileId):
-    context = profileController(req, profileId)
-    if req.method == 'POST' and context['status']:
-        return redirect('/profile/' + str(profileId))
-    return render(req, 'home/profile.html', context)
+def profileEdit(req, profileId):
+    context = profileEditController(req, profileId)
+    if req.method == 'POST':
+        return redirect('index')
+    return render(req, 'home/profileEdit.html', context)
 
 @user_passes_test(lambda u: u.is_superuser)
 def shell(req):
