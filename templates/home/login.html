@@ -56,16 +56,22 @@
                 <h1>Company Login</h1>
                 <input type="text" placeholder="Name" name='username' />
                 <input type="password" placeholder="Password" name='password' />
-                <button>Login</button>
+                <button>Login</button>OR<br>
+                <button href="/accounts/linkedin_oauth2/login/?process=login&next=%2F">Login via LinkedIn</button><br>
+                <button href="{% provider_login_url 'google' %}">Login via Google</button><br>
+                <button href="{% url 'register' %}">Signup</button><br>
             </form>
         </div>
         <div class="form-container sign-in-container">
             <form method="POST">
                 {% csrf_token %}
-                <h1>Student login</h1>
+                <h1>Student Login</h1>
                 <input type="text" placeholder="Name" name='username' />
                 <input type="password" placeholder="Password" name='password' />
-                <button>Login</button>
+                <button>Login</button>OR<br>
+                <button href="/accounts/linkedin_oauth2/login/?process=login&next=%2F">Login via LinkedIn</button><br>
+                <button href="{% provider_login_url 'google' %}">Login via Google</button><br>
+                <button href="{% url 'register' %}">Signup</button><br>
             </form>
         </div>
         <div class="overlay-container">
