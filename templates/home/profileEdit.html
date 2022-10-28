@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{% static 'home/register.css' %}">
 {% endblock customCSS %}
 {% block content %}
-<div class="wrapper">
+<div class="wrapper" style="margin-left: 25%; margin-top: 10px; margin-bottom: 50px;">
     <div class="title-text">
         {% if user.userprofile.isUser %}
         <div class="title user">User Profile </div>
@@ -43,7 +43,7 @@
                     <div class="btn-layer"></div>
                     <input type="submit" value="Update">
                 </div>
-                <div class="user-link"><a href="{% url 'account_logout' %}">Logout</a></div>
+                <div class="user-link"><a href="{% url 'account_logout' %}" style="color:white;">Logout</a></div>
             </form>
             {% else %}
             <form method="POST" class="user" action='/profileEdit/{{user.id}}'>
@@ -66,6 +66,7 @@
                 </div>
                 <div class="user-link"><a href="{% url 'account_logout' %}">Logout</a></div>
             </form>
+            <br><br>
             {% endif %}
         </div>
     </div>
