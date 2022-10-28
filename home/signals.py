@@ -20,9 +20,10 @@ def save_user_profile(sender, instance, **kwargs):
 @receiver(user_logged_in)
 def profile_filler(request, **kwargs):
     user = request.user
-    user.userprofile.isuser = True
+    user.userprofile.isUser = True
+    user.userprofile.save()
+
     provider = kwargs.get('sociallogin').__dict__.get('account').__dict__.get('provider')
-    print(provider)
     if provider == "linkedin_oauth2" and user.userprofile.image == "":
         print("filling_profile")
         access_token = kwargs.get('sociallogin').__dict__.get('token').__dict__.get('token')
