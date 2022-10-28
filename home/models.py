@@ -25,6 +25,13 @@ class JobPosting(models.Model):
     job_description = models.FileField(upload_to = 'uploads/job_description/', validators=[FileExtensionValidator(allowed_extensions=["pdf"])])
     company = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'jobposting_company')
     users_accepted = models.ManyToManyField(User, related_name = 'users_accepted', blank=True)
+    # position
+    # domain_tags
+    # no_of_seats
+    # stipend
+    # requirement_tags
+    # location
+    # status (open/close)
     def __str__(self):
         return f"{self.title}"
 
@@ -50,6 +57,13 @@ class UserProfile(models.Model):
     image = models.CharField(max_length = 200)
     skills = models.ManyToManyField(Skill, related_name = 'user_skills')
     points = models.IntegerField(default = 0)
+    # Name
+    # age
+    # contact_num
+    # email
+    # education
+    # experience_yrs
+    # willing_to_work_at
     def __str__(self):
         return f"{self.user}"
 
@@ -57,6 +71,13 @@ class CompanyProfile(models.Model):
     isCompany = models.BooleanField(default = False)
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     jobpostings = models.ManyToManyField(JobPosting, related_name = 'job_postings', blank = True)
+    # Name
+    # Domain_tags
+    # age
+    # Contact_num
+    # email
+    # number_of_employees
+    # experience_yrs
     def __str__(self):
         return f"{self.user}"
 
