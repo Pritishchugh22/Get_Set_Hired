@@ -9,8 +9,8 @@
 {% block content %}
 <div class="wrapper">
     <div class="title-text">
-        <div class="title user">User form </div>
-        <div class="title company">Company form</div>
+        <div class="title user">User Registeration </div>
+        <div class="title company">Company Registeration</div>
     </div>
     <div class="form-container">
         <div class="slide-controls">
@@ -49,6 +49,9 @@
             </form>
             <form method="POST" class="company" action='/companyRegister/'>
                 {% csrf_token %}
+                <div class="field">
+                    <input type="text" placeholder="Username" name='username' required>
+                </div>
                 <div class="field">
                     <input type="text" placeholder="Company Name" name="username" required>
                 </div>
