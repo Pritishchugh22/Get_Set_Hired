@@ -39,8 +39,15 @@ span {
 }
 
 a {
-	color: #333;
-	font-size: 14px;
+	color: #ffffff;
+	font-size: 12px;
+	text-decoration: none;
+	margin: 15px 0;
+}
+
+a:hover {
+	color: #ffffff;
+	font-size: 12px;
 	text-decoration: none;
 	margin: 15px 0;
 }
