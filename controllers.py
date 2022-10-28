@@ -1,6 +1,7 @@
 from django.contrib import messages
 from utils import sendFormErrorMessages
 
+
 def loginController(req):
     from django.contrib.auth import authenticate, login
     username = req.POST['username']
@@ -69,7 +70,19 @@ def indexController(req):
     return context
 
 
+def profileController(req, profileId):
+    from home.models import UserProfile, CompanyProfile
+
+    profile = UserProfile.objects.get(id=profileId)
+    if profile == None:
+        profile = CompanyProfile.objects.get(id=profileId)
+
+    context = {"status": True, "user": req.user, "profile": profile}
+    return context
+
+
 def profileEditController(req, profileId):
+    from utils import profileCompleted
     if req.method == "POST":
         from utils import tryExcept
         from home.models import UserProfile, CompanyProfile
@@ -80,9 +93,9 @@ def profileEditController(req, profileId):
         user = profile.user
         username = user.username
 
-        tryExcept(user, req.POST, 'first_name')
-        tryExcept(user, req.POST, 'last_name')
-        tryExcept(user, req.POST, 'email')
+        data = req.POST.dict()
+        for key in data:
+            tryExcept(user, key, data[key])
         user.save()
 
         messages.success(req, f"Profile updated for {username}!")
@@ -90,4 +103,6 @@ def profileEditController(req, profileId):
         return context
 
     context = {"status": True, "user": req.user}
+    if not profileCompleted(req.user):
+        context['showNav'] = False
     return context

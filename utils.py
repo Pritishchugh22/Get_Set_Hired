@@ -1,8 +1,8 @@
 def tryExcept(a, b, c):
     try:
-        a.__dict__[c] = b[c]
+        a.__dict__[b] = c
     except:
-        print("Error in ", c)
+        print("Error in ", b)
 
 def check(field):
     if field != "" and field != None:

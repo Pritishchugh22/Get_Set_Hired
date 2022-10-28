@@ -1,0 +1,14 @@
+{% if user.userprofile.isUser %}
+User
+{% else %}
+Company
+{% endif %}
+<br>
+{{user.id}}
+<br>
+{{user.first_name}}
+<br>
+{{user.last_name}}
+<br>
+{{user.email}}
+<br>
