@@ -57,9 +57,9 @@
                 <input type="text" placeholder="Name" name='username' />
                 <input type="password" placeholder="Password" name='password' />
                 <button>Login</button>OR<br>
-                <button href="/accounts/linkedin_oauth2/login/?process=login&next=%2F">Login via LinkedIn</button><br>
-                <button href="{% provider_login_url 'google' %}">Login via Google</button><br>
-                <button href="{% url 'register' %}">Signup</button><br>
+                <button type = "button"><a href="/accounts/linkedin_oauth2/login/?process=login&next=%2F">Login via LinkedIn</a></button><br>
+                <button type = "button"><a href="{% provider_login_url 'google' %}">Login via Google</a></button><br>
+                <button type = "button"><a href="{% url 'register' %}">Signup</a></button><br>
             </form>
         </div>
         <div class="form-container sign-in-container">
@@ -69,9 +69,9 @@
                 <input type="text" placeholder="Name" name='username' />
                 <input type="password" placeholder="Password" name='password' />
                 <button>Login</button>OR<br>
-                <button href="/accounts/linkedin_oauth2/login/?process=login&next=%2F">Login via LinkedIn</button><br>
-                <button href="{% provider_login_url 'google' %}">Login via Google</button><br>
-                <button href="{% url 'register' %}">Signup</button><br>
+                <button type = "button"><a href="/accounts/linkedin_oauth2/login/?process=login&next=%2F">Login via LinkedIn</a></button><br>
+                <button type = "button"><a href="{% provider_login_url 'google' %}">Login via Google</a></button><br>
+                <button type = "button"><a href="{% url 'register' %}">Signup</a></button><br>
             </form>
         </div>
         <div class="overlay-container">
