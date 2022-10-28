@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import FileExtensionValidator
+from django.core.validators import MinLengthValidator, MaxLengthValidator
 import django
 
 class Skill(models.Model):
@@ -22,16 +23,17 @@ class Certificate(models.Model):
 
 class JobPosting(models.Model):
     title = models.CharField(max_length = 40)
+    position = models.CharField(max_length = 40)
     job_description = models.FileField(upload_to = 'uploads/job_description/', validators=[FileExtensionValidator(allowed_extensions=["pdf"])])
     company = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'jobposting_company')
     users_accepted = models.ManyToManyField(User, related_name = 'users_accepted', blank=True)
-    # position
-    # domain_tags
-    # no_of_seats
-    # stipend
-    # requirement_tags
-    # location
-    # status (open/close)
+    no_of_seats = models.IntegerField()
+    stipend = models.IntegerField()
+    location = models.CharField(max_length = 40)
+    domain_tags = models.ManyToManyField(Tag, related_name = 'jobposting_domain_tags')
+    requirement_tags = models.ManyToManyField(Tag, related_name = 'jobposting_requirement_tags')
+    status = models.CharField(max_length = 10, choices = (("open", "open"), ("closed", "closed")), default = 'open')
+    experience_required = models.IntegerField(default = 0)
     def __str__(self):
         return f"{self.title}"
 
@@ -57,13 +59,11 @@ class UserProfile(models.Model):
     image = models.CharField(max_length = 200)
     skills = models.ManyToManyField(Skill, related_name = 'user_skills')
     points = models.IntegerField(default = 0)
-    # Name
-    # age
-    # contact_num
-    # email
-    # education
-    # experience_yrs
-    # willing_to_work_at
+    contact_num = models.IntegerField('Contact Number', validators = [MinLengthValidator(10), MaxLengthValidator(10)])
+    education = models.TextField()
+    experience_yrs = models.IntegerField(default = 0)
+    age = models.IntegerField()
+    willing_to_work_at = models.CharField(max_length = 40)
     def __str__(self):
         return f"{self.user}"
 
@@ -71,13 +71,9 @@ class CompanyProfile(models.Model):
     isCompany = models.BooleanField(default = False)
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     jobpostings = models.ManyToManyField(JobPosting, related_name = 'job_postings', blank = True)
-    # Name
-    # Domain_tags
-    # age
-    # Contact_num
-    # email
-    # number_of_employees
-    # experience_yrs
+    name = models.CharField(max_length = 40)
+    contact_num = models.IntegerField('Contact Number', validators = [MinLengthValidator(10), MaxLengthValidator(10)])
+    number_of_employees = models.IntegerField()
     def __str__(self):
         return f"{self.user}"
 

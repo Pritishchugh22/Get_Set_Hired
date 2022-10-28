@@ -64,10 +64,13 @@ def companyRegisterController(req):
 
 
 def indexController(req):
-    from home.models import JobPosting
-    jobPostings = JobPosting.objects.all()
-    context = {"status": True,
-               "image": req.user.userprofile.image, "jobPostings": jobPostings}
+    context = {"status": True} 
+    if req.user.userprofile.isUser:
+        context["image"] = req.user.userprofile.image
+    else:
+        from home.models import JobPosting
+        jobPostings = JobPosting.objects.all()
+        context["jobPostings"] = jobPostings
     return context
 
 
