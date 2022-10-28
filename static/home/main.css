@@ -15,7 +15,7 @@ h1 {
   position: relative;
   position: absolute;
   left: 50%;
-  top: 10%;
+  top: 30%;
   transform: translateX(-50%);
   white-space: nowrap;
 }
@@ -40,7 +40,7 @@ a.cta {
   color: #fff;
   text-decoration: none;
   left: 50%;
-  bottom: 3%;
+  bottom: 30%;
   transform: translateX(-50%);
   border: 2px solid #fff;
   font-size: 0.75em;
@@ -76,26 +76,26 @@ a.cta:hover:before {
 }
 .container .one-half.left {
   left: 0;
-  background: url("https://thumbs.dreamstime.com/b/looking-talent-icon-flat-design-white-55341219.jpg") center center no-repeat;
+  background: url("https://static.vecteezy.com/system/resources/previews/006/411/693/non_2x/simple-magnifying-glass-icon-isolated-eps10-free-vector.jpg") center center no-repeat;
   background-size: cover;
 }
 .container .one-half.left:before {
   content: "";
   width: 100%;
   height: 100%;
-  background: rgba(255, 0, 120, 0.5);
+  background: linear-gradient(to right, #2193b0 , #6dd5ed);
   position: absolute;
 }
 .container .one-half.right {
   right: 0;
-  background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTd1Q5c3x9Hu3ga3teaCD-k_5c3Zpx3DszILg&usqp=CAU") center center no-repeat;
+  background: url("data:image/png;base64,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") center center no-repeat;
   background-size: cover;
 }
 .container .one-half.right:before {
   content: "";
   width: 100%;
   height: 100%;
-  background: rgba(25, 120, 220, 0.5);
+  background: linear-gradient(to right, #cc2b5e , #753a88);
   position: absolute;
 }
 .container .one-half.left, .container .one-half.right {
