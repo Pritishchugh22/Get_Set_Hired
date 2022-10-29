@@ -5,36 +5,28 @@
 <link rel="stylesheet" href="{% static 'home/register.css' %}">
 {% endblock customCSS %}
 {% block content %}
-<div class="wrapper" style="margin-left: 25%; margin-top: 10px; margin-bottom: 50px;">
-    <div class="title-text">
-        <div class="title company">Job Posting</div>
-    </div>
-    <div class="form-container">
-        <div class="form-inner">
-            <form method="POST" class="user" action='/index' enctype="multipart/form-data">
-<!--                {% csrf_token %}-->
-                <div class="field">
-                    <input type="text" placeholder="Position" name='position' value=position required>
-                </div>
-                <div class="field">
-                    <input type="text" placeholder="Number of seats" name='num_seats' value=num_seats required>
-                </div>
-                <div class="field">
-                    <input type="text" placeholder="Stipend" name='stipend' value=stipend required>
-                </div>
-                <div class="field">
-                    <input type="text" placeholder="Location" name='location' value=location required>
-                </div>
-<!--                Requirement tags and Domain tags-->
-<!--                Status Tags-->
-                <div class="field btn">
-                    <div class="btn-layer"></div>
-                    <input type="submit" value="Update">
-                </div>
-                <div class="user-link"><a href="{% url 'account_logout' %}" style="color:white;">Logout</a></div>
-            </form>
-            <br><br>
-        </div>
-    </div>
-</div>
+<br>
+{{ jobPosting.id }}
+<br>
+{{ jobPosting.title }}
+<br>
+<a href = "/media/{{ jobPosting.job_description }}">Job Description</a>
+<br>
+{{ jobPosting.position }}
+<br>
+{{ jobPosting.no_of_seats }}
+<br>
+{{ jobPosting.stipend }}
+<br>
+{{ jobPosting.location }}
+<br>
+{{ jobPosting.domain_tags }}
+<br>
+{{ jobPosting.requirement_tags }}
+<br>
+{{ jobPosting.status }}
+<br>
+{{ jobPosting.experience_required }}
+<br>
+<a href="{% url 'edit-jobPosting' jobPosting.id%}">Edit</a>
 {% endblock content %}

@@ -3,16 +3,73 @@
 {% block content %}
 <br>
 <br>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="form-group">
-        <label>Title </label>
-        {{ jobPostingForm.title }}
+<div class="wrapper" style="margin-left: 25%; margin-top: 10px; margin-bottom: 50px;">
+    <div class="title-text">
+        <div class="title company">Job Posting</div>
     </div>
-    <div class="form-group">
-        <label>Job Description </label>
-        {{ jobPostingForm.job_description }}
+    <div class="form-container">
+        <div class="form-inner">
+            <form method="post" class="user" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="field">
+                    <input type="text" placeholder="Title" name='title' value={{jobPosting.title}} required>
+                </div>
+                <div class="field">
+                    <input type="text" placeholder="Position" name='position' value={{jobPosting.position}} required>
+                </div>
+                <div class="field">
+                    <input type="text" placeholder="Number of seats" name='num_seats' value=num_seats required>
+                </div>
+                <div class="field">
+                    <input type="text" placeholder="Stipend" name='stipend' value=stipend required>
+                </div>
+                <div class="field">
+                    <input type="text" placeholder="Location" name='location' value=location required>
+                </div>
+                <!--                Requirement tags and Domain tags-->
+                <!--                Status Tags-->
+                <div class="field btn">
+                    <div class="btn-layer"></div>
+                    <input type="submit" value="Update">
+                </div>
+                <div class="user-link"><a href="{% url 'account_logout' %}" style="color:white;">Logout</a></div>
+            </form>
+            <br><br>
+        </div>
     </div>
-    <input type="submit" value="Submit">
-</form>
+</div>
+{% comment %} <div class="form-group">
+    <label>Job Description </label>
+    {{ jobPostingForm.job_description }}
+</div>
+<div class="form-group">
+    <label>No of seats </label>
+    {{ jobPostingForm.no_of_seats }}
+</div>
+<div class="form-group">
+    <label>Stipend </label>
+    {{ jobPostingForm.stipend }}
+</div>
+<div class="form-group">
+    <label>Location </label>
+    {{ jobPostingForm.location }}
+</div>
+<div class="form-group">
+    <label>Domain Tags </label>
+    {{ jobPostingForm.domain_tags }}
+</div>
+<div class="form-group">
+    <label>Requirement Tags </label>
+    {{ jobPostingForm.requirement_tags }}
+</div>
+<div class="form-group">
+    <label>Status </label>
+    {{ jobPostingForm.status }}
+</div>
+<div class="form-group">
+    <label>Experience_required </label>
+    {{ jobPostingForm.experience_required }}
+</div>
+<input type="submit" value="Submit">
+</form> {% endcomment %}
 {% endblock content %}

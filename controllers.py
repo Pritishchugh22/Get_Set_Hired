@@ -2,6 +2,16 @@ from django.contrib import messages
 from utils import sendFormErrorMessages, tryExcept
 from home.models import Notification
 
+def shellController():
+    from home.models import Tag, Skill
+    count = len(Tag.objects.all())
+    tag = Tag(title = 'tag' + str(count+1))
+    tag.save()
+
+    count = len(Skill.objects.all())
+    skill = Skill(title = 'tag' + str(count+1))
+    skill.save()
+
 def loginController(req):
     from django.contrib.auth import authenticate, login
     username = req.POST['username']
@@ -139,9 +149,14 @@ def createJobPostingController(req):
     from home.forms import CreateJobPostingForm
     if req.method == "POST":
         data = req.POST.dict()
+        domain_tags = req.POST.getlist('domain_tags')
+        requirement_tags = req.POST.getlist('requirement_tags')
+        data['domain_tags'] = domain_tags
+        data['requirement_tags'] = requirement_tags
         data['company'] = req.user
-
+        print(data)
         form = CreateJobPostingForm(data, req.FILES)
+        print(form)
         if form.is_valid():
             jobPosting = form.save()
 
@@ -157,18 +172,26 @@ def createJobPostingController(req):
 
 def editJobPostingController(req, jobPostingId):
     from home.models import JobPosting
+    from home.forms import EditJobPostingForm
     jobPosting = JobPosting.objects.get(id = jobPostingId)
     if req.method == "POST":
-        from utils import tryExcept
-
         data = req.POST.dict()
-        for key in data:
-            tryExcept(jobPosting, key, data[key])
-        jobPosting.save()
+        domain_tags = req.POST.getlist('domain_tags')
+        requirement_tags = req.POST.getlist('requirement_tags')
+        data['domain_tags'] = domain_tags
+        data['requirement_tags'] = requirement_tags
+        data['company'] = req.user
 
-        messages.success(req, f"JobPosting successfully updated!")
-        context = {"status": True}
+        form = EditJobPostingForm(data, req.FILES, instance = jobPosting)
+        if form.is_valid():
+            form.save()
+
+            messages.success(req, f"JobPosting successfully updated!")
+            context = {"status": True}
+            return context
+        sendFormErrorMessages(req, form)
+        context = {"status": False}
         return context
 
-    context = {"status": True, "jobPosting": jobPosting}
+    context = {"status": True, "jobPostingForm": EditJobPostingForm(instance = jobPosting)}
     return context

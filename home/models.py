@@ -23,7 +23,7 @@ class Certificate(models.Model):
 class JobPosting(models.Model):
     title = models.CharField(max_length = 40)
     position = models.CharField(max_length = 40)
-    job_description = models.FileField(upload_to = 'uploads/job_description/', validators=[FileExtensionValidator(allowed_extensions=["pdf"])])
+    job_description = models.FileField(upload_to = 'job_description/', validators=[FileExtensionValidator(allowed_extensions=["pdf"])])
     company = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'jobposting_company')
     users_accepted = models.ManyToManyField(User, related_name = 'users_accepted', blank=True)
     no_of_seats = models.IntegerField()
@@ -55,7 +55,7 @@ class UserProfile(models.Model):
     isUser = models.BooleanField(default = False)
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     certificates = models.ManyToManyField(Certificate, related_name = 'user_certificates')
-    image = models.FileField(upload_to = 'uploads/images/', validators=[FileExtensionValidator(allowed_extensions=["png", "jpg", "jpeg"])])
+    image = models.FileField(upload_to = 'images/', validators=[FileExtensionValidator(allowed_extensions=["png", "jpg", "jpeg"])])
     skills = models.ManyToManyField(Skill, related_name = 'user_skills')
     points = models.IntegerField(default = 0)
     contact_num = models.IntegerField('Contact Number')

@@ -90,6 +90,6 @@ def editJobPosting(req, jobPostingId):
 
 @user_passes_test(lambda u: u.is_superuser)
 def shell(req):
-    # req.user.userprofile.isUser = True
-    # req.user.userprofile.save()
+    from controllers import shellController
+    shellController()
     return redirect('index')
