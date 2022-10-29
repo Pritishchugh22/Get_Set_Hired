@@ -1,14 +1,137 @@
-{% if user.userprofile.isUser %}
-User
-{% else %}
-Company
-{% endif %}
-<br>
-{{user.id}}
-<br>
-{{user.first_name}}
-<br>
-{{user.last_name}}
-<br>
-{{user.email}}
-<br>
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %}Profile | Get_Set_Hired{% endblock title %}
+{% block customCSS %}
+<link rel="stylesheet" href="{% static 'home/profile.css' %}">
+{% endblock customCSS %}
+{% block cdnCSS %}{% endblock cdnCSS %}
+{% block navbar %}{% endblock navbar %}
+{% block content %}
+<div id="profile" class="horizontal-center">
+  <div id="leftColumn">
+<!--    <div id="editButton" class="vertical-center">-->
+<!--      <div class="horizontal-center">-->
+<!--        <a style="color: white;" href="/profile/edit"><i class="fas fa-pen"></i> </a>-->
+<!--      </div>-->
+<!--    </div>-->
+    <img class="profileImage" src="{{ profile_user.profile.image.url }}" alt="">
+    <div class="leftColumnCard horizontal-center">
+      <div class="cardTitle">
+        Rating
+      </div>
+      <div class="cardDetails vertical-center">
+        <form class="rating">
+          <label>
+            <input type="radio" name="stars" value="1" />
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="stars" value="2" />
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="stars" value="3" />
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="stars" value="4" />
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="stars" value="5" />
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+        </form>
+      </div>
+      <br>
+      <div class="cardTitle">
+        Profile
+      </div>
+      <div class="cardDetails vertical-center">
+        <div>
+          {{ user.first_name }} {{ user.last_name }}
+          <br>
+          {{ user.email }}
+          <br>
+<!--          {% if profile_user.profile.profile_type == 'Student' %}-->
+<!--            {{ profile_user.profile.year }} Year - {{ profile_user.profile.branch }}-->
+<!--          {% else %}-->
+<!--            School - {{ profile_user.profile.school }}-->
+            Age -
+            Contact Number -
+            Willing to Relocate at -
+            Education -
+            <br>
+<!--            Area of Interest - {{ profile_user.profile.area_of_interest }}-->
+            Experience in years -
+<!--          {% endif %}-->
+        </div>
+      </div>
+    </div>
+    <div class="leftColumnCard horizontal-center">
+      <div class="cardTitle">
+        Links
+      </div>
+      <div class="cardDetails vertical-center">
+        <div>
+          <i class="fab fa-linkedin" style="margin-right: 5px;"></i>LinkedIn :
+<!--          {% if profile_user.profile.linked_in_link|length > 0%}-->
+<!--          <a href={{profile_user.profile.linked_in_link}} target="_blank">{{profile_user.profile.linked_in_link}}</a>-->
+<!--          {% else %}-->
+<!--          NA-->
+<!--          {% endif %}-->
+          <br>
+          <i class="far fa-file" style="margin-right: 5px;"></i>Resume :
+<!--          {% if profile_user.profile.cv|length > 0%}-->
+<!--          <a href="{{profile_user.profile.cv.url}}" target="_blank">-->
+<!--            Click Here-->
+<!--          </a>-->
+<!--          {% else %}-->
+<!--          NA-->
+<!--          {% endif %}-->
+          <br>
+        </div>
+      </div>
+    </div>
+    <div class="leftColumnCard horizontal-center">
+      <div class="cardTitle">
+        Skills
+      </div>
+      <div class="cardDetails vertical-center">
+        <div>
+<!--          {% for skill in profile_user.profile.techskills.all %}-->
+<!--          {{ skill }}-->
+<!--          {% endfor %}-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="rightColumn">
+    <div id="profileProjects">
+      <div id="projectButtons">
+        <div class="projectButton buttonSelected" id='projects0button' onclick="toggleVisibility('projects0')">
+          <div class="projectButtonTitle">
+            Coursera Certificates:
+          </div>
+          <div class="projectsNumbers">
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock content %}
+{% block cdnJS %}{% endblock cdnJS %}
+{% block customJS %}
+<script src="{% static 'home/profile.js' %}"></script>
+{% endblock customJS %}
