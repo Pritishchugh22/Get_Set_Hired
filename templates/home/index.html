@@ -101,30 +101,30 @@
 <div class="project_cards">
     {% block allProjectsBlock %}
     <div class="" style="display: flex; flex-wrap: wrap;justify-content:center;" id="all-projects">
-        {% for project in projects %}
-            <div id="projectNumber{{ project.id }}">
+        {% for jobPosting in jobPostings %}
+            <div id="projectNumber{{ jobPosting.id }}">
                 <div class = "blog-container">
                     <div class="blog-header" style="display: flex; flex-wrap: wrap;">
-                        <div class="blog-author--no-cover" style="background:url('{{project.FloatedBy.profile.image.url}}');background-size: cover; border-radius: 50%; display: inline-block;height: 40px;margin-right: 0.5rem;background-position: center;top: 8px;width: 40px; top: 27px; left: 28px; margin-top: 5px; ">
-                        </div>
+                        {% comment %} <div class="blog-author--no-cover" style="background:url('{{jobPosting.company.companyprofile.image.url}}');background-size: cover; border-radius: 50%; display: inline-block;height: 40px;margin-right: 0.5rem;background-position: center;top: 8px;width: 40px; top: 27px; left: 28px; margin-top: 5px; "> {% endcomment %}
+                        {% comment %} </div> {% endcomment %}
                         <span style="flex: 1 0 45%; ">
-                            <h3 style="margin-top: 10px; color:#858796;"><a href="{% url 'profile' project.FloatedBy.id %}">{{project.FloatedBy}}</a></h3>
+                            <h3 style="margin-top: 10px; color:#858796;"><a href="{% url 'profile' jobPosting.company.id %}">{{jobPosting.company}}</a></h3>
                         </span>
                     </div>
                     <div class="blog-body">
                         <div class="blog-title demo-a">
-                            <h1><a href="/project/?project_id={{project.id}}">{{ project.Title }}</a></h1>
+                            <h1><a href="/project/?project_id={{jobPosting.id}}">{{ jobPosting.Title }}</a></h1>
                         </div>
                         <div class="blog-summary demo-2">
-                            <p>{{project.Description}}</p>
+                            <p>{{jobPosting.job_description}}</p>
                         </div>
 
                         <div class="blog-tags">
                         <br class="main-br">
                             <ul>
-                                <li><a href="/home/?Status={{project.Status}}">{{project.Status}}</a></li>
-                                <li><a href="/home/?Difficulty={{project.Difficulty}}">{{project.Difficulty}}</a></li>
-                                {% for tag in project.Tags.all %}
+                                <li><a href="/home/?Status={{jobPosting.Status}}">{{jobPosting.status}}</a></li>
+                                {% comment %} <li><a href="/home/?Difficulty={{jobPosting.Difficulty}}">{{jobPosting.Difficulty}}</a></li> {% endcomment %}
+                                {% for tag in jobPosting.domain_tags.all %}
                                     {% if forloop.counter <= 2 %}
                                         <li>
                                             <a href="/home/?Tags={{tag.id}}">{{ tag }}</a>
@@ -132,7 +132,7 @@
                                     {% endif %}
                                     {% if forloop.counter == 3 %}
                                         <li>
-                                            <a href="/project/?project_id={{project.id}}">More Tags...</a>
+                                            <a href="/project/?project_id={{jobPosting.id}}">More Tags...</a>
                                         </li>
                                     {% endif %}
                                 {% endfor %}
@@ -143,7 +143,7 @@
                 </div>
             </div>
         {% endfor %}
-        {% if projects.count == 0 %}
+        {% if jobPostings.count == 0 %}
         <div>No projects</div>
         {% endif %}
     </div>
