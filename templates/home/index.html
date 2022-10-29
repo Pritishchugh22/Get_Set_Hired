@@ -2,251 +2,153 @@
 {% block title %}Index | Get_Set_Hired{% endblock title %}
 {% load static %}
 {% load crispy_forms_tags %}
-{% block customStylesheets %}
-<link rel="stylesheet" type="text/css" href="{% static 'home/main.css' %}">
-<style>
-    .vertical-line {
-        width: 10px;
-        height: 110px;
-        background-color: #19258c;
-        margin-left: 20px;
-        margin-right: 30px;
-    }
-
-    .cards-hr {
-        height: 0px;
-        left: 87px;
-        top: 280px;
-        border-top: 1px solid rgba(0, 0, 0, 0.25);
-    }
-
-    {% comment %} Floated By styling {% endcomment %}
-    #content > div > div > form > div.select2-selection.select2-selection--single > span > span.selection > span{
-        background-color: #EBEBEB;
-        border: 1px solid rgba(0, 0, 0, 0.25);
-        border-radius: 5px;
-        width: 210px;
-        height: 44px;
-        position: relative;
-    }
-    #select2-id_FloatedBy-container,
-    #content > div > div > form > div.select2-selection.select2-selection--single > span > span.selection > span > span.select2-selection__arrow{
-        color: black;
-        margin: 0;
-        position: absolute;
-        top: 50%;
-        -ms-transform: translateY(-50%);
-        transform: translateY(-50%);
-    }
-
-    {% comment %} Tags styling {% endcomment %}
-    #content > div > div > form > div:nth-child(4) > span > span.selection > span{
-        background-color: #EBEBEB;
-        min-height: 44px;
-        max-height: 60px;
-        overflow-y: scroll;
-    }
-    ::placeholder{
-        color: black;
-    }
-    #content > div > div > form > div:nth-child(4) > span > span.selection > span::-webkit-scrollbar {
-        display: none;
-    }
-    #content > div > div > form > div:nth-child(4) > span > span.selection > span > ul > *{
-        color:black;
-    }
-    #content > div > div > form > div:nth-child(4) > span > span.selection > span > ul > li{
-        background-color: white;
-    }
-    #content > div > div > form > div:nth-child(4) > span > span.selection > span > ul > li.select2-search.select2-search--inline{
-        background-color: #EBEBEB;
-    }
-    #id_FilterBy{
-        background-color: #EBEBEB;
-        border-radius: 5px;
-    }
-    #num_of_rows{
-        margin-top: 7px;
-        height:30px;
-    }
-
-</style>
-{% endblock customStylesheets %}
-
-{% comment %} <!--<div class="content">-->
-<!--    <div class="row row-cols-1 row-cols-md-2">-->
-<!--        {% for jobPosting in jobPostings %}-->
-<!--        <div class="col mb-4">-->
-<!--            <div class="card">-->
-<!--                <img src="" class="card-img-top" alt="...">-->
-<!--                <div class="card-body">-->
-                    <a href="{% url 'jobPosting' jobPosting.id%}"><h5 class="card-title">{{jobPosting.title}}</h5></a>
-<!--                    <p class="card-text">-->
-<!--                        {% for users in jobPosting.users_accepted.all %}-->
-<!--                            {{users}}-->
-<!--                        {% endfor %}-->
-<!--                    </p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        {% endfor %}-->
-<!--    </div>-->
-<!--</div>-->
-<!--{% endblock content %}--> {% endcomment %}
-
-
+{% block customCSS %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/mainpp.css' %}">
+{% endblock customCSS %}
 
 {% block content %}
-{% block mainContentBlock %}
 <div class="project_cards">
-    {% block allProjectsBlock %}
     <div class="" style="display: flex; flex-wrap: wrap;justify-content:center;" id="all-projects">
         {% for jobPosting in jobPostings %}
-            <div id="projectNumber{{ jobPosting.id }}">
-                <div class = "blog-container">
-                    <div class="blog-header" style="display: flex; flex-wrap: wrap;">
-                        {% comment %} <div class="blog-author--no-cover" style="background:url('{{jobPosting.company.companyprofile.image.url}}');background-size: cover; border-radius: 50%; display: inline-block;height: 40px;margin-right: 0.5rem;background-position: center;top: 8px;width: 40px; top: 27px; left: 28px; margin-top: 5px; "> {% endcomment %}
-                        {% comment %} </div> {% endcomment %}
-                        <span style="flex: 1 0 45%; ">
-                            <h3 style="margin-top: 10px; color:#858796;"><a href="{% url 'profile' jobPosting.company.id %}">{{jobPosting.company}}</a></h3>
-                        </span>
-                    </div>
-                    <div class="blog-body">
-                        <div class="blog-title demo-a">
-                            <h1><a href="/project/?project_id={{jobPosting.id}}">{{ jobPosting.Title }}</a></h1>
-                        </div>
-                        <div class="blog-summary demo-2">
-                            <p>{{jobPosting.job_description}}</p>
-                        </div>
-
-                        <div class="blog-tags">
-                        <br class="main-br">
-                            <ul>
-                                <li><a href="/home/?Status={{jobPosting.Status}}">{{jobPosting.status}}</a></li>
-                                {% comment %} <li><a href="/home/?Difficulty={{jobPosting.Difficulty}}">{{jobPosting.Difficulty}}</a></li> {% endcomment %}
-                                {% for tag in jobPosting.domain_tags.all %}
-                                    {% if forloop.counter <= 2 %}
-                                        <li>
-                                            <a href="/home/?Tags={{tag.id}}">{{ tag }}</a>
-                                        </li>
-                                    {% endif %}
-                                    {% if forloop.counter == 3 %}
-                                        <li>
-                                            <a href="/project/?project_id={{jobPosting.id}}">More Tags...</a>
-                                        </li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                    <hr class="main-page-hr" >
+        <div id="jobPostingNumber{{ jobPosting.id }}">
+            <div class="blog-container">
+                <div class="blog-header" style="display: flex; flex-wrap: wrap;">
+                    <span style="flex: 1 0 45%; ">
+                        <h3 style="margin-top: 10px; color:#858796;"><a href="{% url 'profile' jobPosting.company.id %}">{{jobPosting.company}}</a></h3>
+                    </span>
                 </div>
+                <div class="blog-body">
+                    <div class="blog-title demo-a">
+                        <h1><a href="/project/?project_id={{jobPosting.id}}">{{ jobPosting.Title }}</a></h1>
+                    </div>
+                    <div class="blog-summary demo-2">
+                        <p>{{jobPosting.job_description}}</p>
+                    </div>
+                    <div class="blog-tags">
+                        <br class="main-br">
+                        <ul>
+                            <li><a href="/home/?Status={{jobPosting.Status}}">{{jobPosting.status}}</a></li>
+                            {% for tag in jobPosting.domain_tags.all %}
+                            {% if forloop.counter <= 2 %}
+                            <li>
+                                <a href="/home/?Tags={{tag.id}}">{{ tag }}</a>
+                            </li>
+                            {% endif %}
+                            {% if forloop.counter == 3 %}
+                            <li>
+                                <a href="/project/?project_id={{jobPosting.id}}">More Tags...</a>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <hr class="main-page-hr">
             </div>
+        </div>
         {% endfor %}
         {% if jobPostings.count == 0 %}
         <div>No projects</div>
         {% endif %}
     </div>
     {% with request.get_full_path as querystring %}
-        <div style="float:right; padding-right: 140px;">
-                    <h5 >Projects per page:&nbsp;</h5>
-                        {% if 'limit' in querystring %}
-                            <select id="num_of_rows" onchange="if (this.value) window.location.href=this.value;">
-                                {% if '6' in  querystring %}
-                                    <option value="?limit=6" selected>6</option>
-                                    <option value="?limit=12">12</option>
-                                    <option value="?limit=18">18</option>
-                                {% elif '12' in querystring %}
-                                    <option value="?limit=6">6</option>
-                                    <option value="?limit=12" selected>12</option>
-                                    <option value="?limit=18">18</option>
-                                {% else %}
-                                    <option value="?limit=6">6</option>
-                                    <option value="?limit=12">12</option>
-                                    <option value="?limit=18" selected>18</option>
-                                {% endif %}
-                            </select>
+    <div style="float:right; padding-right: 140px;">
+        <h5>Projects per page:&nbsp;</h5>
+        {% if 'limit' in querystring %}
+        <select id="num_of_rows" onchange="if (this.value) window.location.href=this.value;">
+            {% if '6' in  querystring %}
+            <option value="?limit=6" selected>6</option>
+            <option value="?limit=12">12</option>
+            <option value="?limit=18">18</option>
+            {% elif '12' in querystring %}
+            <option value="?limit=6">6</option>
+            <option value="?limit=12" selected>12</option>
+            <option value="?limit=18">18</option>
+            {% else %}
+            <option value="?limit=6">6</option>
+            <option value="?limit=12">12</option>
+            <option value="?limit=18" selected>18</option>
+            {% endif %}
+        </select>
+        {% else %}
+        <select id="num_of_rows" onchange="if (this.value) window.location.href=this.value;">
+            <option value="?limit=6">6</option>
+            <option value="?limit=12" selected>12</option>
+            <option value="?limit=18">18</option>
+        </select>
+        {% endif %}
+    </div>
+    <br><br><br>
+    {% endwith %}
+    {% block paginationBlock %}
+        {% with request.get_full_path as querystring %}
+            {% if projects.has_other_pages %}
+                <ul class="pagination">
+                    {% if projects.has_previous %}
+                        {% if 'Status' in querystring or 'Difficulty' in querystring or 'limit' in querystring%}
+                            {% if 'page' in querystring %}
+                                <li><a href="{{ querystring|slice:":-1 " }}{{ projects.previous_page_number }}">&laquo;</a></li>
+                            {% else %}
+                                <li><a href="{{ querystring }}&page={{ projects.previous_page_number }}">&laquo;</a></li>
+                            {% endif %}
                         {% else %}
-                        <select id="num_of_rows" onchange="if (this.value) window.location.href=this.value;">
-                            <option value="?limit=6">6</option>
-                            <option value="?limit=12" selected>12</option>
-                            <option value="?limit=18">18</option>
-                        </select>
-                        {% endif %}
-                    </div>
-        <br><br><br>
-    {%endwith%}
-    {% endblock allProjectsBlock %}
-        {% block paginationBlock %}
-            {% with request.get_full_path as querystring %}
-                {% if projects.has_other_pages %}
-                    <ul class="pagination">
-                        {% if projects.has_previous %}
-                            {% if 'Status' in querystring or 'Difficulty' in querystring or 'limit' in querystring%}
-                                {% if 'page' in querystring %}
-                                    <li><a href="{{ querystring|slice:":-1 " }}{{ projects.previous_page_number }}">&laquo;</a></li>
-                                {% else %}
+                            {% if 'page' in querystring %}
+                                <li><a href="{{ querystring|slice:":-1 " }}{{ projects.previous_page_number }}">&laquo;</a></li>
+                            {% else %}
+                                {% if '?' in querystring %}
                                     <li><a href="{{ querystring }}&page={{ projects.previous_page_number }}">&laquo;</a></li>
-                                {% endif %}
-                            {% else %}
-                                {% if 'page' in querystring %}
-                                    <li><a href="{{ querystring|slice:":-1 " }}{{ projects.previous_page_number }}">&laquo;</a></li>
                                 {% else %}
-                                    {% if '?' in querystring %}
-                                        <li><a href="{{ querystring }}&page={{ projects.previous_page_number }}">&laquo;</a></li>
-                                    {% else %}
-                                        <li><a href="{{ querystring }}?page={{ projects.previous_page_number }}">&laquo;</a></li>
-                                    {% endif %}
+                                    <li><a href="{{ querystring }}?page={{ projects.previous_page_number }}">&laquo;</a></li>
                                 {% endif %}
                             {% endif %}
                         {% endif %}
-                        {% for i in projects.paginator.page_range %}
-                            {% if projects.number == i %}
-                                <li class = "selected">{{ i }}</li>
-                            {% else %}
-                                {% if 'Status' in querystring  or 'Difficulty' in querystring or 'limit' in querystring%}
-                                    {% if 'page' in querystring %}
-                                        <li><a href="{{ querystring|slice:":-1 " }}{{ i }}">{{i}}</a></li>
-                                    {% else %}
-                                        <li><a href="{{ querystring }}&page={{ i }}">{{i}}</a></li>
-                                    {% endif %}
-                                {% else %}
-                                    {% if 'page' in querystring %}
-                                        <li><a href="{{ querystring|slice:":-1 " }}{{ i }}">{{i}}</a></li>
-                                    {% else %}
-                                        {% if '?' in querystring %}
-                                            <li><a href="{{ querystring }}&page={{ i }}">{{i}}</a></li>
-                                        {% else %}
-                                            <li><a href="{{ querystring }}?page={{ i }}">{{i}}</a></li>
-                                        {% endif %}
-                                    {% endif %}
-                                {% endif %}
-                            {% endif %}
-                        {% endfor %}
-                        {% if projects.has_next %}
+                    {% endif %}
+                    {% for i in projects.paginator.page_range %}
+                        {% if projects.number == i %}
+                            <li class = "selected">{{ i }}</li>
+                        {% else %}
                             {% if 'Status' in querystring  or 'Difficulty' in querystring or 'limit' in querystring%}
                                 {% if 'page' in querystring %}
-                                    <li><a href="{{ querystring|slice:":-1 " }}{{ projects.next_page_number }}">&raquo;</a></li>
+                                    <li><a href="{{ querystring|slice:":-1 " }}{{ i }}">{{i}}</a></li>
                                 {% else %}
-                                    <li><a href="{{ querystring }}&page={{ projects.next_page_number }}">&raquo;</a></li>
+                                    <li><a href="{{ querystring }}&page={{ i }}">{{i}}</a></li>
                                 {% endif %}
                             {% else %}
                                 {% if 'page' in querystring %}
-                                    <li><a href="{{ querystring|slice:":-1 " }}{{ projects.next_page_number }}">&raquo;</a></li>
+                                    <li><a href="{{ querystring|slice:":-1 " }}{{ i }}">{{i}}</a></li>
                                 {% else %}
                                     {% if '?' in querystring %}
-                                        <li><a href="{{ querystring }}&page={{ projects.next_page_number }}">&raquo;</a></li>
+                                        <li><a href="{{ querystring }}&page={{ i }}">{{i}}</a></li>
                                     {% else %}
-                                        <li><a href="{{ querystring }}?page={{ projects.next_page_number }}">&raquo;</a></li>
+                                        <li><a href="{{ querystring }}?page={{ i }}">{{i}}</a></li>
                                     {% endif %}
                                 {% endif %}
                             {% endif %}
                         {% endif %}
-                    </ul>
-                {% endif %}
-            {% endwith %}
-        {% endblock paginationBlock %}
-    {% endblock mainContentBlock %}
+                    {% endfor %}
+                    {% if projects.has_next %}
+                        {% if 'Status' in querystring  or 'Difficulty' in querystring or 'limit' in querystring%}
+                            {% if 'page' in querystring %}
+                                <li><a href="{{ querystring|slice:":-1 " }}{{ projects.next_page_number }}">&raquo;</a></li>
+                            {% else %}
+                                <li><a href="{{ querystring }}&page={{ projects.next_page_number }}">&raquo;</a></li>
+                            {% endif %}
+                        {% else %}
+                            {% if 'page' in querystring %}
+                                <li><a href="{{ querystring|slice:":-1 " }}{{ projects.next_page_number }}">&raquo;</a></li>
+                            {% else %}
+                                {% if '?' in querystring %}
+                                    <li><a href="{{ querystring }}&page={{ projects.next_page_number }}">&raquo;</a></li>
+                                {% else %}
+                                    <li><a href="{{ querystring }}?page={{ projects.next_page_number }}">&raquo;</a></li>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    {% endblock paginationBlock %}
     {% endblock content %}
     {% block customScripts %}
         <script src="{% static 'home/index.js' %}"></script>
