@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import FileExtensionValidator
-from django.core.validators import MinLengthValidator, MaxLengthValidator
 import django
 
 class Skill(models.Model):
@@ -56,10 +55,10 @@ class UserProfile(models.Model):
     isUser = models.BooleanField(default = False)
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     certificates = models.ManyToManyField(Certificate, related_name = 'user_certificates')
-    image = models.CharField(max_length = 200)
+    image = models.FileField(upload_to = 'uploads/images/', validators=[FileExtensionValidator(allowed_extensions=["png", "jpg", "jpeg"])])
     skills = models.ManyToManyField(Skill, related_name = 'user_skills')
     points = models.IntegerField(default = 0)
-    contact_num = models.IntegerField('Contact Number', validators = [MinLengthValidator(10), MaxLengthValidator(10)])
+    contact_num = models.IntegerField('Contact Number')
     education = models.TextField()
     experience_yrs = models.IntegerField(default = 0)
     age = models.IntegerField()
@@ -72,7 +71,7 @@ class CompanyProfile(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     jobpostings = models.ManyToManyField(JobPosting, related_name = 'job_postings', blank = True)
     name = models.CharField(max_length = 40)
-    contact_num = models.IntegerField('Contact Number', validators = [MinLengthValidator(10), MaxLengthValidator(10)])
+    contact_num = models.IntegerField('Contact Number')
     number_of_employees = models.IntegerField()
     def __str__(self):
         return f"{self.user}"

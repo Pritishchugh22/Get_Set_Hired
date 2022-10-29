@@ -44,6 +44,7 @@ def index(req):
 
 @login_required
 @is_user_profile
+@user_profile_completed
 def profile(req, profileId):
     context = profileController(req, profileId)
     return render(req, 'home/profile.html', context)
@@ -57,12 +58,14 @@ def profileEdit(req, profileId):
     return render(req, 'home/profileEdit.html', context)
 
 @login_required
+@user_profile_completed
 def jobPosting(req, jobPostingId):
     context = jobPostingController(req, jobPostingId)
     return render(req, 'home/jobPosting.html', context)
 
 @login_required
 @user_passes_test(lambda u: u.companyprofile.isCompany == True)
+@user_profile_completed
 def createJobPosting(req):
     context = createJobPostingController(req)
     if req.method == 'POST' and context['status']:
@@ -71,6 +74,7 @@ def createJobPosting(req):
 
 @login_required
 @user_passes_test(lambda u: u.companyprofile.isCompany == True)
+@user_profile_completed
 # company is job creator
 def editJobPosting(req, jobPostingId):
     context = editJobPostingController(req, jobPostingId)

@@ -23,7 +23,7 @@ def user_profile_completed(function):
     from django.shortcuts import redirect
     from utils import profileCompleted
     def wrap(request, *args, **kwargs):
-        if profileCompleted(request.user):
+        if profileCompleted(request):
             return function(request, *args, **kwargs)
         return redirect("/profileEdit/" + str(request.user.id))
     wrap.__doc__ = function.__doc__

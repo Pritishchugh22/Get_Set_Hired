@@ -16,7 +16,7 @@
     <div class="form-container">
         <div class="form-inner">
             {% if user.userprofile.isUser %}
-            <form method="POST" class="user" action='/profileEdit/{{user.id}}'>
+            <form method="POST" class="user" action='/profileEdit/{{user.id}}' enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="field">
                     <input type="text" placeholder="First name" name='first_name' value='{{user.first_name}}' required>
@@ -28,7 +28,7 @@
                     <input type="email" placeholder="Email address" name='email' value='{{user.email}}' required>
                 </div>
                 <div class="field">
-                    <input type="file" placeholder="Image" name='image' value='{{user.userprofile.image}}' required>
+                    <input type="file" placeholder="Image" name='image' src='/{{user.userprofile.image}}' required>
                 </div>
                 <div class="field">
                     <input type="tel" placeholder="Contact Number" name='contact_num' value='{{user.userprofile.contact_num}}' required>
@@ -39,6 +39,12 @@
                 <div class="field">
                     <input type="Number" placeholder="Experience in yrs" name='experience_yrs' value='{{user.userprofile.experience_yrs}}' required>
                 </div>
+                <div class="field">
+                    <input type="Number" placeholder="Age" name='age' value='{{user.userprofile.age}}' required>
+                </div>
+                <div class="field">
+                    <input type="text" placeholder="Willing To Work At" name='willing_to_work_at' value='{{user.userprofile.willing_to_work_at}}' required>
+                </div>
                 <div class="field btn">
                     <div class="btn-layer"></div>
                     <input type="submit" value="Update">
@@ -46,7 +52,7 @@
                 <div class="user-link"><a href="{% url 'account_logout' %}" style="color:white;">Logout</a></div>
             </form>
             {% else %}
-            <form method="POST" class="user" action='/profileEdit/{{user.id}}'>
+            <form method="POST" class="user" action='/profileEdit/{{user.id}}' enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="field">
                     <input type="email" placeholder="Email address" name='email' value='{{user.email}}' required>
