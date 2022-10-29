@@ -51,6 +51,12 @@ def profile(req, profileId):
 
 @login_required
 @is_user_profile
+@user_profile_completed
+def profile_c(req, profileId):
+    return render(req, 'home/profile_c.html')
+
+@login_required
+@is_user_profile
 def profileEdit(req, profileId):
     context = profileEditController(req, profileId)
     if req.method == 'POST':
