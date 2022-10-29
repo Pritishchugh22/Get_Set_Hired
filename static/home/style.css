@@ -10497,9 +10497,9 @@ a:focus {
     outline: none;
 }
 
-#wrapper {
+/* #wrapper {
     display: flex;
-}
+} */
 
 #wrapper #content-wrapper {
     background-color: #f8f9fc;
