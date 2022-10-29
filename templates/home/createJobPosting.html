@@ -22,58 +22,47 @@
                     <input type="text" placeholder="Position" name='position' required>
                 </div>
                 <div class="field">
-                    <input type="text" placeholder="Number of seats" name='no_of_seats' required>
+                    <input type="file" placeholder="Job Description" name='job_description' required>
                 </div>
                 <div class="field">
-                    <input type="text" placeholder="Stipend" name='stipend' required>
+                    <input type="Number" placeholder="Number of seats" name='no_of_seats' required>
+                </div>
+                <div class="field">
+                    <input type="Number" placeholder="Stipend" name='stipend' required>
                 </div>
                 <div class="field">
                     <input type="text" placeholder="Location" name='location' required>
                 </div>
+                <div class="field">
+                    <input type="Number" placeholder="Experience Required" name='experience_required' required>
+                </div>
+                <div class="field">
+                    Status: 
+                    <select name="status" id="">
+                        <option value="open">Open</option>
+                        <option value="closed">Closed</option>
+                    </select>
+                </div>
                 <!--                Requirement tags and Domain tags-->
                 <!--                Status Tags-->
+                <div class="field">
+                    <label>Domain Tags </label>
+                    {{ jobPostingForm.domain_tags }}
+                </div>
+                <br>
+                <br>
+                <div class="field">
+                    <label>Requirement Tags </label>
+                    {{ jobPostingForm.requirement_tags }}
+                </div>
+                <br>
                 <div class="field btn">
                     <div class="btn-layer"></div>
                     <input type="submit" value="Update">
                 </div>
-                <div class="user-link"><a href="{% url 'account_logout' %}" style="color:white;">Logout</a></div>
             </form>
             <br><br>
         </div>
     </div>
 </div>
-{% comment %} <div class="form-group">
-    <label>Job Description </label>
-    {{ jobPostingForm.job_description }}
-</div>
-<div class="form-group">
-    <label>No of seats </label>
-    {{ jobPostingForm.no_of_seats }}
-</div>
-<div class="form-group">
-    <label>Stipend </label>
-    {{ jobPostingForm.stipend }}
-</div>
-<div class="form-group">
-    <label>Location </label>
-    {{ jobPostingForm.location }}
-</div>
-<div class="form-group">
-    <label>Domain Tags </label>
-    {{ jobPostingForm.domain_tags }}
-</div>
-<div class="form-group">
-    <label>Requirement Tags </label>
-    {{ jobPostingForm.requirement_tags }}
-</div>
-<div class="form-group">
-    <label>Status </label>
-    {{ jobPostingForm.status }}
-</div>
-<div class="form-group">
-    <label>Experience_required </label>
-    {{ jobPostingForm.experience_required }}
-</div>
-<input type="submit" value="Submit">
-</form> {% endcomment %}
 {% endblock content %}

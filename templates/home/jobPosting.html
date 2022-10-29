@@ -20,9 +20,13 @@
 <br>
 {{ jobPosting.location }}
 <br>
-{{ jobPosting.domain_tags }}
+{% for tag in jobPosting.domain_tags.all %}
+    {{tag}}
+{% endfor %}
 <br>
-{{ jobPosting.requirement_tags }}
+{% for tag in jobPosting.requirement_tags.all %}
+    {{tag}}
+{% endfor %}
 <br>
 {{ jobPosting.status }}
 <br>
