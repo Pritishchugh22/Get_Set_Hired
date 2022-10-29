@@ -90,7 +90,7 @@ def profileEditController(req, profileId):
     if req.method == "POST":
         from utils import tryExcept
         from home.models import UserProfile, CompanyProfile
-        from home.forms import UpdateProfileForm
+        from home.forms import UpdateUserProfileForm
 
         profile = UserProfile.objects.get(id=profileId)
         if profile == None:
@@ -102,18 +102,27 @@ def profileEditController(req, profileId):
         for key in data:
             tryExcept(req, user, key, data[key])
         user.save()
-
         data['user'] = user
-        form = UpdateProfileForm(data, req.FILES, instance = profile)
-        if form.is_valid():
-            form.save()
+
+        if user.userprofile.isUser:
+            form = UpdateUserProfileForm(data, req.FILES, instance = profile)
+            if form.is_valid():
+                form.save()
+                messages.success(req, f"Profile updated for {username}!")
+                context = {"status": True}
+                return context
+            sendFormErrorMessages(req, form)
+            context = {"status": False}
+            return context
+        else:
+            user.companyprofile.email = data['email']
+            user.companyprofile.name = data['name']
+            user.companyprofile.contact_num = data['contact_num']
+            user.companyprofile.number_of_employees = data['number_of_employees']
+            user.companyprofile.save()
             messages.success(req, f"Profile updated for {username}!")
             context = {"status": True}
             return context
-
-        sendFormErrorMessages(req, form)
-        context = {"status": False}
-        return context
 
     context = {"status": True, "user": req.user}
     if not profileCompleted(req):

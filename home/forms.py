@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from home.models import JobPosting, UserProfile
+from home.models import JobPosting, UserProfile, CompanyProfile
 from django.forms import ModelForm
 
 class UserRegisterForm(UserCreationForm):
@@ -18,7 +18,7 @@ class CreateJobPostingForm(ModelForm):
         model = JobPosting
         fields = '__all__'
 
-class UpdateProfileForm(ModelForm):
+class UpdateUserProfileForm(ModelForm):
     class Meta:
         model = UserProfile
         fields = ('user', 'image', 'contact_num', 'education', 'experience_yrs', 'age', 'willing_to_work_at')

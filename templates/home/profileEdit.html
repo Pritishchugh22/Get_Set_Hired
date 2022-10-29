@@ -52,7 +52,7 @@
                 <div class="user-link"><a href="{% url 'account_logout' %}" style="color:white;">Logout</a></div>
             </form>
             {% else %}
-            <form method="POST" class="user" action='/profileEdit/{{user.id}}' enctype="multipart/form-data">
+            <form method="POST" class="user" action='/profileEdit/{{user.id}}'>
                 {% csrf_token %}
                 <div class="field">
                     <input type="email" placeholder="Email address" name='email' value='{{user.email}}' required>
@@ -64,7 +64,7 @@
                     <input type="tel" placeholder="Contact Number" name='contact_num' value='{{user.companyprofile.contact_num}}' required>
                 </div>
                 <div class="field">
-                    <input type="Number" placeholder="Number of employees" name='umber_of_employees' value='{{user.companyprofile.number_of_employees}}' required>
+                    <input type="Number" placeholder="Number of employees" name='number_of_employees' value='{{user.companyprofile.number_of_employees}}' required>
                 </div>
                 <div class="field btn">
                     <div class="btn-layer"></div>
