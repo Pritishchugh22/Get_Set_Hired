@@ -1,5 +1,9 @@
 {% extends 'partials/base.html' %}
+{% load static %}
 {% block title %}Create Job Posting | Get_Set_Hired{% endblock title %}
+{% block customCSS %}
+<link rel="stylesheet" href="{% static 'home/register.css' %}">
+{% endblock customCSS %}
 {% block content %}
 <br>
 <br>
@@ -12,19 +16,19 @@
             <form method="post" class="user" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="field">
-                    <input type="text" placeholder="Title" name='title' value={{jobPosting.title}} required>
+                    <input type="text" placeholder="Title" name='title' required>
                 </div>
                 <div class="field">
-                    <input type="text" placeholder="Position" name='position' value={{jobPosting.position}} required>
+                    <input type="text" placeholder="Position" name='position' required>
                 </div>
                 <div class="field">
-                    <input type="text" placeholder="Number of seats" name='num_seats' value=num_seats required>
+                    <input type="text" placeholder="Number of seats" name='no_of_seats' required>
                 </div>
                 <div class="field">
-                    <input type="text" placeholder="Stipend" name='stipend' value=stipend required>
+                    <input type="text" placeholder="Stipend" name='stipend' required>
                 </div>
                 <div class="field">
-                    <input type="text" placeholder="Location" name='location' value=location required>
+                    <input type="text" placeholder="Location" name='location' required>
                 </div>
                 <!--                Requirement tags and Domain tags-->
                 <!--                Status Tags-->
