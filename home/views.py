@@ -105,11 +105,6 @@ def upskill(req):
     website = requests.get('https://in.coursera.org/courses?query=free').text
     return render(req, 'home/upskill.html', {"website": website})
 
-def chat(req):
-    import requests
-    website = requests.get('').text
-    return render(req, 'home/chat.html')
-
 @user_passes_test(lambda u: u.is_superuser)
 def shell(req):
     from controllers import shellController

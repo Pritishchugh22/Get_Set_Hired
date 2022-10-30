@@ -16,6 +16,5 @@ urlpatterns = [
     path('hire/<int:jobPostingId>/<int:userId>', views.hire, name = 'hire'),
     path('rateUser/<int:userId>/<int:rating>', views.rateUser, name = 'rate-user'),
     path('upskill/', views.upskill, name = 'upskill'),
-    path('chat/', views.chat, name = 'chat'),
     path('shell/', views.shell),
 ]

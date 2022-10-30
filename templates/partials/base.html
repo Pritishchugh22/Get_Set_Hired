@@ -137,7 +137,6 @@
                                     {% endif %}
                                     {% if user.userprofile.isUser %}
                                     <a class="dropdown-item" href="{% url 'upskill' %}"><i class="fas fa-book fa-sm fa-fw mr-2 text-gray-400"></i>Upskill </a>
-                                    <a class="dropdown-item" href="{% url 'chat' %}"><i class="fas fa-comment fa-sm fa-fw mr-2 text-gray-400"></i>Chat with us</a>
                                     {% endif %}
                                     {% comment %} <a class="dropdown-item" href="/profile/projects/view/{{user.id}}?view=applied"><i class="fas fa-address-card fa-sm fa-fw mr-2 text-gray-400"></i>Projects
                                         Applied for</a>
@@ -246,6 +245,7 @@
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
     <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+    <script src="//code.tidio.co/pzmmamkhzo3kzkdxihty4gfuitqtvkio.js" async></script>
     {% endblock cdnJS %}
     {% block customJS %}
     {% endblock customJS %}
