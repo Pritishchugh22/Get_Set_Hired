@@ -7,19 +7,15 @@
 {% block cdnCSS %}{% endblock cdnCSS %}
 {% block navbar %}{% endblock navbar %}
 {% block content %}
+{% if user.userprofile.isUser %}
 <div id="profile" class="horizontal-center">
   <div id="leftColumn">
-<!--    <div id="editButton" class="vertical-center">-->
-<!--      <div class="horizontal-center">-->
-<!--        <a style="color: white;" href="/profile/edit"><i class="fas fa-pen"></i> </a>-->
-<!--      </div>-->
-<!--    </div>-->
-    {% if user.userprofile.isUser %}
+    <!--    <div id="editButton" class="vertical-center">-->
+    <!--      <div class="horizontal-center">-->
+    <!--        <a style="color: white;" href="/profile/edit"><i class="fas fa-pen"></i> </a>-->
+    <!--      </div>-->
+    <!--    </div>-->
     <img class="profileImage" src="{{ profile_user.profile.image.url }}" alt="">
-    {% else %}
-    <img class="profileImage" src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Y29tcGFueXxlbnwwfHwwfHw%3D&w=1000&q=80" alt="">
-    {% endif %}
-
     <div class="leftColumnCard horizontal-center">
       <div class="cardTitle">
         Rating
@@ -68,13 +64,13 @@
           <br>
           {{ user.email }}
           <br>
-            Age - {{user.userprofile.age}}
-            Contact Number - {{user.userprofile.contact_num}}
-            Willing to Relocate at - {{user.userprofile.willing_to_work_at}}
-            Education - {{user.userprofile.education}}
-            <br>
-<!--            Area of Interest - {{ profile_user.profile.area_of_interest }}-->
-            Experience in years - {{user.userprofile.experience_yrs}}
+          Age - {{user.userprofile.age}}
+          Contact Number - {{user.userprofile.contact_num}}
+          Willing to Relocate at - {{user.userprofile.willing_to_work_at}}
+          Education - {{user.userprofile.education}}
+          <br>
+          <!--            Area of Interest - {{ profile_user.profile.area_of_interest }}-->
+          Experience in years - {{user.userprofile.experience_yrs}}
         </div>
       </div>
     </div>
@@ -85,14 +81,14 @@
       <div class="cardDetails vertical-center">
         <div>
           <i class="fab fa-linkedin" style="margin-right: 5px;"></i>LinkedIn :
-            {% if user.email == 'dishtioberai@gmail.com' %}
-              <a href="https://www.linkedin.com/in/dishti-oberai/" target="_blank">Link</a>
-              {% else %}
-              <a href="https://www.linkedin.com/in/dishti-oberai/" target="_blank">Link</a>
-            {% endif %}
+          {% if user.email == 'dishtioberai@gmail.com' %}
+          <a href="https://www.linkedin.com/in/dishti-oberai/" target="_blank">Link</a>
+          {% else %}
+          <a href="https://www.linkedin.com/in/dishti-oberai/" target="_blank">Link</a>
+          {% endif %}
           <br>
           <i class="far fa-file" style="margin-right: 5px;"></i>Resume :
-            <a href="/media/resumes/dishtiUberai.pdf" target="_blank">Link</a>
+          <a href="/media/resumes/dishtiUberai.pdf" target="_blank">Link</a>
           <br>
         </div>
       </div>
@@ -103,9 +99,9 @@
       </div>
       <div class="cardDetails vertical-center">
         <div>
-<!--          {% for skill in profile_user.profile.techskills.all %}-->
-<!--          {{ skill }}-->
-<!--          {% endfor %}-->
+          <!--          {% for skill in profile_user.profile.techskills.all %}-->
+          <!--          {{ skill }}-->
+          <!--          {% endfor %}-->
         </div>
       </div>
     </div>
@@ -120,10 +116,96 @@
           <div class="projectsNumbers">
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% else %}
+<div id="profile" class="horizontal-center">
+  <div id="leftColumn">
+    <!--    <div id="editButton" class="vertical-center">-->
+    <!--      <div class="horizontal-center">-->
+    <!--        <a style="color: white;" href="/profile/edit"><i class="fas fa-pen"></i> </a>-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <img class="profileImage" src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Y29tcGFueXxlbnwwfHwwfHw%3D&w=1000&q=80" alt="">
+    <div class="leftColumnCard horizontal-center">
+      <div class="cardTitle">
+        Profile
+      </div>
+      <div class="cardDetails vertical-center">
+        <div>
+          Company Name
+          <br>
+          Email
+          <br>
+          <!--          {% if profile_user.profile.profile_type == 'Student' %}-->
+          <!--            {{ profile_user.profile.year }} Year - {{ profile_user.profile.branch }}-->
+          <!--          {% else %}-->
+          <!--            School - {{ profile_user.profile.school }}-->
+          Year of foundation -
+          Contact Number -
+          Number of Employees -
+          <br>
+          <!--            Area of Interest - {{ profile_user.profile.area_of_interest }}-->
+          Experience in years -
+          <!--          {% endif %}-->
         </div>
       </div>
     </div>
+    <div class="leftColumnCard horizontal-center">
+      <div class="cardTitle">
+        Links
+      </div>
+      <div class="cardDetails vertical-center">
+        <div>
+          <i class="fab fa-linkedin" style="margin-right: 5px;"></i>LinkedIn :
+          <!--          {% if profile_user.profile.linked_in_link|length > 0%}-->
+          <!--          <a href={{profile_user.profile.linked_in_link}} target="_blank">{{profile_user.profile.linked_in_link}}</a>-->
+          <!--          {% else %}-->
+          <!--          NA-->
+          <!--          {% endif %}-->
+          <br>
+          <i class="far fa-file" style="margin-right: 5px;"></i>Website :
+          <!--          {% if profile_user.profile.cv|length > 0%}-->
+          <!--          <a href="{{profile_user.profile.cv.url}}" target="_blank">-->
+          <!--            Click Here-->
+          <!--          </a>-->
+          <!--          {% else %}-->
+          <!--          NA-->
+          <!--          {% endif %}-->
+          <br>
+        </div>
+      </div>
+    </div>
+    <div class="leftColumnCard horizontal-center">
+      <div class="cardTitle">
+        Skills
+      </div>
+      <div class="cardDetails vertical-center">
+        <div>
+          <!--          {% for skill in profile_user.profile.techskills.all %}-->
+          <!--          {{ skill }}-->
+          <!--          {% endfor %}-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="rightColumn">
+    <div id="profileProjects">
+      <div id="projectButtons">
+        <div class="projectButton buttonSelected" id='projects0button' onclick="toggleVisibility('projects0')">
+          <div class="projectButtonTitle">
+            Details:
+          </div>
+          <div class="projectsNumbers">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+{% endif %}
 {% endblock content %}
 {% block cdnJS %}{% endblock cdnJS %}
 {% block customJS %}

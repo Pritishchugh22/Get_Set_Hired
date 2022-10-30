@@ -50,12 +50,6 @@ def profile(req, profileId):
     return render(req, 'home/profile.html', context)
 
 @login_required
-@can_check_profile
-@user_profile_completed
-def profile_c(req, profileId):
-    return render(req, 'home/profile_c.html')
-
-@login_required
 @is_user_profile
 def profileEdit(req, profileId):
     context = profileEditController(req, profileId)
