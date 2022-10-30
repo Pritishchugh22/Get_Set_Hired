@@ -20,12 +20,12 @@
       <div class="cardTitle">
         Average Rating: {{averageRating}}
       </div>
+      {% if feedback %}
+      Give New Rating(your rating - {{feedback.rating}})-:
+      {% else %}
+      Give New Rating-:
+      {% endif %}
       <div class="cardDetails vertical-center">
-        {% if feedback %}
-        Give New Rating(your rating - {{feedback.rating}})-:
-        {% else %}
-        Give New Rating-:
-        {% endif %}
         <form class="rating">
           <label>
             {% if feeback.rating == 1 %}

@@ -101,9 +101,13 @@ def rateUser(req, userId, rating):
     return redirect('/profile/'+str(userId))
 
 def upskill(req):
-    return render(req, 'home/upskill.html')
+    import requests
+    website = requests.get('https://in.coursera.org/courses?query=free').text
+    return render(req, 'home/upskill.html', {"website": website})
 
 def chat(req):
+    import requests
+    website = requests.get('').text
     return render(req, 'home/chat.html')
 
 @user_passes_test(lambda u: u.is_superuser)
