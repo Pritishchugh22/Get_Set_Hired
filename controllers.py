@@ -89,12 +89,19 @@ def indexController(req):
 
 def profileController(req, profileId):
     from home.models import UserProfile, CompanyProfile
+    import requests
 
+    user = True
     profile = UserProfile.objects.get(id=profileId)
-    if profile == None:
+    if profile.isUser == False:
+        user = False
         profile = CompanyProfile.objects.get(id=profileId)
 
     context = {"status": True, "user": profile.user, "profile": profile}
+    if user == False:
+        context['website'] = requests.get(profile.website_link).text
+        print(context['website'])
+    # print(context)
     return context
 
 
@@ -132,6 +139,7 @@ def profileEditController(req, profileId):
             user.companyprofile.name = data['name']
             user.companyprofile.contact_num = data['contact_num']
             user.companyprofile.number_of_employees = data['number_of_employees']
+            user.companyprofile.website_link = data['website_link']
             user.companyprofile.save()
             messages.success(req, f"Profile updated for {username}!")
             context = {"status": True}
@@ -163,14 +171,12 @@ def createJobPostingController(req):
         data['domain_tags'] = domain_tags
         data['requirement_tags'] = requirement_tags
         data['company'] = req.user
-        print(data)
         form = CreateJobPostingForm(data, req.FILES)
-        print(form)
         if form.is_valid():
-            jobPosting = form.save()
-
+            jobposting = form.save()
+            req.user.companyprofile.jobpostings.add(jobposting)
             messages.success(req, f"JobPosting created successfully!")
-            context = {"status": True, 'jobPostingId': jobPosting.pk}
+            context = {"status": True, 'jobPostingId': jobposting.pk}
             return context
 
         sendFormErrorMessages(req, form)

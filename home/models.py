@@ -73,6 +73,7 @@ class CompanyProfile(models.Model):
     name = models.CharField(max_length = 40)
     contact_num = models.IntegerField('Contact Number', null = True, blank = True)
     number_of_employees = models.IntegerField(null = True, blank = True)
+    website_link = models.CharField(max_length = 40)
     def __str__(self):
         return f"{self.user}"
 

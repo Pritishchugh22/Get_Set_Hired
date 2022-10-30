@@ -33,6 +33,7 @@ def profileCompleted(req):
         isCompleted = isCompleted and check(req, user.companyprofile.name, "name")
         isCompleted = isCompleted and check(req, user.companyprofile.contact_num, "contact_num")
         isCompleted = isCompleted and check(req, user.companyprofile.number_of_employees, "number_of_employees")
+        isCompleted = isCompleted and check(req, user.companyprofile.website_link, "website_link")
     return isCompleted
 
 def sendFormErrorMessages(req, form):

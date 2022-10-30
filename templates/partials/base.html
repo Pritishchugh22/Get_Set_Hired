@@ -122,15 +122,18 @@
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user.username}}</span>
-                                    <img class="img-profile rounded-circle" src="{{user.profile.image.url}}">
+                                    {% if user.userprofile.isUser %}
+                                    <img class="img-profile rounded-circle" src="{{user.userprofile.image}}">
+                                    {% else %}
+                                    <img class="img-profile rounded-circle" src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Y29tcGFueXxlbnwwfHwwfHw%3D&w=1000&q=80">
+                                    {% endif %}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                     <a class="dropdown-item" href="{% url 'profile' user.id %}">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
                                     </a>
                                     {% if user.userprofile.isUser == False %}
-                                    <a class="dropdown-item" href="{% url 'create-jobPosting' %}"><i class="fas fa-plus-square fa-sm fa-fw mr-2 text-gray-400"></i>Create New
-                                        Job Posting</a>
+                                    <a class="dropdown-item" href="{% url 'create-jobPosting' %}"><i class="fas fa-plus-square fa-sm fa-fw mr-2 text-gray-400"></i>Create New Job Posting</a>
                                     {% endif %}
                                     {% comment %} <a class="dropdown-item" href="/profile/projects/view/{{user.id}}?view=applied"><i class="fas fa-address-card fa-sm fa-fw mr-2 text-gray-400"></i>Projects
                                         Applied for</a>

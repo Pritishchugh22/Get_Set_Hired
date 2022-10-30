@@ -83,8 +83,6 @@
           <i class="fab fa-linkedin" style="margin-right: 5px;"></i>LinkedIn :
           {% if user.email == 'dishtioberai@gmail.com' %}
           <a href="https://www.linkedin.com/in/dishti-oberai/" target="_blank">Link</a>
-          {% else %}
-          <a href="https://www.linkedin.com/in/dishti-oberai/" target="_blank">Link</a>
           {% endif %}
           <br>
           <i class="far fa-file" style="margin-right: 5px;"></i>Resume :
@@ -123,11 +121,11 @@
 {% else %}
 <div id="profile" class="horizontal-center">
   <div id="leftColumn">
-    <!--    <div id="editButton" class="vertical-center">-->
-    <!--      <div class="horizontal-center">-->
-    <!--        <a style="color: white;" href="/profile/edit"><i class="fas fa-pen"></i> </a>-->
-    <!--      </div>-->
-    <!--    </div>-->
+    <div id="editButton" class="vertical-center">
+      <div class="horizontal-center">
+        <a style="color: white;" href="/profileEdit/{{user.companyprofile.id}}"><i class="fas fa-pen">Edit</i> </a>
+      </div>
+    </div>
     <img class="profileImage" src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Y29tcGFueXxlbnwwfHwwfHw%3D&w=1000&q=80" alt="">
     <div class="leftColumnCard horizontal-center">
       <div class="cardTitle">
@@ -135,21 +133,13 @@
       </div>
       <div class="cardDetails vertical-center">
         <div>
-          Company Name
+          Company Name - {{user.companyprofile.name}}
           <br>
-          Email
+          Email - {{user.email}}
           <br>
-          <!--          {% if profile_user.profile.profile_type == 'Student' %}-->
-          <!--            {{ profile_user.profile.year }} Year - {{ profile_user.profile.branch }}-->
-          <!--          {% else %}-->
-          <!--            School - {{ profile_user.profile.school }}-->
-          Year of foundation -
-          Contact Number -
-          Number of Employees -
+          Contact Number - {{user.companyprofile.contact_num}}
+          Number of Employees - {{user.companyprofile.number_of_employees}}
           <br>
-          <!--            Area of Interest - {{ profile_user.profile.area_of_interest }}-->
-          Experience in years -
-          <!--          {% endif %}-->
         </div>
       </div>
     </div>
@@ -160,13 +150,13 @@
       <div class="cardDetails vertical-center">
         <div>
           <i class="fab fa-linkedin" style="margin-right: 5px;"></i>LinkedIn :
+          <a href="https://www.linkedin.com/company/get-set-hired/about/" target="_blank">Link</a>
           <!--          {% if profile_user.profile.linked_in_link|length > 0%}-->
           <!--          <a href={{profile_user.profile.linked_in_link}} target="_blank">{{profile_user.profile.linked_in_link}}</a>-->
           <!--          {% else %}-->
           <!--          NA-->
           <!--          {% endif %}-->
-          <br>
-          <i class="far fa-file" style="margin-right: 5px;"></i>Website :
+          {% comment %} <i class="far fa-file" style="margin-right: 5px;"></i>Website : {% endcomment %}
           <!--          {% if profile_user.profile.cv|length > 0%}-->
           <!--          <a href="{{profile_user.profile.cv.url}}" target="_blank">-->
           <!--            Click Here-->
@@ -184,6 +174,14 @@
       </div>
       <div class="cardDetails vertical-center">
         <div>
+          {% for jobposting in user.companyprofile.jobpostings.all %}
+            {% for tag in jobposting.domain_tags.all %}
+              {{tag}}
+            {% endfor %}
+            {% for tag in jobposting.requirement_tags.all %}
+              {{tag}}
+            {% endfor %}
+          {% endfor %}
           <!--          {% for skill in profile_user.profile.techskills.all %}-->
           <!--          {{ skill }}-->
           <!--          {% endfor %}-->
@@ -199,6 +197,8 @@
             Details:
           </div>
           <div class="projectsNumbers">
+            <iframe srcdoc="{{website}}" frameborder="0">
+            </iframe>
           </div>
         </div>
       </div>
