@@ -77,12 +77,11 @@ def indexController(req):
     from home.models import Notification 
     if req.user.userprofile.isUser:
         context["image"] = req.user.userprofile.image
-        context["notifications"] = Notification.objects.filter()
     else:
         from home.models import JobPosting
         jobPostings = JobPosting.objects.all()
         context["jobPostings"] = jobPostings
-    context["notifications"] = Notification.objects.filter(reciever = req.user).order_by('-time'),
+    context["notifications"] = Notification.objects.filter(reciever = req.user).order_by('-time')
     return context
 
 
@@ -146,10 +145,11 @@ def jobPostingController(req, jobPostingId):
 
     jobposting = JobPosting.objects.get(id = jobPostingId)
     users = UserProfile.objects.all().filter(isUser = True)
+    users_accepted = jobposting.users_accepted.all()
     willing_to_hire_users = list(jobposting.willing_to_hire.all())
     willing_to_hire_users = [user.userprofile for user in willing_to_hire_users]
     rem_users = [user for user in users if user not in willing_to_hire_users]
-    context = {"status": True, "jobPosting": jobposting, "willing_to_hire_users": willing_to_hire_users, 'rem_users': rem_users}
+    context = {"status": True, "users_accepted":users_accepted, "jobPosting": jobposting, "willing_to_hire_users": willing_to_hire_users, 'rem_users': rem_users}
     return context
 
 def createJobPostingController(req):
