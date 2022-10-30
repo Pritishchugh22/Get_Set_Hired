@@ -97,10 +97,21 @@ def profileController(req, profileId):
         user = False
         profile = CompanyProfile.objects.get(id=profileId)
 
+    rating = 0
+    all_ratings = Feedback.objects.all().filter(user__in = [profile.user.id])
+    for curr_rating in all_ratings:
+        rating += curr_rating.rating
+
     feedback = Feedback.objects.all().filter(user__in = [profile.user.id]).filter(company__in = [req.user]).first()
     context = {"status": True, "user": profile.user, "profile": profile, "feedback": feedback}
     if user == False:
         context['website'] = requests.get(profile.website_link).text
+
+    print(rating)
+    if len(all_ratings):
+        context['averageRating'] = rating/len(all_ratings)
+        print(context['averageRating'])
+
     return context
 
 
@@ -244,4 +255,5 @@ def rateUserController(req, userId, rating):
     else:
         old_feedback.rating = rating
         old_feedback.save()
-    return {"status": True}
+    context = {"status": True}
+    return context

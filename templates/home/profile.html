@@ -18,10 +18,14 @@
     <img class="profileImage" src="/media/{{ user.userprofile.image }}" alt="">
     <div class="leftColumnCard horizontal-center">
       <div class="cardTitle">
-        Rating: {{feedback.rating}}
+        Average Rating: {{averageRating}}
       </div>
       <div class="cardDetails vertical-center">
+        {% if feedback %}
+        Give New Rating(your rating - {{feedback.rating}})-:
+        {% else %}
         Give New Rating-:
+        {% endif %}
         <form class="rating">
           <label>
             {% if feeback.rating == 1 %}
