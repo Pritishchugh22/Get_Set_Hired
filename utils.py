@@ -13,6 +13,10 @@ def check(req, field, fieldName):
     messages.error(req, "Please complete " + fieldName)
     return False
 
+def sendNotification(jobposting, user, text):
+    from home.models import Notification
+    Notification(sender = jobposting.company, reviever = user, message = text + ' ' + jobposting.title).save()
+
 def profileCompleted(req):
     user = req.user
     isCompleted = check(req, user.username, "username")

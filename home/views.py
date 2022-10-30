@@ -43,14 +43,14 @@ def index(req):
     return render(req, 'home/index.html', context)
 
 @login_required
-@is_user_profile
 @user_profile_completed
+@can_check_profile
 def profile(req, profileId):
     context = profileController(req, profileId)
     return render(req, 'home/profile.html', context)
 
 @login_required
-@is_user_profile
+@can_check_profile
 @user_profile_completed
 def profile_c(req, profileId):
     return render(req, 'home/profile_c.html')
@@ -88,11 +88,12 @@ def editJobPosting(req, jobPostingId):
         return redirect('jobPosting', jobPostingId)
     return render(req, 'home/editJobPosting.html', context)
 
-@user_passes_test(lambda u: u.is_superuser)
-def shell(req):
-    from controllers import shellController
-    shellController()
-    return redirect('index')
+@login_required
+@user_passes_test(lambda u: u.companyprofile.isCompany == True)
+@user_profile_completed
+def hire(req, jobPostingId, userId):
+    context = hireController(req, jobPostingId, userId)
+    return redirect('/jobPosting/' +str(jobPostingId), context)
 
 @login_required
 @user_passes_test(lambda u: u.companyprofile.isCompany == True)
@@ -100,4 +101,9 @@ def shell(req):
 def giveFeedback(req, companyId, userId):
     context = giveFeedbackController(req, companyId, userId)
     return redirect('/profile/{userId}')
-    pass
+
+@user_passes_test(lambda u: u.is_superuser)
+def shell(req):
+    from controllers import shellController
+    shellController()
+    return redirect('index')

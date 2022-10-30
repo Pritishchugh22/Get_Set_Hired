@@ -93,7 +93,7 @@ def profileController(req, profileId):
     if profile == None:
         profile = CompanyProfile.objects.get(id=profileId)
 
-    context = {"status": True, "user": req.user, "profile": profile}
+    context = {"status": True, "user": profile.user, "profile": profile}
     return context
 
 
@@ -115,7 +115,7 @@ def profileEditController(req, profileId):
             tryExcept(req, user, key, data[key])
         user.save()
         data['user'] = user
-
+        print(data)
         if user.userprofile.isUser:
             form = UpdateUserProfileForm(data, req.FILES, instance = profile)
             if form.is_valid():
@@ -144,10 +144,12 @@ def profileEditController(req, profileId):
 def jobPostingController(req, jobPostingId):
     from home.models import JobPosting, UserProfile
 
+    jobposting = JobPosting.objects.get(id = jobPostingId)
     users = UserProfile.objects.all().filter(isUser = True)
-    jobPosting = JobPosting.objects.get(id = jobPostingId)
-    context = {"status": True, "jobPosting": jobPosting, "users": users}
-
+    willing_to_hire_users = list(jobposting.willing_to_hire.all())
+    willing_to_hire_users = [user.userprofile for user in willing_to_hire_users]
+    rem_users = [user for user in users if user not in willing_to_hire_users]
+    context = {"status": True, "jobPosting": jobposting, "willing_to_hire_users": willing_to_hire_users, 'rem_users': rem_users}
     return context
 
 def createJobPostingController(req):
@@ -203,3 +205,15 @@ def editJobPostingController(req, jobPostingId):
 
 def giveFeedbackController(req, companyId, userId):
     pass
+
+def hireController(req, jobPostingId, userId):
+    from home.models import JobPosting
+    from django.contrib.auth.models import User
+    from utils import sendNotification
+
+    user = User.objects.get(id = userId)
+    jobposting = JobPosting.objects.get(id = jobPostingId)
+    jobposting.willing_to_hire.add(user)
+    jobposting.save()
+
+    sendNotification(jobposting, user, "Want this job?")

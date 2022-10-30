@@ -58,10 +58,10 @@ class UserProfile(models.Model):
     certificates = models.ManyToManyField(Certificate, related_name = 'user_certificates')
     image = models.FileField(upload_to = 'images/', validators=[FileExtensionValidator(allowed_extensions=["png", "jpg", "jpeg"])])
     skills = models.ManyToManyField(Skill, related_name = 'user_skills')
-    contact_num = models.IntegerField('Contact Number')
+    contact_num = models.IntegerField('Contact Number', null = True, blank = True)
     education = models.TextField()
     experience_yrs = models.IntegerField(default = 0)
-    age = models.IntegerField()
+    age = models.IntegerField(null = True, blank = True)
     willing_to_work_at = models.CharField(max_length = 40)
     def __str__(self):
         return f"{self.user}"
@@ -71,8 +71,8 @@ class CompanyProfile(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     jobpostings = models.ManyToManyField(JobPosting, related_name = 'job_postings', blank = True)
     name = models.CharField(max_length = 40)
-    contact_num = models.IntegerField('Contact Number')
-    number_of_employees = models.IntegerField()
+    contact_num = models.IntegerField('Contact Number', null = True, blank = True)
+    number_of_employees = models.IntegerField(null = True, blank = True)
     def __str__(self):
         return f"{self.user}"
 
@@ -86,8 +86,8 @@ class Room(models.Model):
         return f"{self.room_name}"
 
 class Notification(models.Model):
-    sender = models.ManyToManyField(User, related_name = 'notification_sender')
-    reciever = models.ManyToManyField(User, related_name = 'notification_reciever')
+    sender = models.ForeignKey(User, related_name = 'notification_sender', on_delete = models.CASCADE)
+    reciever = models.ForeignKey(User, related_name = 'notification_reciever', on_delete = models.CASCADE)
     message = models.TextField()
     time = models.DateTimeField(default = django.utils.timezone.now)
     jobposting = models.ForeignKey(JobPosting, on_delete = models.CASCADE)

@@ -35,12 +35,12 @@
 <a href="{% url 'edit-jobPosting' jobPosting.id%}">Edit</a>
 <br>
 
-
-{% for user in users %}
+<h1>Willing To Hire Users</h1>
+{% for user in willing_to_hire_users %}
 <br>
 <div>
     {{ forloop.counter }}
-    {{user.user}}
+    <a href="/profile/{{user.id}}">{{user.user}}</a>
     <br>
     {{user.image}}
     <br>
@@ -55,6 +55,31 @@
     {{user.age}}
     <br>
     {{user.willing_to_work_at}}
+</div>
+<br>
+{% endfor %}
+
+<h2>Remaining Users</h2>
+{% for user in rem_users %}
+<br>
+<div>
+    {{ forloop.counter }}
+    <a href="/profile/{{user.id}}">{{user.user}}</a>
+    <br>
+    {{user.image}}
+    <br>
+    {{user.points}}
+    <br>
+    {{user.contact_num}}
+    <br>
+    {{user.education}}
+    <br>
+    {{user.experience_yrs}}
+    <br>
+    {{user.age}}
+    <br>
+    {{user.willing_to_work_at}}
+    <a href="/hire/{{jobPosting.id}}/{{user.id}}">Hire</a>
 </div>
 <br>
 {% endfor %}
