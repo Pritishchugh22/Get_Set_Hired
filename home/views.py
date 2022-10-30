@@ -93,3 +93,11 @@ def shell(req):
     from controllers import shellController
     shellController()
     return redirect('index')
+
+@login_required
+@user_passes_test(lambda u: u.companyprofile.isCompany == True)
+@user_profile_completed
+def giveFeedback(req, companyId, userId):
+    context = giveFeedbackController(req, companyId, userId)
+    return redirect('/profile/{userId}')
+    pass

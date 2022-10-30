@@ -33,6 +33,7 @@ class JobPosting(models.Model):
     requirement_tags = models.ManyToManyField(Tag, related_name = 'jobposting_requirement_tags')
     status = models.CharField(max_length = 10, choices = (("open", "open"), ("closed", "closed")), default = 'open')
     experience_required = models.IntegerField(default = 0)
+    willing_to_hire = models.ManyToManyField(User, related_name = 'users_willing_to_hire', blank = True)
     def __str__(self):
         return f"{self.title}"
 
@@ -57,7 +58,6 @@ class UserProfile(models.Model):
     certificates = models.ManyToManyField(Certificate, related_name = 'user_certificates')
     image = models.FileField(upload_to = 'images/', validators=[FileExtensionValidator(allowed_extensions=["png", "jpg", "jpeg"])])
     skills = models.ManyToManyField(Skill, related_name = 'user_skills')
-    points = models.IntegerField(default = 0)
     contact_num = models.IntegerField('Contact Number')
     education = models.TextField()
     experience_yrs = models.IntegerField(default = 0)
@@ -90,5 +90,6 @@ class Notification(models.Model):
     reciever = models.ManyToManyField(User, related_name = 'notification_reciever')
     message = models.TextField()
     time = models.DateTimeField(default = django.utils.timezone.now)
+    jobposting = models.ForeignKey(JobPosting, on_delete = models.CASCADE)
     def __str__(self):
         return f"{self.message}"

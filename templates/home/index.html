@@ -1,7 +1,6 @@
 {% extends 'partials/base.html' %}
 {% block title %}Index | Get_Set_Hired{% endblock title %}
 {% load static %}
-{% load crispy_forms_tags %}
 {% block customCSS %}
 <link rel="stylesheet" type="text/css" href="{% static 'home/mainpp.css' %}">
 {% endblock customCSS %}
@@ -21,7 +20,7 @@
 <div class="project_cards">
     <div class="" style="display: flex; flex-wrap: wrap;justify-content:center;" id="all-projects">
         {% for jobPosting in jobPostings %}
-        <div id="jobPostingNumber{{ jobPosting.id }}">
+        <div id="projectNumber{{ jobPosting.id }}">
             <div class="blog-container">
                 <div class="blog-header" style="display: flex; flex-wrap: wrap;">
                     <span style="flex: 1 0 45%; ">
@@ -30,10 +29,10 @@
                 </div>
                 <div class="blog-body">
                     <div class="blog-title demo-a">
-                        <h1><a href="/project/?project_id={{jobPosting.id}}">{{ jobPosting.Title }}</a></h1>
+                        <h1><a href="/jobPosting/{{jobPosting.id}}">{{ jobPosting.title }}</a></h1>
                     </div>
                     <div class="blog-summary demo-2">
-                        <p>{{jobPosting.job_description}}</p>
+                        <a href='/media/{{jobPosting.job_description}}'>Job Description</a>
                     </div>
                     <div class="blog-tags">
                         <br class="main-br">
@@ -59,12 +58,12 @@
         </div>
         {% endfor %}
         {% if jobPostings.count == 0 %}
-        <div>No projects</div>
+        <div>No job postings</div>
         {% endif %}
     </div>
-    {% with request.get_full_path as querystring %}
-    <div style="float:right; padding-right: 140px;">
-        <h5>Projects per page:&nbsp;</h5>
+    {% comment %} {% with request.get_full_path as querystring %} {% endcomment %}
+    {% comment %} <div style="float:right; padding-right: 140px;">
+        <h5>Jo per page:&nbsp;</h5>
         {% if 'limit' in querystring %}
         <select id="num_of_rows" onchange="if (this.value) window.location.href=this.value;">
             {% if '6' in  querystring %}
@@ -159,7 +158,7 @@
                 </ul>
             {% endif %}
         {% endwith %}
-    {% endblock paginationBlock %}
+    {% endblock paginationBlock %} {% endcomment %}
     {% endblock content %}
     {% block customScripts %}
         <script src="{% static 'home/index.js' %}"></script>

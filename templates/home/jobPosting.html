@@ -33,4 +33,29 @@
 {{ jobPosting.experience_required }}
 <br>
 <a href="{% url 'edit-jobPosting' jobPosting.id%}">Edit</a>
+<br>
+
+
+{% for user in users %}
+<br>
+<div>
+    {{ forloop.counter }}
+    {{user.user}}
+    <br>
+    {{user.image}}
+    <br>
+    {{user.points}}
+    <br>
+    {{user.contact_num}}
+    <br>
+    {{user.education}}
+    <br>
+    {{user.experience_yrs}}
+    <br>
+    {{user.age}}
+    <br>
+    {{user.willing_to_work_at}}
+</div>
+<br>
+{% endfor %}
 {% endblock content %}

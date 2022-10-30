@@ -73,9 +73,11 @@ def companyRegisterController(req):
 
 
 def indexController(req):
-    context = {"status": True} 
+    context = {"status": True}
+    from home.models import Notification 
     if req.user.userprofile.isUser:
         context["image"] = req.user.userprofile.image
+        context["notifications"] = Notification.objects.filter()
     else:
         from home.models import JobPosting
         jobPostings = JobPosting.objects.all()
@@ -140,9 +142,12 @@ def profileEditController(req, profileId):
     return context
 
 def jobPostingController(req, jobPostingId):
-    from home.models import JobPosting
+    from home.models import JobPosting, UserProfile
+
+    users = UserProfile.objects.all().filter(isUser = True)
     jobPosting = JobPosting.objects.get(id = jobPostingId)
-    context = {"status": True, "jobPosting": jobPosting}
+    context = {"status": True, "jobPosting": jobPosting, "users": users}
+
     return context
 
 def createJobPostingController(req):
@@ -195,3 +200,6 @@ def editJobPostingController(req, jobPostingId):
 
     context = {"status": True, "jobPostingForm": EditJobPostingForm(instance = jobPosting)}
     return context
+
+def giveFeedbackController(req, companyId, userId):
+    pass
