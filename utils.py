@@ -15,7 +15,7 @@ def check(req, field, fieldName):
 
 def sendNotification(jobposting, user, text):
     from home.models import Notification
-    Notification(sender = jobposting.company, reviever = user, message = text + ' ' + jobposting.title).save()
+    Notification(sender = jobposting.company, reciever = user, message = text + ' ' + jobposting.title, jobposting = jobposting).save()
 
 def profileCompleted(req):
     user = req.user
