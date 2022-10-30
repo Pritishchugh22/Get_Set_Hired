@@ -111,15 +111,18 @@
         {% for notification in notifications %}
         <div id="projectNumber{{ notification.id }}">
             <div class="blog-container">
+                {% if notification.jobposting %}
                 <div class="blog-header" style="display: flex; flex-wrap: wrap;">
                     <span style="flex: 1 0 45%; ">
                         <h3 style="margin-top: 10px; color:#858796;"><a href="{% url 'profile' notification.jobposting.company.id %}">{{notification.jobposting.company}}</a></h3>
                     </span>
                 </div>
+                {% endif %}
                 <div class="blog-body">
                     <div class="blog-title demo-a">
                         <h1><a href = "">{{ notification.message }}</a></h1>
                     </div>
+                    {% if notification.message != "Reviewed" %}
                     <div class="blog-summary demo-2">
                         <a href='/media/{{notification.jobposting.job_description}}'>Job Description</a>
                     </div>
@@ -134,6 +137,19 @@
                             </li>
                         </ul>
                     </div>
+                    {% else %}
+                    <div class="blog-summary demo-2">
+                        By company-:<a href='/profile/{{notification.sender.id}}'> {{notification.sender}}</a>
+                    </div>
+                    <div class="blog-tags">
+                        <br class="main-br">
+                        <ul>
+                            <li>
+                                Given Rating -: <a href="">{{notification.feedback.rating}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    {% endif %}
                 </div>
                 <hr class="main-page-hr">
             </div>
@@ -244,6 +260,7 @@
     {% endif %}
     {% endwith %}
     {% endblock paginationBlock %} {% endcomment %}
+    <br><br><br><br><br><br><br>
     {% endblock content %}
     {% block customScripts %}
     <script src="{% static 'home/index.js' %}"></script>

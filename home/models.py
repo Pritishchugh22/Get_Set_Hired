@@ -91,6 +91,7 @@ class Notification(models.Model):
     reciever = models.ForeignKey(User, related_name = 'notification_reciever', on_delete = models.CASCADE)
     message = models.TextField()
     time = models.DateTimeField(default = django.utils.timezone.now)
-    jobposting = models.ForeignKey(JobPosting, on_delete = models.CASCADE)
+    jobposting = models.ForeignKey(JobPosting, on_delete = models.CASCADE, null = True,blank = True)
+    feedback = models.ForeignKey(Feedback, on_delete = models.CASCADE, null = True, blank = True)
     def __str__(self):
         return f"{self.message}"

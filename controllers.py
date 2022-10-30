@@ -1,5 +1,5 @@
 from django.contrib import messages
-from utils import sendFormErrorMessages, tryExcept
+from utils import sendFormErrorMessages, sendNotification, tryExcept
 from home.models import Notification
 
 def shellController():
@@ -107,11 +107,8 @@ def profileController(req, profileId):
     if user == False:
         context['website'] = requests.get(profile.website_link).text
 
-    print(rating)
     if len(all_ratings):
         context['averageRating'] = rating/len(all_ratings)
-        print(context['averageRating'])
-
     return context
 
 
@@ -242,6 +239,7 @@ def hireController(req, jobPostingId, userId):
 def rateUserController(req, userId, rating):
     from home.models import Feedback
     from django.contrib.auth.models import User
+    from utils import sendReviewNotification
     user = User.objects.get(id = userId)
     company = req.user
 
@@ -252,8 +250,10 @@ def rateUserController(req, userId, rating):
         feedback.user.add(user)
         feedback.company.add(company)
         feedback.save()
+        sendReviewNotification(req.user, user, "Reviewed", feedback)
     else:
         old_feedback.rating = rating
         old_feedback.save()
+        sendReviewNotification(req.user, user, "Reviewed", old_feedback)
     context = {"status": True}
     return context
