@@ -10,42 +10,63 @@
 {% if user.userprofile.isUser %}
 <div id="profile" class="horizontal-center">
   <div id="leftColumn">
-    <!--    <div id="editButton" class="vertical-center">-->
-    <!--      <div class="horizontal-center">-->
-    <!--        <a style="color: white;" href="/profile/edit"><i class="fas fa-pen"></i> </a>-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <img class="profileImage" src="{{ profile_user.profile.image.url }}" alt="">
+    <div id="editButton" class="vertical-center">
+      <div class="horizontal-center">
+        <a style="color: white;" href="/profileEdit/{{profile.id}}"><i class="fas fa-pen"></i>Edit </a>
+      </div>
+    </div>
+    <img class="profileImage" src="/media/{{ user.userprofile.image }}" alt="">
     <div class="leftColumnCard horizontal-center">
       <div class="cardTitle">
-        Rating
+        Rating: {{feedback.rating}}
       </div>
       <div class="cardDetails vertical-center">
+        Give New Rating-:
         <form class="rating">
           <label>
-            <input type="radio" name="stars" value="1" />
+            {% if feeback.rating == 1 %}
+            <input type="radio" name="stars" value="1" onclick = "window.location.href = '/rateUser/{{user.id}}/1';" selected/>
+            {% else %}
+            <input type="radio" name="stars" value="1" onclick = "window.location.href = '/rateUser/{{user.id}}/1';"/>
+            {% endif %}
             <span class="icon">★</span>
           </label>
           <label>
-            <input type="radio" name="stars" value="2" />
-            <span class="icon">★</span>
-            <span class="icon">★</span>
-          </label>
-          <label>
-            <input type="radio" name="stars" value="3" />
-            <span class="icon">★</span>
-            <span class="icon">★</span>
-            <span class="icon">★</span>
-          </label>
-          <label>
-            <input type="radio" name="stars" value="4" />
-            <span class="icon">★</span>
-            <span class="icon">★</span>
+            {% if feeback.rating == 2 %}
+            <input type="radio" name="stars" value="2" onclick = "window.location.href = '/rateUser/{{user.id}}/2';" selected/>
+            {% else %}
+            <input type="radio" name="stars" value="2" onclick = "window.location.href = '/rateUser/{{user.id}}/2';"/>
+            {% endif %}
             <span class="icon">★</span>
             <span class="icon">★</span>
           </label>
           <label>
-            <input type="radio" name="stars" value="5" />
+            {% if feeback.rating == 3 %}
+            <input type="radio" name="stars" value="3" onclick = "window.location.href = '/rateUser/{{user.id}}/3';" selected/>
+            {% else %}
+            <input type="radio" name="stars" value="3" onclick = "window.location.href = '/rateUser/{{user.id}}/3';"/>
+            {% endif %}
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+          <label>
+            {% if feeback.rating == 4 %}
+            <input type="radio" name="stars" value="4" onclick = "window.location.href = '/rateUser/{{user.id}}/4';" selected/>
+            {% else %}
+            <input type="radio" name="stars" value="4" onclick = "window.location.href = '/rateUser/{{user.id}}/4';"/>
+            {% endif %}
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+          <label>
+            {% if feeback.rating == 5 %}
+            <input type="radio" name="stars" value="5" onclick = "window.location.href = '/rateUser/{{user.id}}/5';" selected/>
+            {% else %}
+            <input type="radio" name="stars" value="5" onclick = "window.location.href = '/rateUser/{{user.id}}/5';"/>
+            {% endif %}
             <span class="icon">★</span>
             <span class="icon">★</span>
             <span class="icon">★</span>
@@ -83,6 +104,8 @@
           <i class="fab fa-linkedin" style="margin-right: 5px;"></i>LinkedIn :
           {% if user.email == 'dishtioberai@gmail.com' %}
           <a href="https://www.linkedin.com/in/dishti-oberai/" target="_blank">Link</a>
+          {% else %}
+          <a href="https://www.linkedin.com/company/get-set-hired/about/" target="_blank">Link</a>
           {% endif %}
           <br>
           <i class="far fa-file" style="margin-right: 5px;"></i>Resume :
@@ -91,18 +114,20 @@
         </div>
       </div>
     </div>
+    {% if profile.skills.all.count %}
     <div class="leftColumnCard horizontal-center">
       <div class="cardTitle">
         Skills
       </div>
       <div class="cardDetails vertical-center">
         <div>
-          <!--          {% for skill in profile_user.profile.techskills.all %}-->
-          <!--          {{ skill }}-->
-          <!--          {% endfor %}-->
+          {% for skill in profile.skills.all %}
+          {{ skill }}
+          {% endfor %}
         </div>
       </div>
     </div>
+    {% endif %}
   </div>
   <div id="rightColumn">
     <div id="profileProjects">
@@ -111,9 +136,13 @@
           <div class="projectButtonTitle">
             Coursera Certificates:
           </div>
-          <div class="projectsNumbers">
-          </div>
         </div>
+      </div>
+      <div class="projectsNumbers">
+        {% for certificate in profile.certificates.all %}
+        {{forloop.counter}}
+        {{certificate}}
+        {% endfor %}
       </div>
     </div>
   </div>

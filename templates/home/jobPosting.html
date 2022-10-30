@@ -8,8 +8,8 @@
 <link rel="stylesheet" type="text/css" href="{% static 'home/jobPosting.css' %}">
 {% endblock customStylesheets %}
 {% block content %}
-
-{% comment %} <!--<h1>Hired Users</h1>-->
+{% comment %}
+<!--<h1>Hired Users</h1>-->
 <!--{% for user in users_accepted %}-->
 <!--<br>-->
 <!--<div>-->
@@ -35,7 +35,6 @@
 <!--{% if users_accepted.count == 0 %}-->
 <!--No Users-->
 <!--{% endif %}-->
-
 <!--<h1>Willing To Hire Users</h1>-->
 <!--{% for user in willing_to_hire_users %}-->
 <!--<br>-->
@@ -63,7 +62,6 @@
 <!--{% else %}-->
 <!--No Users-->
 <!--{% endif %}-->
-
 <!--<h2>Remaining Users</h2>-->
 <!--{% for user in rem_users %}-->
 <!--<br>-->
@@ -92,8 +90,8 @@
 <!--{% else %}-->
 <!--No Users-->
 <!--{% endif %}--> {% endcomment %}
-
-{% comment %} <!-- <h3 style="margin-top: 10px; color:#858796; margin-left:0px;"><a href="{% url 'profile' project.FloatedBy.id %}">{{project.FloatedBy}}</a></h3> --> {% endcomment %}
+{% comment %}
+<!-- <h3 style="margin-top: 10px; color:#858796; margin-left:0px;"><a href="{% url 'profile' project.FloatedBy.id %}">{{project.FloatedBy}}</a></h3> --> {% endcomment %}
 <div id="projectTop" style="background-image :linear-gradient(to right, rgb(30, 14, 121, 0.9), rgb(255, 255, 255, 0.1)), url(/media/{{project.Image}});">
   <div id="projectTitle" class="vertical-center">{{ project.Title }}</div>
 </div>
@@ -110,15 +108,79 @@
       <div class="row justify-content-center">
         <div class="update-delete col-md-12">
           <br>
-          <a href="editJobPosting/{{jobposting.id}}"><button class="btn btn-success btn-icon-split" style="display: inline-block;width: 130px ;height:35px; padding-top: 0px; padding-bottom: 0px;"><b>UPDATE</b></button></a>
-          <a href="editJobPosting/{{jobposting.id}}"><button class="btn btn-warning btn-icon-split" style="display: inline-block;width: 130px ;height:35px; padding-top: 0px; padding-bottom: 0px;"><b>CLOSE</b></button></a>
+          <a href="/editJobPosting/{{jobposting.id}}"><button class="btn btn-success btn-icon-split" style="display: inline-block;width: 130px ;height:35px; padding-top: 0px; padding-bottom: 0px;border-radius:0px"><b>UPDATE</b></button></a>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<h2>Hired Users</h2>
+{% for user in users_accepted %}
+<br>
+<div>
+  {{ forloop.counter }}
+  <a href="/profile/{{user.id}}">{{user.user}}</a>
+  <br>
+  {{user.image}}
+  <br>
+  {{user.points}}
+  <br>
+  {{user.contact_num}}
+  <br>
+  {{user.education}}
+  <br>
+  {{user.experience_yrs}}
+  <br>
+  {{user.age}}
+  <br>
+  {{user.willing_to_work_at}}
+</div>
+<br>
+{% endfor %}
+
+<h2>Willing To Hire Users</h2>
+{% for user in willing_to_hire_users %}
+<br>
+<div>
+  {{ forloop.counter }}
+  <a href="/profile/{{user.id}}">{{user.user}}</a>
+  <br>
+  {{user.image}}
+  <br>
+  {{user.points}}
+  <br>
+  {{user.contact_num}}
+  <br>
+  {{user.education}}
+  <br>
+  {{user.experience_yrs}}
+  <br>
+  {{user.age}}
+  <br>
+  {{user.willing_to_work_at}}
+</div>
+<br>
+{% endfor %}
+
+<h2>Waitlisting Users</h2>
+{% for user in rem_users %}
+<br>
+<div>
+  {{ forloop.counter }}
+  <a href="/profile/{{user.id}}">{{user.user}}</a>
+  <br>
+  {{user.image}}
+  <br>
+  {{user.age}}
+  <br>
+  {{user.willing_to_work_at}}
+  <a href="/hire/{{jobPosting.id}}/{{user.id}}">Hire</a>
+</div>
+<br>
+{% endfor %}
 <!-- ================================================================ -->
-<div class="adminView">
+{% comment %} <div class="adminView">
   <hr class="horizontal-line">
   <br>
   <div id="tableContainer">
@@ -136,7 +198,7 @@
         </select>
       </div>
     </div>
-    <table id="table" data-toggle="table" {% comment %} data-search="true" {% endcomment %} data-filter-control="true" data-toolbar="#toolbar">
+    <table id="table" data-toggle="table" data-search="true" data-filter-control="true" data-toolbar="#toolbar">
       <thead>
         <tr>
           <th data-field="name" data-sortable="true">Name</th>
@@ -147,39 +209,39 @@
         </tr>
       </thead>
       <tbody>
-<!--        {% for application in applications %}-->
+        <!--        {% for application in applications %}-->
         <tr>
           <td>{{user.user}}</td>
           <td>{{user.points}}</td>
-<!--          <td class="{{application.Status}}">-->
-<!--            {{application.Status}}-->
-<!--          </td>-->
+          <!--          <td class="{{application.Status}}">-->
+          <!--            {{application.Status}}-->
+          <!--          </td>-->
         </tr>
-<!--        {% endfor %}-->
-<!--        {% if applications|length == 0 %}-->
-<!--        <tr>-->
-<!--          <td colspan='4'>-->
-<!--            No requests-->
-<!--          </td>-->
-<!--        </tr>-->
-<!--        {% endif %}-->
+        <!--        {% endfor %}-->
+        <!--        {% if applications|length == 0 %}-->
+        <!--        <tr>-->
+        <!--          <td colspan='4'>-->
+        <!--            No requests-->
+        <!--          </td>-->
+        <!--        </tr>-->
+        <!--        {% endif %}-->
       </tbody>
     </table>
     <br>
     <br>
   </div>
 </div>
-{% comment %} {% endif %} {% endcomment %}
-</div>
+</div> {% endcomment %}
 {% endblock content %}
-{% block customScripts %}
+{% comment %} {% block customScripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.js"></script>
 <script>
-<!--  var users = {{ users_html | safe }};-->
+  <!--  var users = {{ users_html | safe }};
+  -->
 <!--  var tags = {{ tags_html | safe }};-->
 <!--  var user_profiles = {{ user_profiles_html | safe }};-->
 <!--  var applications = {{ apply_requests_html | safe }};-->
 </script>
 <script src="{% static 'home/jobPosting.js' %}"></script>
-{% endblock customScripts %}
+{% endblock customScripts %} {% endcomment %}

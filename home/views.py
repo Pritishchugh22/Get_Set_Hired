@@ -96,6 +96,10 @@ def giveFeedback(req, companyId, userId):
     context = giveFeedbackController(req, companyId, userId)
     return redirect('/profile/{userId}')
 
+def rateUser(req, userId, rating):
+    context = rateUserController(req, userId, rating)
+    return redirect('/profile/'+str(userId))
+
 @user_passes_test(lambda u: u.is_superuser)
 def shell(req):
     from controllers import shellController

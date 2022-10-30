@@ -9,7 +9,7 @@ def shellController():
     tag.save()
 
     count = len(Skill.objects.all())
-    skill = Skill(title = 'tag' + str(count+1))
+    skill = Skill(title = 'skill' + str(count+1))
     skill.save()
 
 def loginController(req):
@@ -88,7 +88,7 @@ def indexController(req):
 
 
 def profileController(req, profileId):
-    from home.models import UserProfile, CompanyProfile
+    from home.models import UserProfile, CompanyProfile, Feedback
     import requests
 
     user = True
@@ -97,7 +97,8 @@ def profileController(req, profileId):
         user = False
         profile = CompanyProfile.objects.get(id=profileId)
 
-    context = {"status": True, "user": profile.user, "profile": profile}
+    feedback = Feedback.objects.all().filter(user__in = [profile.user.id]).filter(company__in = [req.user]).first()
+    context = {"status": True, "user": profile.user, "profile": profile, "feedback": feedback}
     if user == False:
         context['website'] = requests.get(profile.website_link).text
     return context
@@ -154,9 +155,12 @@ def jobPostingController(req, jobPostingId):
     jobposting = JobPosting.objects.get(id = jobPostingId)
     users = UserProfile.objects.all().filter(isUser = True)
     users_accepted = jobposting.users_accepted.all()
+
     willing_to_hire_users = list(jobposting.willing_to_hire.all())
     willing_to_hire_users = [user.userprofile for user in willing_to_hire_users]
+
     rem_users = [user for user in users if user not in willing_to_hire_users]
+
     context = {"status": True, "users_accepted":users_accepted, "jobPosting": jobposting, "willing_to_hire_users": willing_to_hire_users, 'rem_users': rem_users}
     return context
 
@@ -223,3 +227,21 @@ def hireController(req, jobPostingId, userId):
     jobposting.save()
 
     sendNotification(jobposting, user, "Want this job?")
+
+def rateUserController(req, userId, rating):
+    from home.models import Feedback
+    from django.contrib.auth.models import User
+    user = User.objects.get(id = userId)
+    company = req.user
+
+    old_feedback = Feedback.objects.all().filter(user__in = [userId]).filter(company__in = [req.user.id]).first()
+    if old_feedback == None:
+        feedback = Feedback(rating = rating, comments = "profile Feedback")
+        feedback.save()
+        feedback.user.add(user)
+        feedback.company.add(company)
+        feedback.save()
+    else:
+        old_feedback.rating = rating
+        old_feedback.save()
+    return {"status": True}
