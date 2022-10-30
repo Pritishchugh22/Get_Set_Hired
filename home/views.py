@@ -100,6 +100,12 @@ def rateUser(req, userId, rating):
     context = rateUserController(req, userId, rating)
     return redirect('/profile/'+str(userId))
 
+def upskill(req):
+    return render(req, 'home/upskill.html')
+
+def chat(req):
+    return render(req, 'home/chat.html')
+
 @user_passes_test(lambda u: u.is_superuser)
 def shell(req):
     from controllers import shellController

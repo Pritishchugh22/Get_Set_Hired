@@ -123,7 +123,7 @@
                                 <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user.username}}</span>
                                     {% if user.userprofile.isUser %}
-                                    <img class="img-profile rounded-circle" src="{{user.userprofile.image}}">
+                                    <img class="img-profile rounded-circle" src="/media/{{user.userprofile.image}}">
                                     {% else %}
                                     <img class="img-profile rounded-circle" src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Y29tcGFueXxlbnwwfHwwfHw%3D&w=1000&q=80">
                                     {% endif %}
