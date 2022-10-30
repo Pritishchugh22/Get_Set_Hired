@@ -41,10 +41,12 @@
                 <div class="field">
                     <input type="password" placeholder="Confirm password" name="password2" required>
                 </div>
+                <br><br>
                 <div class="field btn">
                     <div class="btn-layer"></div>
                     <input type="submit" value="Register">
                 </div>
+                <br>
                 <div class="user-link">Already a member? <a href="{% url 'login' %}">Login now</a></div>
             </form>
             <form method="POST" class="company" action='/companyRegister/'>
@@ -68,6 +70,7 @@
                     <div class="btn-layer"></div>
                     <input type="submit" value="Register">
                 </div>
+                <br>
                 <div class="company-link">Already a member? <a href="{% url 'login' %}">Login now</a></div>
             </form>
         </div>

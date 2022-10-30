@@ -6,6 +6,7 @@
   padding: 30px;
   border-radius: 15px;
   box-shadow: 10px 15px 20px rgba(0.1,0.1,0,0.1);
+  margin-left: 25%;
 }
 .wrapper .title-text{
   display: flex;
