@@ -8,90 +8,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'home/jobPosting.css' %}">
 {% endblock customStylesheets %}
 {% block content %}
-{% comment %}
-<!--<h1>Hired Users</h1>-->
-<!--{% for user in users_accepted %}-->
-<!--<br>-->
-<!--<div>-->
-<!--    {{ forloop.counter }}-->
-<!--    <a href="/profile/{{user.id}}">{{user.user}}</a>-->
-<!--    <br>-->
-<!--    {{user.image}}-->
-<!--    <br>-->
-<!--    {{user.points}}-->
-<!--    <br>-->
-<!--    {{user.contact_num}}-->
-<!--    <br>-->
-<!--    {{user.education}}-->
-<!--    <br>-->
-<!--    {{user.experience_yrs}}-->
-<!--    <br>-->
-<!--    {{user.age}}-->
-<!--    <br>-->
-<!--    {{user.willing_to_work_at}}-->
-<!--</div>-->
-<!--<br>-->
-<!--{% endfor %}-->
-<!--{% if users_accepted.count == 0 %}-->
-<!--No Users-->
-<!--{% endif %}-->
-<!--<h1>Willing To Hire Users</h1>-->
-<!--{% for user in willing_to_hire_users %}-->
-<!--<br>-->
-<!--<div>-->
-<!--    {{ forloop.counter }}-->
-<!--    <a href="/profile/{{user.id}}">{{user.user}}</a>-->
-<!--    <br>-->
-<!--    {{user.image}}-->
-<!--    <br>-->
-<!--    {{user.points}}-->
-<!--    <br>-->
-<!--    {{user.contact_num}}-->
-<!--    <br>-->
-<!--    {{user.education}}-->
-<!--    <br>-->
-<!--    {{user.experience_yrs}}-->
-<!--    <br>-->
-<!--    {{user.age}}-->
-<!--    <br>-->
-<!--    {{user.willing_to_work_at}}-->
-<!--</div>-->
-<!--<br>-->
-<!--{% endfor %}-->
-<!--{% if willing_to_hire_users %}-->
-<!--{% else %}-->
-<!--No Users-->
-<!--{% endif %}-->
-<!--<h2>Remaining Users</h2>-->
-<!--{% for user in rem_users %}-->
-<!--<br>-->
-<!--<div>-->
-<!--    {{ forloop.counter }}-->
-<!--    <a href="/profile/{{user.id}}">{{user.user}}</a>-->
-<!--    <br>-->
-<!--    {{user.image}}-->
-<!--    <br>-->
-<!--    {{user.points}}-->
-<!--    <br>-->
-<!--    {{user.contact_num}}-->
-<!--    <br>-->
-<!--    {{user.education}}-->
-<!--    <br>-->
-<!--    {{user.experience_yrs}}-->
-<!--    <br>-->
-<!--    {{user.age}}-->
-<!--    <br>-->
-<!--    {{user.willing_to_work_at}}-->
-<!--    <a href="/hire/{{jobPosting.id}}/{{user.id}}">Hire</a>-->
-<!--</div>-->
-<!--<br>-->
-<!--{% endfor %}-->
-<!--{% if rem_users %}-->
-<!--{% else %}-->
-<!--No Users-->
-<!--{% endif %}--> {% endcomment %}
-{% comment %}
-<!-- <h3 style="margin-top: 10px; color:#858796; margin-left:0px;"><a href="{% url 'profile' project.FloatedBy.id %}">{{project.FloatedBy}}</a></h3> --> {% endcomment %}
+
 <div id="projectTop" style="background-image :linear-gradient(to right, rgb(30, 14, 121, 0.9), rgb(255, 255, 255, 0.1)), url(/media/{{project.Image}});">
   <div id="projectTitle" class="vertical-center">{{ project.Title }}</div>
 </div>
@@ -115,89 +32,13 @@
   </div>
 </div>
 
-<h2>Hired Users</h2>
-{% for user in users_accepted %}
+<h2 style="color:#19258c; font-size: 35px; margin-left:42%;"><u>Shortlisted Students</u></h2>
 <br>
-<div>
-  {{ forloop.counter }}
-  <a href="/profile/{{user.id}}">{{user.user}}</a>
-  <br>
-  {{user.image}}
-  <br>
-  {{user.points}}
-  <br>
-  {{user.contact_num}}
-  <br>
-  {{user.education}}
-  <br>
-  {{user.experience_yrs}}
-  <br>
-  {{user.age}}
-  <br>
-  {{user.willing_to_work_at}}
-</div>
-<br>
-{% endfor %}
-
-<h2>Willing To Hire Users</h2>
-{% for user in willing_to_hire_users %}
-<br>
-<div>
-  {{ forloop.counter }}
-  <a href="/profile/{{user.id}}">{{user.user}}</a>
-  <br>
-  {{user.image}}
-  <br>
-  {{user.points}}
-  <br>
-  {{user.contact_num}}
-  <br>
-  {{user.education}}
-  <br>
-  {{user.experience_yrs}}
-  <br>
-  {{user.age}}
-  <br>
-  {{user.willing_to_work_at}}
-</div>
-<br>
-{% endfor %}
-
-<h2>Waitlisting Users</h2>
-{% for user in rem_users %}
-<br>
-<div>
-  {{ forloop.counter }}
-  <a href="/profile/{{user.id}}">{{user.user}}</a>
-  <br>
-  {{user.image}}
-  <br>
-  {{user.age}}
-  <br>
-  {{user.willing_to_work_at}}
-  <a href="/hire/{{jobPosting.id}}/{{user.id}}">Hire</a>
-</div>
-<br>
-{% endfor %}
-<!-- ================================================================ -->
-{% comment %} <div class="adminView">
+ <div class="adminView">
   <hr class="horizontal-line">
   <br>
   <div id="tableContainer">
     <div id="tableTop">
-      <div id="tableTitle">
-        Applications:
-      </div>
-      <div id="tableControls"></div>
-      <div id="toolbar">
-        <select class="form-control">
-          <option value="">All</option>
-          <option value="accepted">Accepted</option>
-          <option value="eligible">Eligible</option>
-          <option value="waitlist">Waitlist</option>
-        </select>
-      </div>
-    </div>
     <table id="table" data-toggle="table" data-search="true" data-filter-control="true" data-toolbar="#toolbar">
       <thead>
         <tr>
@@ -209,39 +50,119 @@
         </tr>
       </thead>
       <tbody>
-        <!--        {% for application in applications %}-->
+        {% for user in users_accepted %}
         <tr>
-          <td>{{user.user}}</td>
-          <td>{{user.points}}</td>
-          <!--          <td class="{{application.Status}}">-->
-          <!--            {{application.Status}}-->
-          <!--          </td>-->
+          <td><a href="/profile/{{user.id}}">{{user.user}}</a></td>
+          <td>Rating</td>
+          <td>Accept</td>
+          <td>Reject</td>
+          <td>Status</td>
         </tr>
-        <!--        {% endfor %}-->
-        <!--        {% if applications|length == 0 %}-->
-        <!--        <tr>-->
-        <!--          <td colspan='4'>-->
-        <!--            No requests-->
-        <!--          </td>-->
-        <!--        </tr>-->
-        <!--        {% endif %}-->
+                {% endfor %}
+                {% if users_accepted|length == 0 %}
+                <tr>
+                  <td colspan='4'>
+                    No requests
+                  </td>
+                </tr>
+                {% endif %}
       </tbody>
     </table>
     <br>
     <br>
   </div>
 </div>
-</div> {% endcomment %}
+</div>
+
+
+<h2 style="color:#19258c; font-size: 35px; margin-left:42%;"><u>Eligible Students</u></h2>
+ <div class="adminView">
+  <hr class="horizontal-line">
+  <br>
+  <div id="tableContainer">
+    <div id="tableTop">
+    <table id="table" data-toggle="table" data-search="true" data-filter-control="true" data-toolbar="#toolbar">
+      <thead>
+        <tr>
+          <th data-field="name" data-sortable="true">Name</th>
+          <th data-field="rating" data-sortable="true">Rating</th>
+          <th data-field="accept" data-sortable="false">Accept</th>
+          <th data-field="reject" data-sortable="false">Reject</th>
+          <th data-field="status" data-filter-control="select">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in willing_to_hire_users %}
+        <tr>
+          <td><a href="/profile/{{user.id}}">{{user.user}}</a></td>
+          <td>Rating</td>
+          <td>Accept</td>
+          <td>Reject</td>
+          <td>Status</td>
+        </tr>
+                {% endfor %}
+                {% if willing_to_hire_users|length == 0 %}
+                <tr>
+                  <td colspan='4'>
+                    No requests
+                  </td>
+                </tr>
+                {% endif %}
+      </tbody>
+    </table>
+    <br>
+    <br>
+  </div>
+</div>
+</div>
+
+
+<h2 style="color:#19258c; font-size: 35px; margin-left:42%;"><u>Waitlist Students</u></h2>
+ <div class="adminView">
+  <hr class="horizontal-line">
+  <br>
+  <div id="tableContainer">
+    <div id="tableTop">
+    <table id="table" data-toggle="table" data-search="true" data-filter-control="true" data-toolbar="#toolbar">
+      <thead>
+        <tr>
+          <th data-field="name" data-sortable="true">Name</th>
+          <th data-field="rating" data-sortable="true">Rating</th>
+          <th data-field="accept" data-sortable="false">Accept</th>
+          <th data-field="reject" data-sortable="false">Reject</th>
+          <th data-field="status" data-filter-control="select">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in rem_users %}
+        <tr>
+          <td><a href="/profile/{{user.id}}">{{user.user}}</a></td>
+          <td>Rating</td>
+          <td>Accept</td>
+          <td>Reject</td>
+          <td>Status</td>
+        </tr>
+                {% endfor %}
+                {% if rem_users|length == 0 %}
+                <tr>
+                  <td colspan='4'>
+                    No requests
+                  </td>
+                </tr>
+                {% endif %}
+      </tbody>
+    </table>
+    <br>
+    <br>
+  </div>
+</div>
+</div>
+<br>
+
+
 {% endblock content %}
 {% comment %} {% block customScripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.js"></script>
-<script>
-  <!--  var users = {{ users_html | safe }};
-  -->
-<!--  var tags = {{ tags_html | safe }};-->
-<!--  var user_profiles = {{ user_profiles_html | safe }};-->
-<!--  var applications = {{ apply_requests_html | safe }};-->
-</script>
 <script src="{% static 'home/jobPosting.js' %}"></script>
 {% endblock customScripts %} {% endcomment %}
