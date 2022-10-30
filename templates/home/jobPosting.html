@@ -1,168 +1,97 @@
 {% extends 'partials/base.html' %}
 {% load static %}
 {% block title %}Job Posting | Get_Set_Hired{% endblock title %}
-{% block customStylesheets %}
+{% block customCSS %}
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.css" />
 <link rel="stylesheet" type="text/css" href="{% static 'home/jobPosting.css' %}">
-{% endblock customStylesheets %}
+{% endblock customCSS %}
 {% block content %}
-
-<div id="projectTop" style="background-image :linear-gradient(to right, rgb(30, 14, 121, 0.9), rgb(255, 255, 255, 0.1)), url(/media/{{project.Image}});">
-  <div id="projectTitle" class="vertical-center">{{ project.Title }}</div>
-</div>
-<!-- ================================================================== -->
-<div class="container-fluid" style="
-    padding-left: 4%;
-    padding-right: 4%;
-">
-  <div class="row">
-    <div class="col-md-8" style="
-      padding-left: 4%;
-      padding-right: 4%;
-  ">
-      <div class="row justify-content-center">
-        <div class="update-delete col-md-12">
-          <br>
-          <a href="/editJobPosting/{{jobposting.id}}"><button class="btn btn-success btn-icon-split" style="display: inline-block;width: 130px ;height:35px; padding-top: 0px; padding-bottom: 0px;border-radius:0px"><b>UPDATE</b></button></a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
+<br>
 <h2 style="color:#19258c; font-size: 35px; margin-left:42%;"><u>Shortlisted Students</u></h2>
+<table id="table" data-toggle="table" data-filter-control="true" data-toolbar="#toolbar">
+  <thead>
+    <tr>
+      <th data-field="name" data-sortable="true">Name</th>
+      <th data-field="rating" data-sortable="true">Rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users_accepted %}
+    <tr>
+      <td><a href="/profile/{{user.id}}">{{user.user}}</a></td>
+      <td>Rating</td>
+    </tr>
+    {% endfor %}
+    {% if users_accepted|length == 0 %}
+    <tr>
+      <td colspan='2'>
+        No requests
+      </td>
+    </tr>
+    {% endif %}
+  </tbody>
+</table>
 <br>
- <div class="adminView">
-  <hr class="horizontal-line">
-  <br>
-  <div id="tableContainer">
-    <div id="tableTop">
-    <table id="table" data-toggle="table" data-search="true" data-filter-control="true" data-toolbar="#toolbar">
-      <thead>
-        <tr>
-          <th data-field="name" data-sortable="true">Name</th>
-          <th data-field="rating" data-sortable="true">Rating</th>
-          <th data-field="accept" data-sortable="false">Accept</th>
-          <th data-field="reject" data-sortable="false">Reject</th>
-          <th data-field="status" data-filter-control="select">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for user in users_accepted %}
-        <tr>
-          <td><a href="/profile/{{user.id}}">{{user.user}}</a></td>
-          <td>Rating</td>
-          <td>Accept</td>
-          <td>Reject</td>
-          <td>Status</td>
-        </tr>
-                {% endfor %}
-                {% if users_accepted|length == 0 %}
-                <tr>
-                  <td colspan='4'>
-                    No requests
-                  </td>
-                </tr>
-                {% endif %}
-      </tbody>
-    </table>
-    <br>
-    <br>
-  </div>
-</div>
-</div>
-
-
+<br>
 <h2 style="color:#19258c; font-size: 35px; margin-left:42%;"><u>Eligible Students</u></h2>
- <div class="adminView">
-  <hr class="horizontal-line">
-  <br>
-  <div id="tableContainer">
-    <div id="tableTop">
-    <table id="table" data-toggle="table" data-search="true" data-filter-control="true" data-toolbar="#toolbar">
-      <thead>
-        <tr>
-          <th data-field="name" data-sortable="true">Name</th>
-          <th data-field="rating" data-sortable="true">Rating</th>
-          <th data-field="accept" data-sortable="false">Accept</th>
-          <th data-field="reject" data-sortable="false">Reject</th>
-          <th data-field="status" data-filter-control="select">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for user in willing_to_hire_users %}
-        <tr>
-          <td><a href="/profile/{{user.id}}">{{user.user}}</a></td>
-          <td>Rating</td>
-          <td>Accept</td>
-          <td>Reject</td>
-          <td>Status</td>
-        </tr>
-                {% endfor %}
-                {% if willing_to_hire_users|length == 0 %}
-                <tr>
-                  <td colspan='4'>
-                    No requests
-                  </td>
-                </tr>
-                {% endif %}
-      </tbody>
-    </table>
-    <br>
-    <br>
-  </div>
-</div>
-</div>
-
-
-<h2 style="color:#19258c; font-size: 35px; margin-left:42%;"><u>Waitlist Students</u></h2>
- <div class="adminView">
-  <hr class="horizontal-line">
-  <br>
-  <div id="tableContainer">
-    <div id="tableTop">
-    <table id="table" data-toggle="table" data-search="true" data-filter-control="true" data-toolbar="#toolbar">
-      <thead>
-        <tr>
-          <th data-field="name" data-sortable="true">Name</th>
-          <th data-field="rating" data-sortable="true">Rating</th>
-          <th data-field="accept" data-sortable="false">Accept</th>
-          <th data-field="reject" data-sortable="false">Reject</th>
-          <th data-field="status" data-filter-control="select">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for user in rem_users %}
-        <tr>
-          <td><a href="/profile/{{user.id}}">{{user.user}}</a></td>
-          <td>Rating</td>
-          <td>Accept</td>
-          <td>Reject</td>
-          <td>Status</td>
-        </tr>
-                {% endfor %}
-                {% if rem_users|length == 0 %}
-                <tr>
-                  <td colspan='4'>
-                    No requests
-                  </td>
-                </tr>
-                {% endif %}
-      </tbody>
-    </table>
-    <br>
-    <br>
-  </div>
-</div>
-</div>
+<table id="table" data-toggle="table" data-filter-control="true" data-toolbar="#toolbar">
+  <thead>
+    <tr>
+      <th data-field="name" data-sortable="true">Name</th>
+      <th data-field="rating" data-sortable="true">Rating</th>
+      <th data-field="reject" data-sortable="false">Change Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in willing_to_hire_users %}
+    <tr>
+      <td><a href="/profile/{{user.0.id}}">{{user.0}}</a></td>
+      <td>{{user.1}}</td>
+      <td><a href="/reject/{{user.0.id}}/{{jobposting.id}}">Reject</a></td>
+    </tr>
+    {% endfor %}
+    {% if willing_to_hire_users|length == 0 %}
+    <tr>
+      <td colspan='4'>
+        No requests
+      </td>
+    </tr>
+    {% endif %}
+  </tbody>
+</table>
 <br>
-
-
+<br>
+<h2 style="color:#19258c; font-size: 35px; margin-left:42%;"><u>Waitlist Students</u></h2>
+<table id="table" data-toggle="table" data-filter-control="true" data-toolbar="#toolbar">
+  <thead>
+    <tr>
+      <th data-field="name" data-sortable="true">Name</th>
+      <th data-field="rating" data-sortable="true">Rating</th>
+      <th data-field="accept" data-sortable="false">Change Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in rem_users %}
+    <tr>
+      <td><a href="/profile/{{user.0.id}}">{{user.0}}</a></td>
+      <td>{{user.1}}</td>
+      <td><a href="/accept/{{user.0.id}}/{{jobposting.id}}">Accept</a></td>
+    </tr>
+    {% endfor %}
+    {% if rem_users|length == 0 %}
+    <tr>
+      <td colspan='4'>
+        No requests
+      </td>
+    </tr>
+    {% endif %}
+  </tbody>
+</table>
 {% endblock content %}
-{% comment %} {% block customScripts %}
+{% block customJS %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.js"></script>
 <script src="{% static 'home/jobPosting.js' %}"></script>
-{% endblock customScripts %} {% endcomment %}
+{% endblock customJS %}

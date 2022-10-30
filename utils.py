@@ -5,6 +5,16 @@ def tryExcept(req, a, b, c):
         from django.contrib import messages
         messages.error(req, "Error in ", b)
 
+def findAverageRating(id):
+    from home.models import Feedback
+    rating = 0
+    all_ratings = Feedback.objects.all().filter(user__in = [id])
+    for curr_rating in all_ratings:
+        rating += curr_rating.rating
+    if(len(all_ratings) == 0):
+        return -1
+    return rating/len(all_ratings)
+
 def check(req, field, fieldName):
     from django.contrib import messages
     if field != "" and field != None:

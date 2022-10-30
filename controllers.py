@@ -1,6 +1,4 @@
 from django.contrib import messages
-from utils import sendFormErrorMessages, sendNotification, tryExcept
-from home.models import Notification
 
 def shellController():
     from home.models import Tag, Skill
@@ -31,6 +29,7 @@ def loginController(req):
 def userRegisterController(req):
     from home.forms import UserRegisterForm
     from django.contrib.auth.models import User
+    from utils import sendFormErrorMessages
 
     form = UserRegisterForm(req.POST)
     if form.is_valid():
@@ -53,6 +52,7 @@ def userRegisterController(req):
 def companyRegisterController(req):
     from home.forms import CompanyRegisterForm
     from django.contrib.auth.models import User
+    from utils import sendFormErrorMessages
 
     form = CompanyRegisterForm(req.POST)
     if form.is_valid():
@@ -97,23 +97,19 @@ def profileController(req, profileId):
         user = False
         profile = CompanyProfile.objects.get(id=profileId)
 
-    rating = 0
-    all_ratings = Feedback.objects.all().filter(user__in = [profile.user.id])
-    for curr_rating in all_ratings:
-        rating += curr_rating.rating
-
     feedback = Feedback.objects.all().filter(user__in = [profile.user.id]).filter(company__in = [req.user]).first()
     context = {"status": True, "user": profile.user, "profile": profile, "feedback": feedback}
     if user == False:
         context['website'] = requests.get(profile.website_link).text
 
-    if len(all_ratings):
-        context['averageRating'] = rating/len(all_ratings)
+    if len(Feedback.objects.all().filter(user__in = [profile.user.id])):
+        from utils import findAverageRating
+        context['averageRating'] = findAverageRating(profile.user.id)
     return context
 
 
 def profileEditController(req, profileId):
-    from utils import profileCompleted
+    from utils import profileCompleted, sendFormErrorMessages
     if req.method == "POST":
         from utils import tryExcept
         from home.models import UserProfile, CompanyProfile
@@ -159,21 +155,26 @@ def profileEditController(req, profileId):
 
 def jobPostingController(req, jobPostingId):
     from home.models import JobPosting, UserProfile
+    from utils import findAverageRating, sendFormErrorMessages
 
     jobposting = JobPosting.objects.get(id = jobPostingId)
     users = UserProfile.objects.all().filter(isUser = True)
-    users_accepted = jobposting.users_accepted.all()
-
+    users_accepted = list(jobposting.users_accepted.all())
     willing_to_hire_users = list(jobposting.willing_to_hire.all())
     willing_to_hire_users = [user.userprofile for user in willing_to_hire_users]
-
     rem_users = [user for user in users if user not in willing_to_hire_users]
+
+    users_accepted = [(user, findAverageRating(user.id)) for user in users_accepted]
+    willing_to_hire_users = [(user, findAverageRating(user.id)) for user in willing_to_hire_users]
+    rem_users = [(user, findAverageRating(user.id)) for user in rem_users]
 
     context = {"status": True, "users_accepted":users_accepted, "jobPosting": jobposting, "willing_to_hire_users": willing_to_hire_users, 'rem_users': rem_users}
     return context
 
 def createJobPostingController(req):
+    from utils import sendFormErrorMessages
     from home.forms import CreateJobPostingForm
+
     if req.method == "POST":
         data = req.POST.dict()
         domain_tags = req.POST.getlist('domain_tags')
@@ -198,6 +199,8 @@ def createJobPostingController(req):
 def editJobPostingController(req, jobPostingId):
     from home.models import JobPosting
     from home.forms import EditJobPostingForm
+    from utils import sendFormErrorMessages
+
     jobPosting = JobPosting.objects.get(id = jobPostingId)
     if req.method == "POST":
         data = req.POST.dict()
