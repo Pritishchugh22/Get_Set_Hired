@@ -15,30 +15,29 @@
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
 {% endblock cdnCSS %}
-
 {% block content %}
 <div class="project_cards">
     <div class="" style="display: flex; flex-wrap: wrap;justify-content:center;" id="all-projects">
-        {% for jobPosting in jobPostings %}
-        <div id="projectNumber{{ jobPosting.id }}">
+        {% for jobposting in jobPostings %}
+        <div id="projectNumber{{ jobposting.id }}">
             <div class="blog-container">
                 <div class="blog-header" style="display: flex; flex-wrap: wrap;">
                     <span style="flex: 1 0 45%; ">
-                        <h3 style="margin-top: 10px; color:#858796;"><a href="{% url 'profile' jobPosting.company.id %}">{{jobPosting.company}}</a></h3>
+                        <h3 style="margin-top: 10px; color:#858796;"><a href="{% url 'profile' jobposting.company.id %}">{{jobposting.company}}</a></h3>
                     </span>
                 </div>
                 <div class="blog-body">
                     <div class="blog-title demo-a">
-                        <h1><a href="/jobPosting/{{jobPosting.id}}">{{ jobPosting.title }}</a></h1>
+                        <h1><a href="/jobposting/{{jobposting.id}}">{{ jobposting.title }}</a></h1>
                     </div>
                     <div class="blog-summary demo-2">
-                        <a href='/media/{{jobPosting.job_description}}'>Job Description</a>
+                        <a href='/media/{{jobposting.job_description}}'>Job Description</a>
                     </div>
                     <div class="blog-tags">
                         <br class="main-br">
                         <ul>
-                            <li><a href="/home/?Status={{jobPosting.Status}}">{{jobPosting.status}}</a></li>
-                            {% for tag in jobPosting.domain_tags.all %}
+                            <li><a href="/home/?Status={{jobposting.Status}}">{{jobposting.status}}</a></li>
+                            {% for tag in jobposting.domain_tags.all %}
                             {% if forloop.counter <= 2 %}
                             <li>
                                 <a href="/home/?Tags={{tag.id}}">{{ tag }}</a>
@@ -46,7 +45,7 @@
                             {% endif %}
                             {% if forloop.counter == 3 %}
                             <li>
-                                <a href="/project/?project_id={{jobPosting.id}}">More Tags...</a>
+                                <a href="/project/?project_id={{jobposting.id}}">More Tags...</a>
                             </li>
                             {% endif %}
                             {% endfor %}
@@ -61,6 +60,43 @@
         <div>No job postings</div>
         {% endif %}
     </div>
+    <div class="" style="display: flex; flex-wrap: wrap;justify-content:center;" id="all-projects">
+        {% for notification in notifications %}
+        <div id="projectNumber{{ notification.id }}">
+            <div class="blog-container">
+                <div class="blog-header" style="display: flex; flex-wrap: wrap;">
+                    <span style="flex: 1 0 45%; ">
+                        <h3 style="margin-top: 10px; color:#858796;"><a href="{% url 'profile' notification.jobposting.company.id %}">{{notification.jobposting.company}}</a></h3>
+                    </span>
+                </div>
+                <div class="blog-body">
+                    <div class="blog-title demo-a">
+                        <h1><a href = "">{{ notification.message }}</a></h1>
+                    </div>
+                    <div class="blog-summary demo-2">
+                        <a href='/media/{{notification.jobposting.job_description}}'>Job Description</a>
+                    </div>
+                    <div class="blog-tags">
+                        <br class="main-br">
+                        <ul>
+                            <li>
+                                <a href="/acceptJob/{{notification.jobposting.id}}">Accept</a>
+                            </li>
+                            <li>
+                                <a href="/rejectJob/{{notification.jobposting.id}}">Reject</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr class="main-page-hr">
+            </div>
+        </div>
+        {% endfor %}
+        {% if notifications.count == 0 %}
+            <div>No notifications</div>
+        {% endif %}
+    </div>
+
     {% comment %} {% with request.get_full_path as querystring %} {% endcomment %}
     {% comment %} <div style="float:right; padding-right: 140px;">
         <h5>Jo per page:&nbsp;</h5>
@@ -91,75 +127,75 @@
     <br><br><br>
     {% endwith %}
     {% block paginationBlock %}
-        {% with request.get_full_path as querystring %}
-            {% if projects.has_other_pages %}
-                <ul class="pagination">
-                    {% if projects.has_previous %}
-                        {% if 'Status' in querystring or 'Difficulty' in querystring or 'limit' in querystring%}
-                            {% if 'page' in querystring %}
-                                <li><a href="{{ querystring|slice:":-1 " }}{{ projects.previous_page_number }}">&laquo;</a></li>
-                            {% else %}
-                                <li><a href="{{ querystring }}&page={{ projects.previous_page_number }}">&laquo;</a></li>
-                            {% endif %}
-                        {% else %}
-                            {% if 'page' in querystring %}
-                                <li><a href="{{ querystring|slice:":-1 " }}{{ projects.previous_page_number }}">&laquo;</a></li>
-                            {% else %}
-                                {% if '?' in querystring %}
-                                    <li><a href="{{ querystring }}&page={{ projects.previous_page_number }}">&laquo;</a></li>
-                                {% else %}
-                                    <li><a href="{{ querystring }}?page={{ projects.previous_page_number }}">&laquo;</a></li>
-                                {% endif %}
-                            {% endif %}
-                        {% endif %}
-                    {% endif %}
-                    {% for i in projects.paginator.page_range %}
-                        {% if projects.number == i %}
-                            <li class = "selected">{{ i }}</li>
-                        {% else %}
-                            {% if 'Status' in querystring  or 'Difficulty' in querystring or 'limit' in querystring%}
-                                {% if 'page' in querystring %}
-                                    <li><a href="{{ querystring|slice:":-1 " }}{{ i }}">{{i}}</a></li>
-                                {% else %}
-                                    <li><a href="{{ querystring }}&page={{ i }}">{{i}}</a></li>
-                                {% endif %}
-                            {% else %}
-                                {% if 'page' in querystring %}
-                                    <li><a href="{{ querystring|slice:":-1 " }}{{ i }}">{{i}}</a></li>
-                                {% else %}
-                                    {% if '?' in querystring %}
-                                        <li><a href="{{ querystring }}&page={{ i }}">{{i}}</a></li>
-                                    {% else %}
-                                        <li><a href="{{ querystring }}?page={{ i }}">{{i}}</a></li>
-                                    {% endif %}
-                                {% endif %}
-                            {% endif %}
-                        {% endif %}
-                    {% endfor %}
-                    {% if projects.has_next %}
-                        {% if 'Status' in querystring  or 'Difficulty' in querystring or 'limit' in querystring%}
-                            {% if 'page' in querystring %}
-                                <li><a href="{{ querystring|slice:":-1 " }}{{ projects.next_page_number }}">&raquo;</a></li>
-                            {% else %}
-                                <li><a href="{{ querystring }}&page={{ projects.next_page_number }}">&raquo;</a></li>
-                            {% endif %}
-                        {% else %}
-                            {% if 'page' in querystring %}
-                                <li><a href="{{ querystring|slice:":-1 " }}{{ projects.next_page_number }}">&raquo;</a></li>
-                            {% else %}
-                                {% if '?' in querystring %}
-                                    <li><a href="{{ querystring }}&page={{ projects.next_page_number }}">&raquo;</a></li>
-                                {% else %}
-                                    <li><a href="{{ querystring }}?page={{ projects.next_page_number }}">&raquo;</a></li>
-                                {% endif %}
-                            {% endif %}
-                        {% endif %}
-                    {% endif %}
-                </ul>
-            {% endif %}
-        {% endwith %}
+    {% with request.get_full_path as querystring %}
+    {% if projects.has_other_pages %}
+    <ul class="pagination">
+        {% if projects.has_previous %}
+        {% if 'Status' in querystring or 'Difficulty' in querystring or 'limit' in querystring%}
+        {% if 'page' in querystring %}
+        <li><a href="{{ querystring|slice:":-1 " }}{{ projects.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+        <li><a href="{{ querystring }}&page={{ projects.previous_page_number }}">&laquo;</a></li>
+        {% endif %}
+        {% else %}
+        {% if 'page' in querystring %}
+        <li><a href="{{ querystring|slice:":-1 " }}{{ projects.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+        {% if '?' in querystring %}
+        <li><a href="{{ querystring }}&page={{ projects.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+        <li><a href="{{ querystring }}?page={{ projects.previous_page_number }}">&laquo;</a></li>
+        {% endif %}
+        {% endif %}
+        {% endif %}
+        {% endif %}
+        {% for i in projects.paginator.page_range %}
+        {% if projects.number == i %}
+        <li class="selected">{{ i }}</li>
+        {% else %}
+        {% if 'Status' in querystring  or 'Difficulty' in querystring or 'limit' in querystring%}
+        {% if 'page' in querystring %}
+        <li><a href="{{ querystring|slice:":-1 " }}{{ i }}">{{i}}</a></li>
+        {% else %}
+        <li><a href="{{ querystring }}&page={{ i }}">{{i}}</a></li>
+        {% endif %}
+        {% else %}
+        {% if 'page' in querystring %}
+        <li><a href="{{ querystring|slice:":-1 " }}{{ i }}">{{i}}</a></li>
+        {% else %}
+        {% if '?' in querystring %}
+        <li><a href="{{ querystring }}&page={{ i }}">{{i}}</a></li>
+        {% else %}
+        <li><a href="{{ querystring }}?page={{ i }}">{{i}}</a></li>
+        {% endif %}
+        {% endif %}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        {% if projects.has_next %}
+        {% if 'Status' in querystring  or 'Difficulty' in querystring or 'limit' in querystring%}
+        {% if 'page' in querystring %}
+        <li><a href="{{ querystring|slice:":-1 " }}{{ projects.next_page_number }}">&raquo;</a></li>
+        {% else %}
+        <li><a href="{{ querystring }}&page={{ projects.next_page_number }}">&raquo;</a></li>
+        {% endif %}
+        {% else %}
+        {% if 'page' in querystring %}
+        <li><a href="{{ querystring|slice:":-1 " }}{{ projects.next_page_number }}">&raquo;</a></li>
+        {% else %}
+        {% if '?' in querystring %}
+        <li><a href="{{ querystring }}&page={{ projects.next_page_number }}">&raquo;</a></li>
+        {% else %}
+        <li><a href="{{ querystring }}?page={{ projects.next_page_number }}">&raquo;</a></li>
+        {% endif %}
+        {% endif %}
+        {% endif %}
+        {% endif %}
+    </ul>
+    {% endif %}
+    {% endwith %}
     {% endblock paginationBlock %} {% endcomment %}
     {% endblock content %}
     {% block customScripts %}
-        <script src="{% static 'home/index.js' %}"></script>
+    <script src="{% static 'home/index.js' %}"></script>
     {% endblock customScripts %}
