@@ -17,8 +17,9 @@
 {% endblock cdnCSS %}
 {% block content %}
 <div class="project_cards">
+    <h1>Open job postings</h1>
     <div class="" style="display: flex; flex-wrap: wrap;justify-content:center;" id="all-projects">
-        {% for jobposting in jobPostings %}
+        {% for jobposting in jobPostings_open %}
         <div id="projectNumber{{ jobposting.id }}">
             <div class="blog-container">
                 <div class="blog-header" style="display: flex; flex-wrap: wrap;">
@@ -56,8 +57,52 @@
             </div>
         </div>
         {% endfor %}
-        {% if jobPostings.count == 0 %}
-        <div>No job postings</div>
+        {% if jobPostings_open.count == 0 %}
+        <div>No Open job postings</div>
+        {% endif %}
+    </div>
+    <h1>Closed Job Postings</h1>
+    <div class="" style="display: flex; flex-wrap: wrap;justify-content:center;" id="all-projects">
+        {% for jobposting in jobPostings_closed %}
+        <div id="projectNumber{{ jobposting.id }}">
+            <div class="blog-container">
+                <div class="blog-header" style="display: flex; flex-wrap: wrap;">
+                    <span style="flex: 1 0 45%; ">
+                        <h3 style="margin-top: 10px; color:#858796;"><a href="{% url 'profile' jobposting.company.id %}">{{jobposting.company}}</a></h3>
+                    </span>
+                </div>
+                <div class="blog-body">
+                    <div class="blog-title demo-a">
+                        <h1><a href="/jobposting/{{jobposting.id}}">{{ jobposting.title }}</a></h1>
+                    </div>
+                    <div class="blog-summary demo-2">
+                        <a href='/media/{{jobposting.job_description}}'>Job Description</a>
+                    </div>
+                    <div class="blog-tags">
+                        <br class="main-br">
+                        <ul>
+                            <li><a href="/home/?Status={{jobposting.Status}}">{{jobposting.status}}</a></li>
+                            {% for tag in jobposting.domain_tags.all %}
+                            {% if forloop.counter <= 2 %}
+                            <li>
+                                <a href="/home/?Tags={{tag.id}}">{{ tag }}</a>
+                            </li>
+                            {% endif %}
+                            {% if forloop.counter == 3 %}
+                            <li>
+                                <a href="/project/?project_id={{jobposting.id}}">More Tags...</a>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <hr class="main-page-hr">
+            </div>
+        </div>
+        {% endfor %}
+        {% if jobPostings_closed.count == 0 %}
+        <div>No Closed job postings</div>
         {% endif %}
     </div>
     <div class="" style="display: flex; flex-wrap: wrap;justify-content:center;" id="all-projects">
@@ -92,8 +137,10 @@
             </div>
         </div>
         {% endfor %}
+        {% if user.userprofile.isUser %}
         {% if notifications.count == 0 %}
-            <div>No notifications</div>
+        <div>No notifications</div>
+        {% endif %}
         {% endif %}
     </div>
 

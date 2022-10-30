@@ -79,8 +79,10 @@ def indexController(req):
         context["image"] = req.user.userprofile.image
     else:
         from home.models import JobPosting
-        jobPostings = JobPosting.objects.all()
-        context["jobPostings"] = jobPostings
+        jobPostings_closed = JobPosting.objects.all().filter(status = 'closed')
+        jobPostings_open = JobPosting.objects.all().filter(status = 'open')
+        context["jobPostings_open"] = jobPostings_open
+        context["jobPostings_closed"] = jobPostings_closed
     context["notifications"] = Notification.objects.filter(reciever = req.user).order_by('-time')
     return context
 
