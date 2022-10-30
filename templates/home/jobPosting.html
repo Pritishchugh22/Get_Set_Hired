@@ -1,123 +1,185 @@
 {% extends 'partials/base.html' %}
 {% load static %}
 {% block title %}Job Posting | Get_Set_Hired{% endblock title %}
-{% block customCSS %}
-<link rel="stylesheet" href="{% static 'home/register.css' %}">
-{% endblock customCSS %}
+{% block customStylesheets %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.css" />
+<link rel="stylesheet" type="text/css" href="{% static 'home/jobPosting.css' %}">
+{% endblock customStylesheets %}
 {% block content %}
-<br>
-{{ jobPosting.id }}
-<br>
-{{ jobPosting.title }}
-<br>
-<a href = "/media/{{ jobPosting.job_description }}">Job Description</a>
-<br>
-{{ jobPosting.position }}
-<br>
-{{ jobPosting.no_of_seats }}
-<br>
-{{ jobPosting.stipend }}
-<br>
-{{ jobPosting.location }}
-<br>
-{% for tag in jobPosting.domain_tags.all %}
-    {{tag}}
-{% endfor %}
-<br>
-{% for tag in jobPosting.requirement_tags.all %}
-    {{tag}}
-{% endfor %}
-<br>
-{{ jobPosting.status }}
-<br>
-{{ jobPosting.experience_required }}
-<br>
-<a href="{% url 'edit-jobPosting' jobPosting.id%}">Edit</a>
-<br>
-<br>
-<br>
 
-<h1>Hired Users</h1>
-{% for user in users_accepted %}
-<br>
-<div>
-    {{ forloop.counter }}
-    <a href="/profile/{{user.id}}">{{user.user}}</a>
-    <br>
-    {{user.image}}
-    <br>
-    {{user.points}}
-    <br>
-    {{user.contact_num}}
-    <br>
-    {{user.education}}
-    <br>
-    {{user.experience_yrs}}
-    <br>
-    {{user.age}}
-    <br>
-    {{user.willing_to_work_at}}
-</div>
-<br>
-{% endfor %}
-{% if users_accepted.count == 0 %}
-No Users
-{% endif %}
+<!--<h1>Hired Users</h1>-->
+<!--{% for user in users_accepted %}-->
+<!--<br>-->
+<!--<div>-->
+<!--    {{ forloop.counter }}-->
+<!--    <a href="/profile/{{user.id}}">{{user.user}}</a>-->
+<!--    <br>-->
+<!--    {{user.image}}-->
+<!--    <br>-->
+<!--    {{user.points}}-->
+<!--    <br>-->
+<!--    {{user.contact_num}}-->
+<!--    <br>-->
+<!--    {{user.education}}-->
+<!--    <br>-->
+<!--    {{user.experience_yrs}}-->
+<!--    <br>-->
+<!--    {{user.age}}-->
+<!--    <br>-->
+<!--    {{user.willing_to_work_at}}-->
+<!--</div>-->
+<!--<br>-->
+<!--{% endfor %}-->
+<!--{% if users_accepted.count == 0 %}-->
+<!--No Users-->
+<!--{% endif %}-->
 
-<h1>Willing To Hire Users</h1>
-{% for user in willing_to_hire_users %}
-<br>
-<div>
-    {{ forloop.counter }}
-    <a href="/profile/{{user.id}}">{{user.user}}</a>
-    <br>
-    {{user.image}}
-    <br>
-    {{user.points}}
-    <br>
-    {{user.contact_num}}
-    <br>
-    {{user.education}}
-    <br>
-    {{user.experience_yrs}}
-    <br>
-    {{user.age}}
-    <br>
-    {{user.willing_to_work_at}}
-</div>
-<br>
-{% endfor %}
-{% if willing_to_hire_users %}
-{% else %}
-No Users
-{% endif %}
+<!--<h1>Willing To Hire Users</h1>-->
+<!--{% for user in willing_to_hire_users %}-->
+<!--<br>-->
+<!--<div>-->
+<!--    {{ forloop.counter }}-->
+<!--    <a href="/profile/{{user.id}}">{{user.user}}</a>-->
+<!--    <br>-->
+<!--    {{user.image}}-->
+<!--    <br>-->
+<!--    {{user.points}}-->
+<!--    <br>-->
+<!--    {{user.contact_num}}-->
+<!--    <br>-->
+<!--    {{user.education}}-->
+<!--    <br>-->
+<!--    {{user.experience_yrs}}-->
+<!--    <br>-->
+<!--    {{user.age}}-->
+<!--    <br>-->
+<!--    {{user.willing_to_work_at}}-->
+<!--</div>-->
+<!--<br>-->
+<!--{% endfor %}-->
+<!--{% if willing_to_hire_users %}-->
+<!--{% else %}-->
+<!--No Users-->
+<!--{% endif %}-->
 
-<h2>Remaining Users</h2>
-{% for user in rem_users %}
-<br>
-<div>
-    {{ forloop.counter }}
-    <a href="/profile/{{user.id}}">{{user.user}}</a>
-    <br>
-    {{user.image}}
-    <br>
-    {{user.points}}
-    <br>
-    {{user.contact_num}}
-    <br>
-    {{user.education}}
-    <br>
-    {{user.experience_yrs}}
-    <br>
-    {{user.age}}
-    <br>
-    {{user.willing_to_work_at}}
-    <a href="/hire/{{jobPosting.id}}/{{user.id}}">Hire</a>
+<!--<h2>Remaining Users</h2>-->
+<!--{% for user in rem_users %}-->
+<!--<br>-->
+<!--<div>-->
+<!--    {{ forloop.counter }}-->
+<!--    <a href="/profile/{{user.id}}">{{user.user}}</a>-->
+<!--    <br>-->
+<!--    {{user.image}}-->
+<!--    <br>-->
+<!--    {{user.points}}-->
+<!--    <br>-->
+<!--    {{user.contact_num}}-->
+<!--    <br>-->
+<!--    {{user.education}}-->
+<!--    <br>-->
+<!--    {{user.experience_yrs}}-->
+<!--    <br>-->
+<!--    {{user.age}}-->
+<!--    <br>-->
+<!--    {{user.willing_to_work_at}}-->
+<!--    <a href="/hire/{{jobPosting.id}}/{{user.id}}">Hire</a>-->
+<!--</div>-->
+<!--<br>-->
+<!--{% endfor %}-->
+<!--{% if rem_users %}-->
+<!--{% else %}-->
+<!--No Users-->
+<!--{% endif %}-->
+
+<!-- <h3 style="margin-top: 10px; color:#858796; margin-left:0px;"><a href="{% url 'profile' project.FloatedBy.id %}">{{project.FloatedBy}}</a></h3> -->
+<div id="projectTop" style="background-image :linear-gradient(to right, rgb(30, 14, 121, 0.9), rgb(255, 255, 255, 0.1)), url(/media/{{project.Image}});">
+  <div id="projectTitle" class="vertical-center">{{ project.Title }}</div>
 </div>
-<br>
-{% endfor %}
-{% if rem_users %}
-{% else %}
-No Users
+<!-- ================================================================== -->
+<div class="container-fluid" style="
+    padding-left: 4%;
+    padding-right: 4%;
+">
+  <div class="row">
+    <div class="col-md-8" style="
+      padding-left: 4%;
+      padding-right: 4%;
+  ">
+      <div class="row justify-content-center">
+        <div class="update-delete col-md-12">
+          <br>
+          <a href="editJobPosting/{{jobposting.id}}"><button class="btn btn-success btn-icon-split" style="display: inline-block;width: 130px ;height:35px; padding-top: 0px; padding-bottom: 0px;"><b>UPDATE</b></button></a>
+          <a href="editJobPosting/{{jobposting.id}}"><button class="btn btn-warning btn-icon-split" style="display: inline-block;width: 130px ;height:35px; padding-top: 0px; padding-bottom: 0px;"><b>CLOSE</b></button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ================================================================ -->
+<div class="adminView">
+  <hr class="horizontal-line">
+  <br>
+  <div id="tableContainer">
+    <div id="tableTop">
+      <div id="tableTitle">
+        Applications:
+      </div>
+      <div id="tableControls"></div>
+      <div id="toolbar">
+        <select class="form-control">
+          <option value="">All</option>
+          <option value="accepted">Accepted</option>
+          <option value="eligible">Eligible</option>
+          <option value="waitlist">Waitlist</option>
+        </select>
+      </div>
+    </div>
+    <table id="table" data-toggle="table" {% comment %} data-search="true" {% endcomment %} data-filter-control="true" data-toolbar="#toolbar">
+      <thead>
+        <tr>
+          <th data-field="name" data-sortable="true">Name</th>
+          <th data-field="rating" data-sortable="true">Rating</th>
+          <th data-field="accept" data-sortable="false">Accept</th>
+          <th data-field="reject" data-sortable="false">Reject</th>
+          <th data-field="status" data-filter-control="select">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+<!--        {% for application in applications %}-->
+        <tr>
+          <td>{{user.user}}</td>
+          <td>{{user.points}}</td>
+<!--          <td class="{{application.Status}}">-->
+<!--            {{application.Status}}-->
+<!--          </td>-->
+        </tr>
+<!--        {% endfor %}-->
+<!--        {% if applications|length == 0 %}-->
+<!--        <tr>-->
+<!--          <td colspan='4'>-->
+<!--            No requests-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--        {% endif %}-->
+      </tbody>
+    </table>
+    <br>
+    <br>
+  </div>
+</div>
 {% endif %}
+</div>
 {% endblock content %}
+{% block customScripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.js"></script>
+<script>
+<!--  var users = {{ users_html | safe }};-->
+<!--  var tags = {{ tags_html | safe }};-->
+<!--  var user_profiles = {{ user_profiles_html | safe }};-->
+<!--  var applications = {{ apply_requests_html | safe }};-->
+</script>
+<script src="{% static 'home/jobPosting.js' %}"></script>
+{% endblock customScripts %}

@@ -1,0 +1,548 @@
+.container-fluid>* {
+  color: #404040;
+  font-family: Public Sans;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 19px;
+}
+@media screen and (max-width: 600px) {
+  #tagsContainer > div.tag.vertical-center{
+    margin-left: 20px !important;
+  }
+  #content > div > div.container-fluid > div > div.col-md-8{
+    padding: 0px 30px 0px 30px !important;
+  }
+  #content > div > div.container-fluid > div > div.col-md-4{
+    padding: 0px 30px 0px 30px !important;
+  }
+  #applyNow > div > div{
+    font-size: 20px;
+  }
+  #applyNow{
+    min-width: 150px !important;
+  }
+  #tagsContainer > div.tagsTitle{
+    margin-top: 3px;
+    margin-right: 5px;
+  }
+}
+.mb-4 {
+  margin-bottom: 0px !important;
+}
+
+.container-fluid {
+  padding: 0px;
+  min-height: 92vh;
+}
+
+.horizontal-center {
+  margin: 0 auto;
+}
+
+.vertical-center {
+  display: flex;
+  align-items: center;
+}
+
+.invisible {
+  display: none;
+}
+a:hover{
+  text-decoration: none;
+}
+button{
+  border: none !important;
+}
+
+/* ========== TOP CARD STYLING ========== */
+#projectTop {
+  margin: 0px;
+  width: 100%;
+  height: 250px;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  position: relative;
+  /* background-blend-mode: multiply; */
+}
+
+#projectTitle {
+  line-height: 40px;
+  margin-left: 5vw;
+  color: white;
+  height: 272px;
+  font-size: 40px;
+  font-weight: 600;
+}
+
+/* ===================================== */
+
+/* ========== MAIN CONTENT STYLING ===== */
+#projectMain {
+  width: 87%;
+}
+
+/* ----- USER VIEW STYLING ----- */
+/* ---- GENERAL STLING ---- */
+.userView {
+  min-height: 570px;
+  display: flex;
+}
+
+.left-container {
+  width: 71%;
+  padding-right: 5.6%;
+}
+
+.right-container {
+  width: 28.4%;
+}
+
+/* ------------------------ */
+
+/* ---- LEFT COLUMN STYLING ----- */
+/* -----Tage styling----- */
+#tagsContainer {
+  display: flex;
+  margin-top: 53px;
+  max-width: 91.9%;
+}
+
+.tagsTitle {
+  color: #19258C;
+  font-weight: 700;
+  width: 5vw;
+}
+
+.tag {
+  min-width: 82px;
+  height: 25px;
+  margin-right: 1vw;
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  border-radius: 15px;
+  padding: 2px;
+}
+
+/* --------------------- */
+
+/* ---Buttons styling--- */
+#buttons {
+  margin-top: 40px;
+  height: 60px;
+  width: 91.9%;
+  display: flex;
+  border: 1px solid rgba(218, 218, 218, 0.74);
+  box-sizing: border-box;
+}
+
+.seperator {
+  width: 1.2%;
+  height: 58px;
+  background-color: #19258C;
+}
+
+.buttonContent {
+  margin: 0px 1%;
+  width: 30.5%;
+  background: #F6F4F4;
+  padding: 0px 0.5vw 0px 0.5vw;
+  height: 58px;
+  cursor: pointer;
+}
+
+.buttonSelected {
+  background-color: #C9D8FF !important;
+}
+
+/* ----------------------- */
+
+/* --Description styling-- */
+#projectDescription {
+  border: 1px solid #E5E5E5;
+  box-sizing: border-box;
+  border-radius: 10px;
+
+  width: 91.9%;
+  margin-top: 47px;
+  padding: 36px 21px;
+  height: 232px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+#projectDescription::-webkit-scrollbar {
+  display: none;
+}
+
+#applyNow {
+  margin-top: 22px;
+  /* margin-left: 35%; */
+  height: 61px;
+  width: 23.4%;
+  background: #19258C;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.applyText {
+  height: 100%;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 33px;
+  vertical-align: middle;
+  color: white !important;
+}
+
+#applyNow>a:hover {
+  text-decoration: none;
+}
+
+/* ---------------------- */
+
+
+/* ---- RIGHT COLUMN STYLING ------ */
+#projectDetails {
+  margin-top: 53px;
+  width: 100%;
+  padding: 23px 7%;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  border-radius: 10px;
+  background-color: #F6F4F4;
+  min-height: 380px;
+}
+
+.detail {
+  display: flex;
+  margin-bottom: 32px;
+}
+
+.detailTitle {
+  color: #19258C;
+  font-weight: 700;
+  min-width: 27.3%;
+}
+
+.detailContent {
+  margin-left: 7.6%;
+}
+
+#alreadyApplied {
+  width: 100%;
+  display: flex;
+  margin-top: 17px;
+  height: 50px;
+  margin-bottom: 17px;
+}
+
+#alreadyAppliedTitle {
+  color: #19258C;
+  font-weight: 700;
+  width: 80px;
+}
+
+#alreadyAppliedUsers {
+  overflow-x: hidden;
+  overflow-x: scroll;
+  margin-left: 6.5%;
+  border: 1px solid #C4C4C4;
+  box-sizing: border-box;
+  border-radius: 5px;
+  width: 100%;
+  padding-left: 3%;
+  display: flex;
+}
+#alreadyAppliedUsers::-webkit-scrollbar{
+  display: none;
+}
+
+#alreadyAppliedUsers img {
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+}
+
+/* -------------------------- */
+/* ------- USER VIEW STYLING END ------ */
+
+/* ------- ADMIN VIEW STYLING --------- */
+.horizontal-line {
+  border: 1px solid rgba(85, 85, 85, 0.178)
+}
+
+/* ---- TABLE CONTAINER STYLING ---- */
+/* Table top styling */
+#tableTop {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+#tableOptions {
+  display: flex;
+  margin-right: 4.8%;
+}
+
+#tableTitle {
+  width: 110px;
+  margin-top: 5px;
+  height: 45px;
+
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 23px;
+
+  color: black;
+}
+
+.accept, .reject, .goodReject {
+  width: 118px;
+  height: 35px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 18px;
+  color: #F7F4F4;
+  cursor: pointer;
+}
+.accept {
+  background: #34A853;
+  border: 2px solid #34A853;
+}
+
+.reject, .goodReject{
+  background: #F50000;
+  border: 1px solid #F50000;
+}
+.rejectall, .goodReject{
+  margin-left: 2.16%;
+}
+.viewAnswer{
+  border: 2px solid #19258C !important;
+  border-radius: 5px;
+  background-color: white;
+  color: #19258C;
+  height: 30px;
+}
+/* --------------- */
+
+/* Table styling */
+#table {
+  margin-top: 10px;
+  width: 100%;
+  border: 1px solid #C9D8FF;
+  border-radius: 15px;
+  border-spacing: 0px;
+  border-collapse: separate;
+}
+#tableControls{
+  margin-left: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+#tableControls > div > div.bs-bars.float-left{
+  margin-right: 3px;
+}
+thead th {
+  background: #C9D8FF;
+}
+thead th:first-child{
+  border-radius: 15px 0 0 0;
+}
+thead th:last-child{
+  border-radius: 0 15px 0 0;
+}
+th , td {
+  text-align: center;
+  padding: 29px 0;
+  border-bottom: 1px solid rgba(47, 47, 47, 0.25);
+  border-right: 1px solid rgba(44, 44, 44, 0.25);
+}
+th:last-child, td:last-child{
+  border-right: 0px;
+}
+tr:last-child td{
+  border-bottom: 0px;
+}
+.Pending{
+  color: #FFAF37;
+}
+.Accepted{
+  color: #34A853;
+}
+.Rejected{
+  color: red;
+}
+/* --------------- */
+/* --------------------------------- */
+/* --- View answer modal styling --- */
+#viewModalMain{
+  width: 70%;
+  max-width: 800px;
+}
+
+#viewAnswerTop, #viewAnswerMiddle, #viewAnswerBottom, #viewAnswerAcceptReject{
+  width: 80%;
+  display: flex;
+}
+
+#viewAnswerTop{
+  margin-top: 40px;
+}
+#viewAnswerTopRight{
+  margin-left: 8%;
+  width: 69%;
+}
+#Profile_image > img{
+  height: 150px;
+  width: 150px;
+  border-radius: 300px;
+}
+.profileField{
+  display: flex;
+  margin-bottom: 15px;
+}
+.profileFieldLabel{
+  width: 45%;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 23px;
+  color: #404040;
+}
+
+#viewAnswerMiddle{
+  margin-top: 25px;
+}
+#Skills{
+  height: 140px;
+  margin-right: 18.6%;
+  width: 40.1%;
+}
+#Links{
+  height: 140px;
+  width: 40.1%;
+}
+.myLabel{
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 23px;
+  color: #404040;
+}
+.myContent{
+  height: 110px;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 0px 30px;
+}
+.profileLinkField{
+  display: flex;
+}
+.profileLinkFieldLabel{
+  margin-right: 10%;
+}
+
+#viewAnswerBottom{
+  display: block;
+}
+#MessageFieldLabel{
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 23px;
+  margin-top: 25px;
+  color: #19258C;
+}
+#Message{
+  height: 150px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 4%;
+}
+#viewAnswerAcceptReject{
+  margin-top: 21px;
+  margin-bottom: 50px;
+  justify-content: center ;
+}
+.goodReject{
+
+  /* background: white;
+  border: 1px solid #F50000;
+
+  color: #F50000; */
+  margin-right: 15px;
+}
+#content > div > div.adminView{
+  padding: 10px;
+}
+
+.blog-tags-a li:nth-child(1) a {
+  background: #BEFFE0;
+}
+
+.blog-tags-a li:nth-child(2) a {
+  background: #C9D8FF;
+}
+
+.blog-tags-a li:nth-child(3) a {
+  background: #FFD493;
+}
+
+.blog-tags-a li:nth-child(4) a {
+  background: #BEFFE0;
+}
+
+.blog-tags-a li:nth-child(5) a {
+  background: #C9D8FF;
+}
+
+.blog-tags-a li:nth-child(6) a {
+  background: #FFD493;
+}
+
+.blog-tags-a li:nth-child(7) a {
+  background: #BEFFE0;
+}
+
+.blog-tags-a li:nth-child(8) a {
+  background: #C9D8FF;
+}
+
+.blog-tags-a li:nth-child(9) a {
+  background: #FFD493;
+}
+
+.blog-tags-a li:nth-child(10) a {
+  background: #BEFFE0;
+}
+/* --------------------------------- */
+/* ------- ADMIN VIEW STYLING END ------ */
+
+/* ========= MAIN CONTENT STYLING END ========== */
+
+
+@media only screen and (max-width: 450px){
+  #table > thead > tr > th > div.th-inner.sortable.both{
+    padding-right: 7px !important;
+    padding-left: 7px !important;
+  }
+  #tableTitle{
+    font-size: 17px;
+    margin-left: 10px;
+  }
+  #tableOptions > a > div{
+    width: 20vw;
+    font-size: 15px;
+  }
+  #tableControls > div > div{
+    width: 70%;
+  }
+}
