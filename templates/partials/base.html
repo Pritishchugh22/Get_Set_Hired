@@ -135,6 +135,10 @@
                                     {% if user.userprofile.isUser == False %}
                                     <a class="dropdown-item" href="{% url 'create-jobPosting' %}"><i class="fas fa-plus-square fa-sm fa-fw mr-2 text-gray-400"></i>Create New Job Posting</a>
                                     {% endif %}
+                                    {% if user.userprofile.isUser %}
+                                    <a class="dropdown-item" href="{% url 'create-jobPosting' %}"><i class="fas fa-book fa-sm fa-fw mr-2 text-gray-400"></i>Upskill </a>
+                                    <a class="dropdown-item" href="{% url 'create-jobPosting' %}"><i class="fas fa-comment fa-sm fa-fw mr-2 text-gray-400"></i>Chat with us</a>
+                                    {% endif %}
                                     {% comment %} <a class="dropdown-item" href="/profile/projects/view/{{user.id}}?view=applied"><i class="fas fa-address-card fa-sm fa-fw mr-2 text-gray-400"></i>Projects
                                         Applied for</a>
                                     <a class="dropdown-item" href="/profile/projects/view/{{user.id}}?view=floated"><i class="fas fa-laptop-code mr-2 fa-sm fa-fw text-gray-400"></i>Projects
