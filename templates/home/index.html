@@ -17,7 +17,7 @@
 {% endblock cdnCSS %}
 {% block content %}
 <div class="project_cards">
-    <h1>Open job postings</h1>
+    <h1 style="color:#19258c; font-size: 35px; margin-left:42%;"><u>OPEN JOBS</u></h1>
     <div class="" style="display: flex; flex-wrap: wrap;justify-content:center;" id="all-projects">
         {% for jobposting in jobPostings_open %}
         <div id="projectNumber{{ jobposting.id }}">
@@ -61,7 +61,7 @@
         <div>No Open job postings</div>
         {% endif %}
     </div>
-    <h1>Closed Job Postings</h1>
+    <h1 style="color:#19258c; font-size: 35px; margin-left:42%;"><u>CLOSED JOBS</u></h1>
     <div class="" style="display: flex; flex-wrap: wrap;justify-content:center;" id="all-projects">
         {% for jobposting in jobPostings_closed %}
         <div id="projectNumber{{ jobposting.id }}">
