@@ -9,7 +9,7 @@
 {% endblock customStylesheets %}
 {% block content %}
 
-<!--<h1>Hired Users</h1>-->
+{% comment %} <!--<h1>Hired Users</h1>-->
 <!--{% for user in users_accepted %}-->
 <!--<br>-->
 <!--<div>-->
@@ -91,9 +91,9 @@
 <!--{% if rem_users %}-->
 <!--{% else %}-->
 <!--No Users-->
-<!--{% endif %}-->
+<!--{% endif %}--> {% endcomment %}
 
-<!-- <h3 style="margin-top: 10px; color:#858796; margin-left:0px;"><a href="{% url 'profile' project.FloatedBy.id %}">{{project.FloatedBy}}</a></h3> -->
+{% comment %} <!-- <h3 style="margin-top: 10px; color:#858796; margin-left:0px;"><a href="{% url 'profile' project.FloatedBy.id %}">{{project.FloatedBy}}</a></h3> --> {% endcomment %}
 <div id="projectTop" style="background-image :linear-gradient(to right, rgb(30, 14, 121, 0.9), rgb(255, 255, 255, 0.1)), url(/media/{{project.Image}});">
   <div id="projectTitle" class="vertical-center">{{ project.Title }}</div>
 </div>
@@ -169,7 +169,7 @@
     <br>
   </div>
 </div>
-{% endif %}
+{% comment %} {% endif %} {% endcomment %}
 </div>
 {% endblock content %}
 {% block customScripts %}

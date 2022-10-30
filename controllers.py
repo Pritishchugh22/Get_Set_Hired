@@ -100,8 +100,6 @@ def profileController(req, profileId):
     context = {"status": True, "user": profile.user, "profile": profile}
     if user == False:
         context['website'] = requests.get(profile.website_link).text
-        print(context['website'])
-    # print(context)
     return context
 
 
