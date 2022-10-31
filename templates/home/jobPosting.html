@@ -15,32 +15,7 @@
     <tr>
       <th data-field="name" data-sortable="true">Name</th>
       <th data-field="rating" data-sortable="true">Rating</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for user in users_accepted %}
-    <tr>
-      <td><a href="/profile/{{user.id}}">{{user.user}}</a></td>
-      <td>Rating</td>
-    </tr>
-    {% endfor %}
-    {% if users_accepted|length == 0 %}
-    <tr>
-      <td colspan='2'>
-        No requests
-      </td>
-    </tr>
-    {% endif %}
-  </tbody>
-</table>
-<br>
-<br>
-<h2 style="color:#19258c; font-size: 35px; margin-left:42%;"><u>Eligible Students</u></h2>
-<table id="table" data-toggle="table" data-filter-control="true" data-toolbar="#toolbar">
-  <thead>
-    <tr>
-      <th data-field="name" data-sortable="true">Name</th>
-      <th data-field="rating" data-sortable="true">Rating</th>
+      <th data-field="status" data-sortable="true">Status</th>
       <th data-field="reject" data-sortable="false">Change Status</th>
     </tr>
   </thead>
@@ -49,6 +24,7 @@
     <tr>
       <td><a href="/profile/{{user.0.id}}">{{user.0}}</a></td>
       <td>{{user.1}}</td>
+      <td>Accepted</td>
       <td><a href="/reject/{{user.0.id}}/{{jobPosting.id}}">Reject</a></td>
     </tr>
     {% endfor %}
@@ -63,7 +39,7 @@
 </table>
 <br>
 <br>
-<h2 style="color:#19258c; font-size: 35px; margin-left:42%;"><u>Waitlist Students</u></h2>
+<h2 style="color:#19258c; font-size: 35px; margin-left:42%;"><u>Eligible Students</u></h2>
 <table id="table" data-toggle="table" data-filter-control="true" data-toolbar="#toolbar">
   <thead>
     <tr>
