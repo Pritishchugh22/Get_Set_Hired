@@ -85,8 +85,12 @@ def editJobPosting(req, jobPostingId):
 @login_required
 @user_passes_test(lambda u: u.companyprofile.isCompany == True)
 @user_profile_completed
-def hire(req, jobPostingId, userId):
-    context = hireController(req, jobPostingId, userId)
+def accept(req, jobPostingId, userId):
+    context = acceptController(req, jobPostingId, userId)
+    return redirect('/jobPosting/' +str(jobPostingId), context)
+
+def reject(req, jobPostingId, userId):
+    context = rejectController(req, jobPostingId, userId)
     return redirect('/jobPosting/' +str(jobPostingId), context)
 
 @login_required

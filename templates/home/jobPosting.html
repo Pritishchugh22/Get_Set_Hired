@@ -49,7 +49,7 @@
     <tr>
       <td><a href="/profile/{{user.0.id}}">{{user.0}}</a></td>
       <td>{{user.1}}</td>
-      <td><a href="/reject/{{user.0.id}}/{{jobposting.id}}">Reject</a></td>
+      <td><a href="/reject/{{user.0.id}}/{{jobPosting.id}}">Reject</a></td>
     </tr>
     {% endfor %}
     {% if willing_to_hire_users|length == 0 %}
@@ -77,7 +77,7 @@
     <tr>
       <td><a href="/profile/{{user.0.id}}">{{user.0}}</a></td>
       <td>{{user.1}}</td>
-      <td><a href="/accept/{{user.0.id}}/{{jobposting.id}}">Accept</a></td>
+      <td><a href="/accept/{{user.0.id}}/{{jobPosting.id}}">Accept</a></td>
     </tr>
     {% endfor %}
     {% if rem_users|length == 0 %}

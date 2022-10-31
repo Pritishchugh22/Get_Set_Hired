@@ -227,7 +227,7 @@ def editJobPostingController(req, jobPostingId):
 def giveFeedbackController(req, companyId, userId):
     pass
 
-def hireController(req, jobPostingId, userId):
+def acceptController(req, jobPostingId, userId):
     from home.models import JobPosting
     from django.contrib.auth.models import User
     from utils import sendNotification
@@ -235,6 +235,18 @@ def hireController(req, jobPostingId, userId):
     user = User.objects.get(id = userId)
     jobposting = JobPosting.objects.get(id = jobPostingId)
     jobposting.willing_to_hire.add(user)
+    jobposting.save()
+
+    sendNotification(jobposting, user, "Want this job?")
+
+def rejectController(req, jobPostingId, userId):
+    from home.models import JobPosting
+    from django.contrib.auth.models import User
+    from utils import sendNotification
+
+    user = User.objects.get(id = userId)
+    jobposting = JobPosting.objects.get(id = jobPostingId)
+    jobposting.willing_to_hire.remove(user)
     jobposting.save()
 
     sendNotification(jobposting, user, "Want this job?")
