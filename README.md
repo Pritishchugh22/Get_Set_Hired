@@ -9,4 +9,4 @@ For windows-:
 For linux-:
 3)source venv/bin/activate
 4)pip install -r requirements.txt
-5)python3 manage.py runserver
+5)python manage.py runserver
